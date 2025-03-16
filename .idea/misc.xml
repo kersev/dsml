@@ -30,6 +30,22 @@
             </RMarkdownRenderProfile>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/week2/Week 2 - Probability Distributions.rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="lastOutput" value="$PROJECT_DIR$/week2/Week-2---Probability-Distributions.md" />
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/week2" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/week2/Week 2 - Statistical Computing with R.rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="lastOutput" value="$PROJECT_DIR$/week2/Week-2---Statistical-Computing-with-R.md" />
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/week2" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

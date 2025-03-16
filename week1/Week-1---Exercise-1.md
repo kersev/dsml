@@ -409,7 +409,7 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   17.31   19.40   20.16   20.14   20.92   23.59
+    ##   15.54   18.83   20.28   20.17   22.06   23.68
 
 ## Setting the seed
 

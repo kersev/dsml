@@ -24,28 +24,64 @@ knitr::opts_chunk$set(echo = TRUE)
 # Course Materials
 
 ## Week 1
-- [Lecture 1](week1/lecture1.html)
-- [Practical 1](week1/practical1.html)
+
+### Lectures
+
+-   [Lecture 1](week1/Week%201%20-%20Introduction%20to%20Data%20Science.rmd)
+
+### Practicals
+
+-   [Practical 1](week1/practical1.html)
 
 ## Week 2
-- [Lecture 2](week2/lecture2.html)
-- [Practical 2](week2/practical2.html)
+
+### Lectures
+
+-   [Lecture 2](week2/lecture2.html)
+
+### Practicals
+
+-   [Practical 2](week2/practical2.html)
 
 ## Week 3
-- [Lecture 3](week3/lecture3.html)
-- [Practical 3](week3/practical3.html)
+
+### Lectures
+
+-   [Lecture 3](week3/lecture3.html)
+
+### Practicals
+
+-   [Practical 3](week3/practical3.html)
 
 ## Week 4
-- [Lecture 4](week4/lecture4.html)
-- [Practical 4](week4/practical4.html)
+
+### Lectures
+
+-   [Lecture 4](week4/lecture4.html)
+
+### Practicals
+
+-   [Practical 4](week4/practical4.html)
 
 ## Week 5
-- [Lecture 5](week5/lecture5.html)
-- [Practical 5](week5/practical5.html)
+
+### Lectures
+
+-   [Lecture 5](week5/lecture5.html)
+
+### Practicals
+
+-   [Practical 5](week5/practical5.html)
 
 ## Week 6
-- [Lecture 6](week6/lecture6.html)
-- [Practical 6](week6/practical6.html)
+
+### Lectures
+
+-   [Lecture 6](week6/lecture6.html)
+
+### Practicals
+
+-   [Practical 6](week6/practical6.html)
 
 # Assessment
 

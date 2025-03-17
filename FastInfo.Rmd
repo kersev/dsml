@@ -1,0 +1,963 @@
+# R for Data Science and Machine Learning - Cheat Sheet
+
+## Basic R Operations
+
+```{r}
+# Assignment
+x <- 10
+y = 20  # Alternative syntax
+
+# Data Types
+numeric_var <- 42.5
+integer_var <- 42L  # The L suffix creates an integer
+character_var <- "Hello, R!"
+logical_var <- TRUE
+factor_var <- factor(c("small", "medium", "large"))
+date_var <- as.Date("2025-03-16")
+
+# Vectors
+numbers <- c(1, 2, 3, 4, 5)
+chars <- c("a", "b", "c")
+logical <- c(TRUE, FALSE, TRUE)
+
+# Vector operations
+numbers + 10  # Add 10 to each element
+numbers * 2   # Multiply each element by 2
+numbers[3]    # Access the third element
+numbers[2:4]  # Access elements 2 through 4
+
+# Functions
+mean(numbers)
+sum(numbers)
+length(numbers)
+```
+
+## Data Structures
+
+```{r}
+# Matrices
+matrix_data <- matrix(1:9, nrow = 3, ncol = 3)
+matrix_data[2, 3]  # Access row 2, column 3
+
+# Lists (can contain different data types)
+my_list <- list(
+  numbers = c(1, 2, 3),
+  text = "hello",
+  logical = TRUE,
+  nested = list(a = 1, b = 2)
+)
+my_list$numbers  # Access the numbers element
+my_list[[1]]     # Access the first element
+my_list$nested$a # Access nested elements
+
+# Data Frames (tabular data)
+df <- data.frame(
+  id = 1:3,
+  name = c("Alice", "Bob", "Charlie"),
+  score = c(85, 92, 78)
+)
+df$name         # Access the name column
+df[2, ]         # Access the second row
+df[, "score"]   # Access the score column
+df[df$score > 80, ]  # Filter rows where score > 80
+```
+
+## Data Import/Export
+
+```{r}
+# CSV files
+df <- read.csv("data.csv")
+write.csv(df, "output.csv", row.names = FALSE)
+
+# Other formats
+library(readxl)
+excel_data <- read_excel("data.xlsx", sheet = "Sheet1")
+
+library(haven)
+spss_data <- read_spss("data.sav")
+
+# Web data
+library(jsonlite)
+json_data <- fromJSON("https://api.example.com/data")
+
+# Database connections
+library(DBI)
+library(RSQLite)
+con <- dbConnect(SQLite(), "database.db")
+query_result <- dbGetQuery(con, "SELECT * FROM table")
+dbDisconnect(con)
+```
+
+## Data Manipulation with dplyr
+
+```{r}
+library(dplyr)
+
+# Basic verbs
+df_filtered <- df %>% filter(score > 80)  # Filter rows
+df_selected <- df %>% select(id, name)    # Select columns
+df_mutated <- df %>% mutate(grade = ifelse(score >= 90, "A", "B"))  # Create/modify columns
+df_arranged <- df %>% arrange(desc(score))  # Sort by score (descending)
+df_grouped <- df %>% group_by(grade) %>% summarize(avg_score = mean(score))  # Group and summarize
+
+# Multiple operations with pipe operator
+result <- df %>%
+  filter(score > 75) %>%
+  mutate(grade = ifelse(score >= 90, "A", "B")) %>%
+  group_by(grade) %>%
+  summarize(
+    count = n(),
+    avg_score = mean(score),
+    min_score = min(score)
+  ) %>%
+  arrange(desc(avg_score))
+```
+
+## Data Cleaning
+
+```{r}
+# Handling missing values
+sum(is.na(df))  # Count missing values
+df_complete <- na.omit(df)  # Remove rows with NA
+df$score[is.na(df$score)] <- mean(df$score, na.rm = TRUE)  # Replace NA with mean
+
+# Duplicates
+duplicate_rows <- duplicated(df)
+df_unique <- unique(df)  # Remove duplicates
+
+# Changing data types
+df$id <- as.integer(df$id)
+df$name <- as.character(df$name)
+df$category <- factor(df$category)
+
+# String manipulation with stringr
+library(stringr)
+df$name <- str_trim(df$name)  # Remove whitespace
+df$name <- str_to_upper(df$name)  # Convert to uppercase
+```
+
+## Data Visualization with ggplot2
+
+```{r}
+library(ggplot2)
+
+# Scatter plot
+ggplot(df, aes(x = height, y = weight)) +
+  geom_point(aes(color = gender), size = 3) +
+  labs(title = "Height vs. Weight", x = "Height (cm)", y = "Weight (kg)") +
+  theme_minimal()
+
+# Bar chart
+ggplot(df, aes(x = category)) +
+  geom_bar(aes(fill = category)) +
+  labs(title = "Count by Category") +
+  theme_light()
+
+# Histogram
+ggplot(df, aes(x = score)) +
+  geom_histogram(bins = 10, fill = "steelblue", color = "white") +
+  labs(title = "Distribution of Scores") +
+  theme_classic()
+
+# Box plot
+ggplot(df, aes(x = category, y = score)) +
+  geom_boxplot(aes(fill = category)) +
+  labs(title = "Score by Category") +
+  theme_bw()
+
+# Line plot for time series
+ggplot(time_data, aes(x = date, y = value)) +
+  geom_line(color = "darkblue") +
+  geom_point() +
+  labs(title = "Value Over Time") +
+  theme_minimal()
+
+# Faceting (multiple plots)
+ggplot(df, aes(x = score)) +
+  geom_histogram(bins = 10, fill = "steelblue") +
+  facet_wrap(~ category) +
+  theme_light()
+```
+
+## Statistical Analysis
+
+```{r}
+# Descriptive statistics
+summary(df)
+mean(df$score)
+median(df$score)
+sd(df$score)
+IQR(df$score)
+quantile(df$score, probs = c(0.25, 0.5, 0.75))
+
+# Correlation
+cor(df$height, df$weight)
+cor(df[, c("height", "weight", "age")])  # Correlation matrix
+
+# T-test
+t.test(df$score[df$gender == "M"], df$score[df$gender == "F"])
+
+# ANOVA
+model_anova <- aov(score ~ category, data = df)
+summary(model_anova)
+
+# Chi-square test
+table_result <- table(df$category, df$result)
+chisq.test(table_result)
+
+# Linear regression
+model <- lm(score ~ height + weight + age, data = df)
+summary(model)
+plot(model)  # Diagnostic plots
+predict(model, newdata = new_df)
+```
+
+## Machine Learning with tidymodels
+
+```{r}
+library(tidymodels)
+
+# Split data
+set.seed(123)
+data_split <- initial_split(df, prop = 0.75)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Cross-validation
+cv_folds <- vfold_cv(train_data, v = 10)
+
+# Recipe (feature engineering)
+recipe_obj <- recipe(target ~ ., data = train_data) %>%
+  step_normalize(all_numeric(), -all_outcomes()) %>%
+  step_dummy(all_nominal(), -all_outcomes()) %>%
+  step_corr(all_predictors(), threshold = 0.9) %>%
+  step_nzv(all_predictors())
+
+# Linear regression model
+linear_model <- linear_reg() %>%
+  set_engine("lm")
+
+# Random forest model
+rf_model <- rand_forest() %>%
+  set_engine("ranger") %>%
+  set_mode("regression")
+
+# Workflow
+rf_workflow <- workflow() %>%
+  add_recipe(recipe_obj) %>%
+  add_model(rf_model)
+
+# Model fitting
+rf_fit <- rf_workflow %>%
+  fit(data = train_data)
+
+# Predictions
+predictions <- rf_fit %>%
+  predict(test_data) %>%
+  bind_cols(test_data)
+
+# Model evaluation
+metrics <- predictions %>%
+  metrics(truth = target, estimate = .pred)
+```
+
+## Classification Models
+
+```{r}
+# Logistic Regression
+logistic_model <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification")
+
+# Random Forest Classification
+rf_class_model <- rand_forest() %>%
+  set_engine("ranger", importance = "impurity") %>%
+  set_mode("classification")
+
+# Support Vector Machine
+svm_model <- svm_rbf() %>%
+  set_engine("kernlab") %>%
+  set_mode("classification")
+
+# Naive Bayes
+nb_model <- naive_Bayes() %>%
+  set_engine("naivebayes") %>%
+  set_mode("classification")
+
+# Model workflow
+class_workflow <- workflow() %>%
+  add_recipe(recipe_obj) %>%
+  add_model(rf_class_model)
+
+# Fit model
+class_fit <- class_workflow %>%
+  fit(data = train_data)
+
+# Evaluate classification
+predictions <- class_fit %>%
+  predict(test_data) %>%
+  bind_cols(class_fit %>% predict(test_data, type = "prob")) %>%
+  bind_cols(test_data)
+
+# Classification metrics
+class_metrics <- predictions %>%
+  metrics(truth = target, estimate = .pred_class, .pred_yes)
+
+# Confusion matrix
+conf_mat(predictions, truth = target, estimate = .pred_class)
+
+# ROC curve
+predictions %>%
+  roc_curve(truth = target, .pred_yes) %>%
+  autoplot()
+```
+
+## Clustering
+
+```{r}
+# K-means clustering
+set.seed(123)
+kmeans_result <- kmeans(scale(df[, c("x", "y")]), centers = 3)
+df$cluster <- as.factor(kmeans_result$cluster)
+
+# Visualize clusters
+ggplot(df, aes(x = x, y = y, color = cluster)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "K-means Clustering Result")
+
+# Hierarchical clustering
+dist_matrix <- dist(scale(df[, c("x", "y")]))
+hclust_result <- hclust(dist_matrix, method = "ward.D2")
+plot(hclust_result, main = "Hierarchical Clustering Dendrogram")
+df$hclust_cluster <- cutree(hclust_result, k = 3)
+
+# DBSCAN
+library(dbscan)
+dbscan_result <- dbscan(scale(df[, c("x", "y")]), eps = 0.5, minPts = 5)
+df$dbscan_cluster <- as.factor(dbscan_result$cluster)
+```
+
+## Dimension Reduction
+
+```{r}
+# PCA (Principal Component Analysis)
+pca_result <- prcomp(df[, c("x1", "x2", "x3", "x4")], scale = TRUE)
+summary(pca_result)  # Variance explained
+pca_data <- as.data.frame(pca_result$x[, 1:2])  # First 2 components
+
+# Visualize PCA
+ggplot(pca_data, aes(x = PC1, y = PC2, color = df$category)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "PCA Visualization")
+
+# t-SNE
+library(Rtsne)
+set.seed(123)
+tsne_result <- Rtsne(df[, c("x1", "x2", "x3", "x4")], perplexity = 5, dims = 2)
+tsne_data <- as.data.frame(tsne_result$Y)
+colnames(tsne_data) <- c("tSNE1", "tSNE2")
+
+# Visualize t-SNE
+ggplot(tsne_data, aes(x = tSNE1, y = tSNE2, color = df$category)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "t-SNE Visualization")
+```
+
+## Time Series Analysis
+
+```{r}
+library(forecast)
+
+# Create time series object
+ts_data <- ts(df$value, frequency = 12, start = c(2020, 1))
+
+# Decompose time series
+decomp <- decompose(ts_data)
+plot(decomp)
+
+# ARIMA model
+arima_model <- auto.arima(ts_data)
+summary(arima_model)
+
+# Forecast
+forecast_result <- forecast(arima_model, h = 12)  # 12 periods ahead
+plot(forecast_result)
+
+# Exponential smoothing
+ets_model <- ets(ts_data)
+ets_forecast <- forecast(ets_model, h = 12)
+plot(ets_forecast)
+
+# Plot with ggplot2
+library(ggplot2)
+autoplot(forecast_result) +
+  labs(title = "ARIMA Forecast", x = "Time", y = "Value") +
+  theme_minimal()
+```
+
+## Text Mining
+
+```{r}
+library(tidytext)
+library(dplyr)
+library(ggplot2)
+
+# Tokenization (split text into words)
+text_df <- tibble(text = c("This is sentence one.", "This is sentence two."))
+tokens <- text_df %>%
+  unnest_tokens(word, text)
+
+# Remove stop words
+tokens_clean <- tokens %>%
+  anti_join(stop_words)
+
+# Word frequencies
+word_freq <- tokens %>%
+  count(word, sort = TRUE)
+
+# Visualize word frequencies
+word_freq %>%
+  filter(n > 5) %>%
+  ggplot(aes(x = reorder(word, n), y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Word Frequencies", x = "Word", y = "Count")
+
+# Word cloud
+library(wordcloud)
+wordcloud(words = word_freq$word, freq = word_freq$n, max.words = 50, 
+          random.order = FALSE, colors = brewer.pal(8, "Dark2"))
+
+# Sentiment analysis
+sentiments <- tokens %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(sentiment) %>%
+  spread(sentiment, n, fill = 0)
+```
+
+## Parallelization
+
+```{r}
+library(parallel)
+library(foreach)
+library(doParallel)
+
+# Set up parallel backend
+n_cores <- detectCores() - 1  # Use one less than available
+cl <- makeCluster(n_cores)
+registerDoParallel(cl)
+
+# Parallel operation with foreach
+results <- foreach(i = 1:100, .combine = rbind) %dopar% {
+  # Computationally intensive task
+  result <- complicated_function(i)
+  return(result)
+}
+
+# Clean up
+stopCluster(cl)
+```
+
+## Working with Spatial Data
+
+```{r}
+library(sf)
+library(leaflet)
+
+# Read shapefile
+shape_data <- st_read("shapefile.shp")
+
+# Simple map
+ggplot(shape_data) +
+  geom_sf() +
+  theme_minimal()
+
+# Interactive map with leaflet
+leaflet(shape_data) %>%
+  addTiles() %>%
+  addPolygons(
+    weight = 1,
+    color = "#444444",
+    fillColor = ~colorQuantile("YlOrRd", variable)(variable),
+    fillOpacity = 0.7,
+    popup = ~paste("Area:", area, "<br>Value:", variable)
+  )
+
+# Spatial operations
+buffer_data <- st_buffer(shape_data, dist = 1000)  # 1km buffer
+intersect_data <- st_intersection(shape_data, other_shape)
+      
+```
+
+
+# Interactive map with leaflet
+leaflet(shape_data) %>%
+  addTiles() %>%
+  addPolygons(
+    weight = 1,
+    color = "#444444",
+    fillColor = ~colorQuantile("YlOrRd", variable)(variable),
+    fillOpacity = 0.7,
+    popup = ~paste("Area:", area, "<br>Value:", variable)
+  )
+
+# Spatial operations
+buffer_data <- st_buffer(shape_data, dist = 1000)  # 1km buffer
+intersect_data <- st_intersection(shape_data, other_shape)
+```
+
+## Deep Learning with Keras/TensorFlow
+
+```{r}
+library(keras)
+library(tensorflow)
+
+# Prepare data
+x_train <- array_reshape(x_train, c(nrow(x_train), 784))
+x_test <- array_reshape(x_test, c(nrow(x_test), 784))
+x_train <- x_train / 255
+x_test <- x_test / 255
+
+y_train <- to_categorical(y_train, 10)
+y_test <- to_categorical(y_test, 10)
+
+# Create model
+model <- keras_model_sequential() %>%
+  layer_dense(units = 256, activation = "relu", input_shape = c(784)) %>%
+  layer_dropout(rate = 0.4) %>%
+  layer_dense(units = 128, activation = "relu") %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 10, activation = "softmax")
+
+# Compile model
+model %>% compile(
+  loss = "categorical_crossentropy",
+  optimizer = optimizer_adam(),
+  metrics = c("accuracy")
+)
+
+# Train model
+history <- model %>% fit(
+  x_train, y_train,
+  epochs = 30,
+  batch_size = 128,
+  validation_split = 0.2
+)
+
+# Evaluate model
+model %>% evaluate(x_test, y_test)
+
+# Plot training history
+plot(history)
+
+# Make predictions
+predictions <- model %>% predict(x_test) %>% k_argmax() %>% as.integer()
+```
+
+## Model Deployment
+
+```{r}
+library(plumber)
+
+# Create API file (save as 'api.R')
+# Define a function
+#' @get /predict
+#' @param feature1 The first feature
+#' @param feature2 The second feature
+predict_api <- function(feature1, feature2) {
+  # Convert inputs to numeric
+  feature1 <- as.numeric(feature1)
+  feature2 <- as.numeric(feature2)
+  
+  # Create data frame for prediction
+  new_data <- data.frame(
+    feature1 = feature1,
+    feature2 = feature2
+  )
+  
+  # Load model (saved earlier)
+  model <- readRDS("model.rds")
+  
+  # Make prediction
+  prediction <- predict(model, new_data)
+  
+  # Return result
+  return(list(prediction = prediction))
+}
+
+# Run the API (in console)
+# library(plumber)
+# r <- plumb("api.R")
+# r$run(port=8000)
+```
+
+## Reproducible Research
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Session info
+sessionInfo()
+
+# Package management
+library(renv)
+renv::init()      # Initialize dependency management
+renv::snapshot()  # Save current package state
+renv::restore()   # Restore packages to saved state
+
+# Create a project using a specific R version
+library(rig)
+rig_create_project("myproject", r_version = "4.2.0")
+
+# Environment variables
+Sys.setenv(MY_API_KEY = "secret_key")
+api_key <- Sys.getenv("MY_API_KEY")
+
+# Working with git
+library(usethis)
+use_git()           # Initialize git repository
+use_github()        # Connect to GitHub
+```
+
+## Performance Optimization
+
+```{r}
+# Profiling code
+library(profvis)
+profvis({
+  # Code to profile
+  for (i in 1:1000) {
+    result <- expensive_function(i)
+  }
+})
+
+# Benchmarking
+library(microbenchmark)
+microbenchmark(
+  method1 = slow_function(data),
+  method2 = fast_function(data),
+  times = 100
+)
+
+# Optimize memory usage
+gc()  # Garbage collection
+object.size(big_data)  # Size of object in memory
+
+# Use more efficient data structures
+data_table <- as.data.table(large_df)  # data.table for large data
+```
+
+## Interactive Web Applications with Shiny
+
+```{r}
+library(shiny)
+
+# UI definition
+ui <- fluidPage(
+  titlePanel("Simple Shiny App"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("bins", "Number of bins:", min = 5, max = 50, value = 30),
+      selectInput("color", "Histogram color:", 
+                 choices = c("red", "blue", "green"), selected = "blue")
+    ),
+    
+    mainPanel(
+      plotOutput("distPlot"),
+      tableOutput("summary")
+    )
+  )
+)
+
+# Server logic
+server <- function(input, output) {
+  # Reactive data
+  data <- reactive({
+    rnorm(500)
+  })
+  
+  # Output plot
+  output$distPlot <- renderPlot({
+    x <- data()
+    hist(x, breaks = input$bins, col = input$color, border = "white",
+         main = "Histogram of Random Data")
+  })
+  
+  # Output table
+  output$summary <- renderTable({
+    x <- data()
+    data.frame(
+      Statistic = c("Mean", "Median", "St. Dev.", "Min", "Max"),
+      Value = c(mean(x), median(x), sd(x), min(x), max(x))
+    )
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+## Working with Big Data
+
+```{r}
+# Data.table for large datasets
+library(data.table)
+dt <- as.data.table(large_df)
+dt[, mean(value), by = group]  # Fast aggregation
+
+# Database connections for big data
+library(DBI)
+library(dbplyr)
+con <- dbConnect(RSQLite::SQLite(), "large_data.db")
+large_data_tbl <- tbl(con, "large_table")
+
+# Lazy queries
+result <- large_data_tbl %>%
+  filter(value > 100) %>%
+  group_by(category) %>%
+  summarize(avg = mean(value, na.rm = TRUE))
+
+# Execute query and get results
+result_df <- collect(result)
+
+# Spark connection
+library(sparklyr)
+sc <- spark_connect(master = "local")
+spark_data <- copy_to(sc, df, "spark_df")
+
+# Spark operations
+spark_result <- spark_data %>%
+  group_by(category) %>%
+  summarize(avg = mean(value))
+
+# Retrieve results
+spark_result_df <- collect(spark_result)
+
+# Disconnect
+spark_disconnect(sc)
+```
+
+## Advanced Visualization Techniques
+
+```{r}
+# Interactive plots with plotly
+library(plotly)
+p <- ggplot(df, aes(x = x, y = y, color = group)) +
+  geom_point()
+ggplotly(p)
+
+# Create a plotly visualization directly
+plot_ly(df, x = ~x, y = ~y, color = ~group, type = "scatter", mode = "markers")
+
+# Network graphs with visNetwork
+library(visNetwork)
+nodes <- data.frame(id = 1:10, label = paste("Node", 1:10))
+edges <- data.frame(from = sample(1:10, 15, replace = TRUE),
+                    to = sample(1:10, 15, replace = TRUE))
+visNetwork(nodes, edges) %>%
+  visOptions(highlightNearest = TRUE)
+
+# Interactive maps
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = -0.1278, lat = 51.5074, popup = "London")
+
+# Advanced ggplot2 themes and customization
+library(ggthemes)
+ggplot(df, aes(x = x, y = y, color = group)) +
+  geom_point() +
+  theme_economist() +
+  scale_color_economist()
+
+# Animation
+library(gganimate)
+p <- ggplot(df, aes(x = x, y = y, color = group)) +
+  geom_point() +
+  transition_time(time) +
+  labs(title = "Position at time: {frame_time}")
+animate(p, nframes = 100)
+```
+
+## Model Interpretability
+
+```{r}
+# Variable importance for random forest
+library(ranger)
+rf_model <- ranger(target ~ ., data = df, importance = "impurity")
+importance <- importance(rf_model)
+barplot(sort(importance, decreasing = TRUE))
+
+# Partial dependence plots
+library(pdp)
+pdp_result <- partial(rf_model, pred.var = "important_feature", grid.resolution = 20)
+plot(pdp_result)
+
+# SHAP values
+library(shapr)
+explainer <- shapr(model, X_train)
+explanation <- explain(X_test, explainer, approach = "empirical")
+plot(explanation)
+
+# Local interpretable model-agnostic explanations (LIME)
+library(lime)
+explainer <- lime(training_data, model)
+explanation <- explain(test_data, explainer, n_features = 5)
+plot_explanations(explanation)
+```
+
+## Feature Engineering
+
+```{r}
+# Create polynomial features
+poly_features <- polym(df$x1, df$x2, degree = 2)
+
+# Principal Component Analysis
+pca_result <- prcomp(df[, c("x1", "x2", "x3")], scale = TRUE)
+pca_data <- predict(pca_result, df)
+
+# Feature selection
+library(caret)
+rfe_control <- rfeControl(functions = rfFuncs, method = "cv", number = 10)
+rfe_result <- rfe(df[, predictors], df$target, sizes = c(1:length(predictors)), rfeControl = rfe_control)
+optimal_vars <- predictors[rfe_result$optVariables]
+
+# Target encoding
+library(recipes)
+recipe_obj <- recipe(target ~ ., data = train_data) %>%
+  step_meanimpute(all_predictors()) %>%
+  step_targetprop_encoder(categorial_var, target = "target")
+
+# Date features
+df <- df %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    day = day(date),
+    weekday = wday(date),
+    is_weekend = ifelse(weekday %in% c(1, 7), 1, 0)
+  )
+```
+
+## Working with Unbalanced Data
+
+```{r}
+# Check class imbalance
+table(df$target)
+
+# Oversampling
+library(ROSE)
+balanced_data <- ovun.sample(target ~ ., data = df, method = "over", N = 1000)$data
+
+# SMOTE (Synthetic Minority Over-sampling Technique)
+library(DMwR)
+balanced_data <- SMOTE(target ~ ., data = df, perc.over = 100, perc.under = 200)
+
+# Use class weights in models
+weighted_model <- glm(target ~ ., data = df, family = "binomial", 
+                     weights = ifelse(df$target == 1, 5, 1))
+
+# Evaluation metrics for imbalanced data
+library(caret)
+confusionMatrix(predictions, reference = test_data$target, positive = "1")
+
+# F1 score, precision, recall
+precision <- posPredValue(predictions, reference = test_data$target, positive = "1")
+recall <- sensitivity(predictions, reference = test_data$target, positive = "1")
+f1_score <- (2 * precision * recall) / (precision + recall)
+```
+
+## R Markdown
+
+```{r}
+# This is an R Markdown code chunk
+# To create an R Markdown document:
+# 1. In RStudio: File > New File > R Markdown
+# 2. Choose output format (HTML, PDF, Word)
+
+# Common YAML header
+# ---
+# title: "Analysis Report"
+# author: "Data Scientist"
+# date: "March 16, 2025"
+# output: 
+#   html_document:
+#     toc: true
+#     toc_float: true
+#     code_folding: hide
+# ---
+
+# Code chunk options
+# ```{r setup, include=FALSE}
+# knitr::opts_chunk$set(
+#   echo = TRUE,       # Show code
+#   warning = FALSE,   # Hide warnings
+#   message = FALSE,   # Hide messages
+#   fig.width = 10,    # Figure width
+#   fig.height = 6     # Figure height
+# )
+# ```
+
+# Inline code with `r mean(x)`
+```
+
+## Hypothesis Testing
+
+```{r}
+# One-sample t-test
+t.test(df$value, mu = 0)
+
+# Two-sample t-test
+t.test(value ~ group, data = df)
+
+# Paired t-test
+t.test(df$before, df$after, paired = TRUE)
+
+# ANOVA
+model <- aov(value ~ group, data = df)
+summary(model)
+TukeyHSD(model)  # Post-hoc test
+
+# Chi-square test of independence
+chisq.test(table(df$category, df$result))
+
+# Wilcoxon rank sum test (non-parametric alternative to t-test)
+wilcox.test(value ~ group, data = df)
+
+# Shapiro-Wilk test for normality
+shapiro.test(df$value)
+
+# Correlation test
+cor.test(df$x, df$y, method = "pearson")
+```
+
+## Survival Analysis
+
+```{r}
+library(survival)
+library(survminer)
+
+# Create survival object
+surv_obj <- Surv(time = df$time, event = df$status)
+
+# Kaplan-Meier survival curve
+km_fit <- survfit(surv_obj ~ group, data = df)
+summary(km_fit)
+
+# Plot survival curves
+ggsurvplot(km_fit, data = df, pval = TRUE, risk.table = TRUE, 
+           conf.int = TRUE, palette = "jco")
+
+# Cox proportional hazards model
+cox_model <- coxph(surv_obj ~ age + sex + treatment, data = df)
+summary(cox_model)
+
+# Check proportional hazards assumption
+test.ph <- cox.zph(cox_model)
+ggcoxzph(test.ph)
+```

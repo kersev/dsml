@@ -1,0 +1,94 @@
+**Exercise**
+
+**Try the following code snippets:**
+
+1.  **The data frame() function:**
+
+> Data frames are like spreadsheets and can be created or imported using
+> any of the following functions:
+>
+> -- data.frame(), read.table() or read.csv()
+>
+> Create your own data frame:
+>
+> **x \<- data.frame(names= c("ben", "joe", "steve"), ages= c(31, 24,
+> 45))**
+>
+> Now use the following functions to determine the number of columns and
+> rows:
+>
+> **nrow(x)**
+>
+> **ncol(x)**
+>
+> Now use the structure function -- to learn more type **?str**
+>
+> **str(x)**
+>
+> Now you can access any column/variable in a data frame using the
+> dollar sign. Try the following:
+>
+> **x\$names**
+>
+> Note 'x' is the name of the data frame and 'names' is the name of the
+> column.
+>
+> Type in the following to see a list of free data frames in R:
+>
+> **data()**
+>
+> Type in the following
+>
+> **x \<-mtcars**
+>
+> A new dataframe **x** should appear in your environment. You can read
+> about it by typing in the following:
+>
+> **?mtcars**
+>
+> Now have a go at analyzing this data.
+>
+> Boxplot miles per galloon and create a histogram:
+>
+> **boxplot(mtcars\$mpg)**
+>
+> **hist(mtcars\$mpg)**
+>
+> Boxplot miles per galloon for manual and automatic cars.
+>
+> First method -- sub-setting approach:
+>
+> **par(mfrow=c(2,1))**
+>
+> **boxplot(mtcars\$mpg\[mtcars\$am==1\], main="auto cars")**
+>
+> **boxplot(mtcars\$mpg\[mtcars\$am==0\], main="manual cars")**
+>
+> Second method:
+>
+> **boxplot(mtcars\$mpg\~mtcars\$am)**
+
+2.  **Ggplot visualisations**
+
+> Install ggplot by typing in the following code:
+>
+> **install.packages(\"ggplot2\")**
+
+Once installed, you can activate the library using the following code:
+
+> **library(ggplot2)**
+>
+> Now try this code (same as above only in ggplot):
+
+p.  **\<- ggplot(mtcars, aes(factor(am), mpg)) p + geom_boxplot()**
+
+> Now add a jitter to show density:
+>
+> **p \<- ggplot(mtcars, aes(factor(am), mpg))**
+>
+> **p + geom_boxplot() + geom_jitter(width = 0.2)**
+>
+> Add a third dimension -- engine size (vs):
+
+p.  **\<- ggplot(mtcars, aes(factor(am), mpg)) p +
+    geom_boxplot(aes(colour = factor(vs)))**

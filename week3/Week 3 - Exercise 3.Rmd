@@ -1,0 +1,57 @@
+Exercise 3: Scientific notation with regards to numbers
+
+You may have noticed R providing numbers that are formatted similar to
+the following. This is called scientific notation.
+
+e.g. 2.78e7
+
+e.g. 3.89e-7
+
+So when you see the letter \'e\' in a number, please take notice that
+this number is being presented using scientific notation and usually
+means that the real number is either likely very small or very large.
+
+If the number [after]{.underline} the \'e\' letter is a negative number
+(e.g. e-07 or e-7, i.e. notice the minus (-) symbol), then you know that
+the real number is likely small.
+
+If the number [after]{.underline} the \'e\' letter is a positive number
+(e.g. e07 or e7), then you know that the real number is likely large.
+
+For example,
+
+the number 2.78e7 is equivalent to 2.78 × 10\^7
+
+Note: 10\^7 is read as 10 to power of 7.
+
+With 2.78 × 10\^7 you can work out what the actual number is, which is:
+
+27800000
+
+You may also notice that we can take the number 2.78 and move the
+decimal point to the right 7 times to get the real number (27800000).
+
+Here is another example where there is a negative number after the
+letter \'e\'.
+
+3.89e-7
+
+3.89e-7 is is equivalent to 3.89 \* 10\^-7
+
+With 3.89 \* 10\^-7 you can calculate the actual number, which is:
+
+0.000000389
+
+You may also have noticed the 7 zeros in the number.
+
+Read the following and use the following calculator to explore
+converting very small and very large numbers to numbers presented using
+scientific notation and explore converting numbers in scientific
+notation to real numbers etc.:
+
+<https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php>
+
+This is really important as you may see R presenting results using
+scientific notation and for example, R may, at times, present p-values
+as numbers in scientific notation (likely when the p-value is very
+small).

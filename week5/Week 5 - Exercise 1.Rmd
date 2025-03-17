@@ -1,0 +1,304 @@
+**Exercise**
+
+**Introduction to Supervised Machine Learning & Feature Engineering
+(boruta)**
+
+Download and import the classical Iris dataset in R Studio:
+
+[[https://www.kaggle.com/datasets/uciml/iris]{.underline}](https://www.kaggle.com/datasets/uciml/iris)
+
+We are going to explore lazy learners / K-NN classification which is an
+efficient machine learning technique.
+
+Install the following packages:
+
+> install.packages(\"gmodels\")
+>
+> install.packages(\"class\")
+
+Use the following code.
+
+This sets the seed to ensure reproducibility.
+
+> set.seed(1)
+
+We are creating a new data frame called IrisData which is based on the
+imported data frame called Iris. The following code also randomly
+shuffles the rows in the dataset which is important to gain
+representation. We are also removing column 1 as this is an ID column
+which we do not need. We are retaining columns 2 to 6.
+
+> IrisData \<- Iris\[ sample(nrow(Iris), replace = FALSE),
+> c(2,3,4,5,6)\]
+
+This code converts the label to a categorical variable for
+classification:
+
+> IrisData\$Species \<- factor(IrisData\$Species)
+
+The following code will tell you the class distribution in the data:
+
+> table(IrisData\$Species)
+>
+> prop.table(table(IrisData\$Species))
+
+Fortunately, this dataset is class balanced (remember class imbalance
+can cause problems):
+
+![](media/image1.jpeg){width="3.76875in" height="0.4326388888888889in"}
+
+The following code standardises the numeric columns (features/variables)
+using the scale function. This ensures that all features are on a
+similar distribution using standard units. You could also use
+normalisation.
+
+> IrisData\$SepalLengthCm \<- scale(IrisData\$SepalLengthCm)
+>
+> IrisData\$SepalWidthCm \<- scale(IrisData\$SepalWidthCm)
+>
+> IrisData\$PetalLengthCm \<- scale(IrisData\$PetalLengthCm)
+>
+> IrisData\$PetalWidthCm \<- scale(IrisData\$PetalWidthCm)
+
+To verify this, the mean and SD of a standardised variable should be 0
+(mean) and 1 (SD) respectively.
+
+> round(mean(IrisData\$SepalLengthCm))
+>
+> round(sd(IrisData\$SepalLengthCm))
+
+This code creates training and test datasets.
+
+> trainingData \<- IrisData\[c(1:100),c(1,2,3,4)\]
+>
+> testData \<- IrisData\[c(101:150),c(1,2,3,4)\]
+
+Notice that we leave out the labels for K-NN. However, we store the
+labels separately using the following code:
+
+> trainingLabels \<- IrisData\[c(1:100),c(5)\]
+>
+> testingLabels \<- IrisData\[c(101:150),c(5)\]
+
+This train/test split is 2/3 (two thirds, 66.66%) for training and 1/3
+(one third, 33.33%) for testing.
+
+The following code builds our K-NN model where k=3:
+
+> library(class)
+>
+> knnModelAndPredictedLabels \<- knn(train = trainingData, test =
+> testData, cl = trainingLabels, k=3)
+
+Have a look at the documentation for this function:
+
+> ?knn
+
+![](media/image3.jpeg){width="3.2736111111111112in"
+height="1.5166666666666666in"}
+
+Now present the results using [cross tabulation:]{.underline}
+
+Basic table:
+
+> table(testingLabels, knnModelAndPredictedLabels)
+
+![](media/image4.jpeg){width="4.228472222222222in"
+height="1.0055555555555555in"}
+
+Or an alternative:
+
+library(gmodels)
+
+CrossTable(x = testingLabels, y = knnModelAndPredictedLabels,
+prop.chisq=FALSE)
+
+![](media/image5.jpeg){width="4.139583333333333in"
+height="2.5194444444444444in"}
+
+Additional Tasks:
+
+-   Calculate the accuracy (i.e. correct classifications / total test
+    cases)
+
+-   Try a 90%/10% training and test split -- this allows more training
+    examples to be used to build the model.
+
+-   Re-run the model using different values of *k*
+
+-   Can you plot the accuracy for different values of k?
+
+-   How can you ensure that the test set is balanced?
+
+-   Instead of using standardisation -- could you use [min-max
+    normalisation]{.underline}?
+
+o.  The [min-max normalisation]{.underline} is when you subtract the
+    minimum number from a given value and then divide by the range.
+
+**Breast Cancer Wisconsin (Diagnostic) dataset**
+
+Now let's try a different dataset:
+
+Open up the machine learning with R book at chapter 3 "Lazy Learning".
+
+Follow through the chapter/tutorial on using K-NN with the "Breast
+Cancer Wisconsin (Diagnostic)" dataset. The dataset provides a series of
+features and a target class/label called 'Diagnosis' which you can use
+K-NN to predict.
+
+Download the cancer dataset as a CSV file:
+
+[[https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data]{.underline}](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
+
+In the chapter, you will see how you can use K-NN to predict whether the
+cancer is 'benign' or 'malignant'.
+
+**Decision trees**
+
+Install the following package:
+
+> install.packages(\"C50\")
+
+Import the **Breast Cancer Wisconsin (Diagnostic) dataset** and name it
+'data'.
+
+Like before -- lets shuffle the rows in the dataset to ensure
+representation. We also only select columns 2 to 32.
+
+> set.seed(1)
+>
+> DataDF \<- data\[ sample(nrow(data), replace = FALSE),c(2:32)\]
+
+We also need to cast the label as a factor/categorical variable for
+classification:
+
+> DataDF\$diagnosis \<- factor(DataDF\$diagnosis)
+
+The dataset labels are imbalanced but let's leave this as it is.
+
+> table(DataDF\$diagnosis)
+
+![](media/image6.jpeg){width="1.1388888888888888in"
+height="0.7361111111111112in"}
+
+Let's create our training and test sets:
+
+> trainingDataDT \<- DataDF\[c(1:500),\]
+>
+> testDataDT \<- DataDF\[c(501:569),\]
+
+This train/test split here is almost a 90%/10% split (approx. 88%/12%
+split)
+
+Let's build the decision tree:
+
+> library(C50)
+>
+> decisionTree \<- C5.0(diagnosis \~., data=trainingDataDT)
+>
+> summary(decisionTree)
+
+You should be able to see the summary:
+
+![](media/image7.jpeg){width="4.091666666666667in"
+height="4.245138888888889in"}
+
+![](media/image8.jpeg){width="3.44375in" height="4.239583333333333in"}
+
+Here you can see the logic/decision rules and the important features.
+
+**[The % is the % of training cases/rows that used that feature to make
+the prediction when using the decision tree.]{.mark}**
+
+Have a look at the documentation to understand other arguments:
+
+?C5.0
+
+![](media/image9.jpeg){width="3.89375in" height="2.7888888888888888in"}
+
+You can also plot the tree:
+
+plot(decisionTree)
+
+![](media/image10.jpeg){width="6.263888888888889in"
+height="3.0243055555555554in"}
+
+Test the model on the test set:
+
+decisionTreePredictions \<- predict(decisionTree, testDataDT) You can
+now display the results using the code: table(decisionTreePredictions,
+testDataDT\$diagnosis) or:
+
+CrossTable(x = decisionTreePredictions, y = testDataDT\$diagnosis,
+prop.chisq=FALSE)
+
+![](media/image11.jpeg){width="6.263888888888889in"
+height="4.175694444444445in"}
+
+Calculate the accuracy, sensitivity and specificity.
+
+Now try improving the model using boosting via the trials argument.
+
+> decisionTree \<- C5.0(diagnosis \~., data=trainingDataDT, **[trials =
+> 10)]{.mark}**
+
+**Additional tasks:**
+
+-   Create different training and test splits, 80:20, 70:30 and 60:40 --
+    and see how this effects the results.
+
+> o E.g. 569 \* 0.7 = 398 cases for the training set for a 70%/30% split
+
+-   Rebalance the classes -- a basic approach is to consider using the
+    sample function for oversample the minority class or use another
+    library.
+
+-   Does selecting features/removing features improve the model?
+
+-   Try statistical tests (e.g. t-tests) to use p-values for feature
+    selection, i.e. if a numeric feature is statistically significant in
+    separating the two diagnostic groups then this could be kept as a
+    feature etc.
+
+-   Use the Boruta approach to select features
+
+**You can learn more about decision trees in Chapter 5 of the machine
+learning with R ebook.**
+
+You can also go through a nice visual example of decision trees:
+
+[[http://www.r2d3.us/visual-intro-to-machine-learning-part-1/]{.underline}](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
+
+**Boruta feature selection / feature importance scores**
+
+Install and explore the Boruta package:
+
+> library(Boruta)
+>
+> set.seed(1)
+>
+> borutaFeatureSelectionMethod \<-
+> Boruta(diagnosis\~.,data=trainingDataDT)
+>
+> print(borutaFeatureSelectionMethod)
+>
+> plot(borutaFeatureSelectionMethod, las=2)
+
+Follow the Boruta tutorial on datacamp:
+
+This tutorial uses this dataset:
+
+[[https://www.kaggle.com/datasets/janiobachmann/bank-marketing-dataset]{.underline}](https://www.kaggle.com/datasets/janiobachmann/bank-marketing-dataset)
+
+Tutorial can be found here:
+
+[[https://www.datacamp.com/tutorial/feature-selection-R-boruta]{.underline}](https://www.datacamp.com/tutorial/feature-selection-R-boruta)
+
+**The caret package**
+
+The caret package is a powerful machine learning package in R.
+
+Browse through the documentation and the examples:
+
+[[https://topepo.github.io/caret/]{.underline}](https://topepo.github.io/caret/)

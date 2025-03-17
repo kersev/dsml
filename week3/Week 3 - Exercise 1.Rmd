@@ -1,0 +1,63 @@
+**Law of large numbers exercise:**
+
+The law of large numbers could be described as the fact that as the
+sample size/dataset gets larger, its sample mean and sample SD moves
+closer to the population mean and SD. In other words, larger sample
+sizes are typically more representative of the population.
+
+-   **Write the following code into R studio:**
+
+> population \<- rnorm(1000, 52, 40)
+>
+> samplemeans \<- vector(length=100)
+>
+> sampleSDs \<- vector(length=100)
+>
+> for(i in 1:100){
+>
+> y \<- sample(population, i\*10)
+>
+> samplemeans\[i\] \<- mean(y)
+>
+> sampleSDs\[i\] \<- sd(y)
+>
+> }
+
+-   **Spend time understanding this code.**
+
+**Here is a start:**
+
+This *population* variable stores a vector of 1000 numbers randomly
+sampled from a population distribution where the population mean is 52
+and the population standard deviation (SD) is 40. For example, this
+could be the population of all exam scores.
+
+*The samplemeans* vector stores a series of sample means -- where each
+sample mean is from a different sample size.
+
+-   **Now try to explain each line in the code yourself. Write in your
+    own code comments for your own record.**
+
+-   **Plot the following, and notice how the sample mean is more akin to
+    the population mean as the sample size increases**
+
+plot(samplemeans)
+
+abline(h=52)
+
+![](media/image1.jpeg){width="4.011805555555555in"
+height="2.845833333333333in"}
+
+-   **Plot the following and notice how the sample SD is more akin to
+    the population SD as the sample size increases**
+
+plot(sampleSDs)
+
+abline(h=40)
+
+![](media/image2.jpeg){width="3.8055555555555554in"
+height="2.6979166666666665in"}
+
+-   **Time permitting, have some fun playing with the simulator (code)
+    and change the parameters etc., for example the population
+    statistics. And note down your observations.**

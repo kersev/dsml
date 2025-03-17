@@ -1,0 +1,221 @@
+> Experiment -- simulation exercise
+>
+> Use the code in the following slide to study the relationship between
+> different sample sizes, different effect sizes and the probability of
+> achieving a true positive/detecting a difference (p\<0.05)
+>
+> Simply manipulate the variables to study the different outcomes.
+>
+> samplesize \<- 200
+>
+> meanX \<- 50
+>
+> meanY \<- 51
+>
+> sdX \<- 5
+>
+> sdY \<- 5
+>
+> ![](media/image1.png){width="0.8993055555555556in"
+> height="8.333333333333333e-2in"} Sample size of each group
+
+Population parameters
+
+> pvalues \<- vector(length=100)
+>
+> effectSize \<- abs(meanX - meanY) / sqrt( ((sdX\*sdX)+(sdY\*sdY)) / 2
+> )
+>
+> effectSize
+>
+> for(i in 1:100){
+
+![](media/image2.png){width="2.6in" height="8.333333333333333e-2in"}
+
+-   \<- rnorm(samplesize, meanX, sdX) y \<- rnorm(samplesize, meanY,
+    sdY)
+
+<!-- -->
+
+-   \<- t.test(x,y, PAIRED=FALSE) pvalues\[i\] \<- p\$p.value
+
+> 100 different studies are performed
+>
+> Each study takes a sample from each population group
+
+Each study performs a t-test
+
+> }
+>
+> hist(pvalues, breaks=20)
+>
+> length(pvalues\[pvalues\<0.05\])
+
+How many studies achieved statistical significance/true positive Akin to
+the power of the study
+
+> R power functions
+
+-   Explore the built in R power test functions
+
+> What sample size do you need for a 80% chance (aka power) of detecting
+> an effect size of 0.5 between two different groups:
+>
+> power.t.test(power = .80, delta = 0.5, type=\"two.sample\")
+>
+> R power functions
+
+![](media/image3.jpeg){width="5.597222222222222in"
+height="3.4305555555555554in"}
+
+> Now try other scenarios.
+>
+> R power functions
+
+-   Explore the pwr package:
+    [[https://www.statmethods.net/stats/power.html]{.underline}](https://www.statmethods.net/stats/power.html)
+
+> e.g. pwr.t.test(n=100 , d = 0.5 , sig.level = 0.05 , type =
+> c(\"two.sample\"))
+>
+> Case study - read the following paper
+
+-   Cognitive scores (ACE scores) to assess for dementia
+
+> [[https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_A](https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_Article_ReliabilityOfAddenbrookeSCogni.pdf)
+> [rticle_ReliabilityOfAddenbrookeSCogni.pdf](https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_Article_ReliabilityOfAddenbrookeSCogni.pdf)]{.underline}
+>
+> Potts, C., Richardson, J., Bond, R.B.,
+>
+> Price, R.K., Mulvenna, M.D., Zvolsky, P.,
+>
+> Harvey, M., Hughes, C.F. and Duffy, F.,
+>
+> 2022\. Reliability of Addenbrooke\'s
+>
+> Cognitive Examination III in differentiating
+>
+> between dementia, mild cognitive
+>
+> impairment and older adults who have not
+>
+> reported cognitive problems. *European*
+>
+> *Journal of Ageing*, *19*(3), pp.495-507.
+
+![](media/image4.jpeg){width="10.0in" height="7.129861111111111in"}
+
+![](media/image5.jpeg){width="10.0in" height="4.672916666666667in"}
+
+![](media/image6.jpeg){width="10.0in" height="5.576388888888889in"}
+
+Tutorial
+
+> Using rundata.csv
+
+![](media/image7.png){width="2.0930555555555554in"
+height="0.5416666666666666in"}
+
+> **Open in Excel**
+
+Create a scatter plot
+
+![](media/image8.jpeg){width="5.709722222222222in"
+height="5.5784722222222225in"}
+
+Try to make sense of the data
+
+Plot a regression line to show the trend
+
+![](media/image9.jpeg){width="5.897222222222222in"
+height="5.761805555555555in"}
+
+plot(rundata\$FirstRun, rundata\$SecondRun)
+
+reg1 \<- lm( rundata\$SecondRun \~ rundata\$FirstRun)
+
+abline(reg1)
+
+title("my title")
+
+Explore the different Graphs in R
+
+-   [[http://www.statmethods.net/graphs/creating.](http://www.statmethods.net/graphs/creating.html)
+    [html](http://www.statmethods.net/graphs/creating.html)]{.underline}
+
+> [-- [Dot
+> Plots]{.underline}](http://www.statmethods.net/graphs/dot.html)
+>
+> [-- [Bar
+> Plots]{.underline}](http://www.statmethods.net/graphs/bar.html)
+>
+> [-- [Line
+> Charts]{.underline}](http://www.statmethods.net/graphs/line.html)
+>
+> [-- [Pie
+> Charts]{.underline}](http://www.statmethods.net/graphs/pie.html)
+>
+> [--
+> [Boxplots]{.underline}](http://www.statmethods.net/graphs/boxplot.html)
+>
+> [-- [Scatter
+> Plots]{.underline}](http://www.statmethods.net/graphs/scatterplot.html)
+
+Compute the Pearson Correlation Coefficient
+
+> cor(rundata\$FirstRun, rundata\$SecondRun)
+>
+> *r* = 0.9762012
+
+![](media/image10.jpeg){width="10.003472222222221in"
+height="1.4736111111111112in"}
+
+> https://en.wikipedia.org/wiki/Correlation
+
+Check if the Correlation is
+
+significant
+
+> cor.test(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image11.jpeg){width="6.458333333333333in"
+height="2.5555555555555554in"}
+
+> Task -- try to answer the following question using the cor() function
+
+-   Which runs correlate the most?
+
+> Add a new column to the Data Frame to compute the differences in the
+> distances ran between the first two runs
+>
+> rundata\$runDiff \<- rundata\$SecondRun - rundata\$FirstRun
+
+![](media/image12.jpeg){width="5.902777777777778in" height="3.5in"}
+
+Task - Data Frame Subsetting
+
+-   How many people ran more than 30km in their first run?
+
+<!-- -->
+
+-   \<- rundata\$FirstRun\[rundata\$FirstRun \> 30\] length(y)
+
+> length( rundata\$FirstRun\[rundata\$FirstRun \> 30\])
+
+Task - Data Frame Subsetting
+
+> Find out how many people did better in their second run?
+>
+> x \<- rundata\$runDiff\[rundata\$runDiff \>= 1\] length(x)
+>
+> x \<- rundata\$runDiff\[rundata\$runDiff \< 0\] length(x)
+
+Hypothesis testing
+
+> Is there a statistical difference between how far people ran in the
+> first and second run?
+
+t.test(rundata\$FirstRun, rundata\$SecondRun, paired=TRUE)
+
+![](media/image13.jpeg){width="7.083333333333333in"
+height="2.736111111111111in"}

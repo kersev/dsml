@@ -1,0 +1,54 @@
+**Confusion matrix tutorial**
+
+A confusion matrix is often used to show the performance of a diagnostic
+tool or a machine learning algorithm. The machine learning algorithm is
+typically a binary classification algorithm. For example, in healthcare,
+the algorithm could output if the patient has a disease or does not have
+the disease (hence binary -- having one of two outcomes).
+
+Suppose you developed a logistic regression algorithm to classify if a
+patient has a disease or does not. After testing the algorithm on a test
+set, you get the following confusion matrix:
+
+Use the reference confusion matrix enclosed to answer the following
+questions and calculate the metrics:
+
+A)  How many true positives are displayed in the confusion matrix?
+
+\_\_\_\_\_\_\_\_
+
+B)  How many true negatives are displayed in the confusion matrix?
+
+\_\_\_\_\_\_\_\_
+
+C)  What is the overall accuracy of the algorithm?
+
+\_\_\_\_\_\_\_\_
+
+D)  What is the sensitivity of the algorithm?
+
+\_\_\_\_\_\_\_\_
+
+E)  What is the specificity of the algorithm?
+
+\_\_\_\_\_\_\_\_
+
+F)  What is the F1 score?
+
+\_\_\_\_\_\_\_\_
+
+G)  How many type 1 errors are made?
+
+\_\_\_\_\_\_\_\_
+
+Note: Accuracy is not a good measure of performance as it is influenced
+by the % of disease prevalence whereas sensitivity and specificity are
+not dependent on disease prevalence.
+
+[[https://en.wikipedia.org/wiki/Confusion_matrix]{.underline}](https://en.wikipedia.org/wiki/Confusion_matrix)
+
+![](media/image1.jpeg){width="6.263888888888889in"
+height="2.7256944444444446in"}
+
+Answers: A: 102 B: 150 C: 0.8904594 D: 0.8225806 E: 0.9433962 F:
+0.8680854 G: 9

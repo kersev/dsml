@@ -1,391 +1,338 @@
-Tutorial and Exercises
+# Week 4 - Exercise
 
-> **Download the Iris dataset and import it into R:**
->
-> [[https://www.kaggle.com/datasets/uciml/iris?resource=download]{.underline}](https://www.kaggle.com/datasets/uciml/iris?resource=download)
->
-> Calculate correlations between variables:
->
-> cor.test(iris\$Sepal.Length, iris\$Sepal.Width, method=\"pearson\")
->
-> Now also create a scatter plot:
->
-> plot(iris\$Sepal.Length, iris\$Sepal.Width)
+# Iris
+
+Download the Iris dataset and import it into R:
+
+<https://www.kaggle.com/datasets/uciml/iris?resource=download>
+
+Calculate correlations between variables:
+
+```{r}
+cor.test(iris$Sepal.Length, iris$Sepal.Width, method="pearson")
+```
+
+Now also create a scatter plot:
+
+```{r}
+plot(iris$Sepal.Length, iris$Sepal.Width)
+```
 
 Create an adjacency matrix and interpret the results:
 
-cor(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
-\"Petal.Length\",\"Petal.Width\")\])
+```{r}
+cor(iris[c("Sepal.Length","Sepal.Width", "Petal.Length","Petal.Width")])
+```
 
 What do they mean?
 
-![](media/image1.jpeg){width="9.598611111111111in"
-height="1.8833333333333333in"}
-
 **Now create SPLOM graphics:**
 
-pairs(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
-\"Petal.Length\",\"Petal.Width\")\])
-
-install.packages(\"psych\")
-
+```{r}
+pairs(iris[c("Sepal.Length","Sepal.Width", "Petal.Length","Petal.Width")])
+install.packages("psych")
 library(psych)
+pairs.panels(iris[c("Sepal.Length","Sepal.Width", "Petal.Length","Petal.Width")])
+```
 
-pairs.panels(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
-\"Petal.Length\",\"Petal.Width\")\])
+**Have a go at writing a paragraph to summarize the findings in this plot?**
 
-![](media/image2.png){width="11.618055555555555in"
-height="0.5881944444444445in"}
+# Rundata
 
-**Have a go at writing a paragraph to summarize the findings in this
-plot?**
+Open in rundata.csv in R
 
-![](media/image3.jpeg){width="7.516666666666667in"
-height="6.490972222222222in"}
+Plot data and create regression line
 
-Tutorial and Exercises
+```{r}
+plot(rundata$FirstRun, rundata$SecondRun)
+```
 
-> **Open in rundata.csv in R**
->
-> Plot data and create regression line
+```{r}
+plot(rundata$FirstRun, rundata$SecondRun)
+reg1 <- lm( rundata$SecondRun~rundata$FirstRun)
+abline(reg1)
+```
 
-plot(rundata\$FirstRun, rundata\$SecondRun)
+Compute the Pearson Correlation Coefficient
 
-![](media/image4.jpeg){width="5.560416666666667in"
-height="5.432638888888889in"}
+```{r}
+cor(rundata$FirstRun, rundata$SecondRun)
+```
 
-> plot(rundata\$FirstRun, rundata\$SecondRun)
->
-> reg1 \<- lm( rundata\$SecondRun
->
-> \~rundata\$FirstRun)
->
-> abline(reg1)
+*r* = 0.9762012
 
-![](media/image5.jpeg){width="4.690972222222222in"
-height="4.583333333333333in"}
+Check if the Correlation is significant
 
-> Compute the Pearson Correlation Coefficient
->
-> cor(rundata\$FirstRun, rundata\$SecondRun)
->
-> *r* = 0.9762012
+```{r}
+cor.test(rundata$FirstRun, rundata$SecondRun)
+```
 
-![](media/image6.jpeg){width="7.503472222222222in"
-height="1.1034722222222222in"}
+Create a Multiple Regression Model to predict the distance achieved in the final
+run based on the previous runs
 
-> https://en.wikipedia.org/wiki/Correlation
->
-> Check if the Correlation is significant
->
-> cor.test(rundata\$FirstRun, rundata\$SecondRun)
+```{r}
+lma <- lm(rundata$FinalRun ~ FirstRun + SecondRun, data=rundata)
+summary(lma)
+# help("~") - tilde is used to separate the left- and right-hand sides in a model formula.
+```
 
-![](media/image7.jpeg){width="4.84375in" height="1.9166666666666667in"}
+Now interpret the results
 
-> Create a Multiple Regression Model to predict the distance achieved in
-> the final run based on the previous runs
->
-> lma \<- lm(rundata\$FinalRun \~ FirstRun + SecondRun, data=rundata)
->
-> summary(lma)
->
-> help(\"\~\") - tilde is used to separate the left- and right-hand
-> sides in a model formula.
+Predict the final run distance based on a new runner who has only ran the first
+2 runs
 
-![](media/image8.jpeg){width="6.916666666666667in"
-height="5.138888888888889in"}
+```{r}
+lma <- lm(FinalRun ~ FirstRun + SecondRun, data=rundata)
+newdata <- data.frame(FirstRun=22, SecondRun=25)
+predict(lma, newdata)
+# help("~") - tilde is used to separate the left- and right-hand sides in a model formula.
+```
 
-> Now interpret the results
+## Simple Regression Tutorial
 
-![](media/image9.png){width="2.561111111111111in"
-height="0.3055555555555556in"}
+```{r}
+set.seed(12345)
+run2 <- rundata[ order( runif(99) ) , ]
+lma <- lm(FinalRun ~ FirstRun + SecondRun, data=run2[c(1:80),])
+testing <- run2[c(81:99), ] 
+predictions <- predict(lma, testing)
 
-> Predict the final run distance based on a new runner who has only ran
-> the first 2 runs
->
-> lma \<- lm(FinalRun \~ FirstRun + SecondRun, data=rundata)
->
-> newdata \<- data.frame(FirstRun=22, SecondRun=25)
->
-> predict(lma, newdata)
->
-> help(\"\~\") - tilde is used to separate the left- and right-hand
-> sides in a model formula.
+diff <- predictions - testing$FinalRun 
+diff_ABS <- abs(diff) 
 
-![](media/image10.jpeg){width="1.3888888888888888in"
-height="0.8472222222222222in"}
+mean(diff)
+hist(diff_ABS)
+boxplot(diff_ABS)
 
-> Simple Regression Tutorial
->
-> set.seed(12345)
->
-> run2 \<- rundata\[ order( runif(99) ) , \]
->
-> lma \<- lm(FinalRun \~ FirstRun + SecondRun, data=run2\[c(1:80),\])
->
-> testing \<- run2\[c(81:99), \] predictions \<- predict(lma, testing)
->
-> Simple Regression Tutorial
->
-> diff \<- predictions - testing\$FinalRun diff_ABS \<- abs(diff)
-> mean(diff)
+```
 
-![](media/image11.jpeg){width="4.165277777777778in"
-height="4.069444444444445in"}
+How many predicted distances of the final run were higher than the real distance
+of the final run
 
-> hist(diff_ABS)
->
-> boxplot(diff_ABS)
+```{r}
+length( diff[diff> 0] )
+```
 
-Simple Regression Tutorial
+How many predicted distances were within 2km of the real distance of the final
+run?
 
-> How many predicted distances of the final run were
->
-> higher than the real distance of the final run?
->
-> length( diff\[diff\> 0\] )
->
-> How many predicted distances were within 2km of
->
-> the real distance of the final run?
->
-> length( diff_ABS\[diff_ABS\<=2\] )
->
-> Simple Regression Tutorial
->
-> testing\$prediction \<- predictions
->
-> testing\$difference \<- diff_ABS
+```{r}
+length( diff_ABS[diff_ABS<=2] )
 
-![](media/image12.png){width="7.604861111111111in"
-height="7.104166666666667in"}
+testing$prediction <- predictions
+testing$difference <- diff_ABS
+```
 
-> You should have two new
->
-> columns similar to this.
->
-> Now build a logistic regression model
->
-> rundata\$superrun = ifelse(rundata\$FinalRun \>= 45, 1, 0)
->
-> logitModel \<- glm(superrun \~ FirstRun + SecondRun, data=rundata,
-> family=binomial(link=\"logit\"))
+![](pracimages/image12.png)
 
-![](media/image13.jpeg){width="4.024305555555555in"
-height="3.4097222222222223in"}
+You should have two new columns similar to this.
 
+Now build a logistic regression model
+
+```{r}
+rundata$superrun = ifelse(rundata$FinalRun >= 45, 1, 0)
+logitModel <- glm(superrun ~ FirstRun + SecondRun, 
+									data=rundata, family=binomial(link="logit"))
+									
 summary(logitModel)
+```
 
 Compute the Odds Ratios and Confidence Intervals
 
-> exp(coef(logitModel))
->
-> exp(cbind(OR = coef(logitModel),
->
-> confint(logitModel)))
+```{r}
+exp(coef(logitModel))
+exp(cbind(OR = coef(logitModel),
+confint(logitModel)))
+```
 
-![](media/image14.jpeg){width="5.847222222222222in"
-height="1.0972222222222223in"}
+![](image14.jpeg)
 
-**Now build a logistic regression binary classifier model to predict if
-a passenger survived on the titanic**
+# Titanic
 
-![](media/image15.jpeg){width="6.029861111111111in"
-height="3.8868055555555556in"}
+**Now build a logistic regression binary classifier model to predict if a
+passenger survived on the titanic**
 
-> Studying the Titanic passenger survival
->
-> -Titanic dataset from Kaggle <https://www.kaggle.com/c/titanic>
+Studying the Titanic passenger survival
 
-![](media/image16.png){width="5.0881944444444445in" height="0.14375in"}
+-   Titanic dataset from Kaggle <https://www.kaggle.com/c/titanic>
+-   build a logistic regression model for survival
 
-> -build a logistic regression model for survival
->
-> Reading
->
-> **Read and explore Chapter 6: *"Forecasting Numeric Data -- Regression
-> Methods"* in the following book:**
->
-> You may explore this chapter in the class but this can be completed
-> outside of the lab. The chapter walks you through a number of
-> practical regression related examples with data and code etc.
+![](pracimages/image15.jpeg)
+
+```{r}
+#survival train target
+train_target<-train$Survived
+train_df<-train[c("Pclass","Age", "Survived")]
+#trained model using training dataset of inputs and labels defined above
+#now going to take testing data to do predictions
+#compare accuracy - model performance 
+#building a logistic regression model 
+logitModel <- glm(Survived ~ Age + Pclass,
+                  data=train, family=binomial(link="logit"))
+summary(logitModel)
+#Null deviance: 964.52  on 713  degrees of freedom
+#Residual deviance: 827.43  on 711  degrees of freedom
+#(177 observations deleted due to missingness)
+#AIC: 833.43
+#Number of Fisher Scoring iterations: 4
+logitModel
+?glm
+#parameter to do prediction
+predict(logitModel,test,type="response")
+#removing N/a's
+#test<-test[is.na(test$Pclass)&is.na(test$Age)]
+test_clean<-subset(test, !is.na(test$Age))
+#code above removed the N/A values from age 
+test_clean<-subset(test_clean, !is.na(test_clean$Pclass))
+predict(logitModel,test_clean,type="response")
+#has removed the N/a values from age but has them properly indexed 
+test_predict<- predict(logitModel,test_clean,type="response")
+#giving predict on cleaned data
+round(test_predict,digits=0)
+#rounding to 0 dp / round number 
+```
+
+# Reading
+
+**Read and explore Chapter 6: *“Forecasting Numeric Data – Regression Methods”*
+in the following book:**
+
+You may explore this chapter in the class but this can be completed outside of
+the lab. The chapter walks you through a number of practical regression related
+examples with data and code etc.
 
 -   Lantz, B. (2023) Machine Learning with R, Packt Publishing.
-    [[https://learning.oreilly.com/library/view/machine-learning-with/9781801071321/]{.underline}](https://learning.oreilly.com/library/view/machine-learning-with/9781801071321/)
+    <https://learning.oreilly.com/library/view/machine-learning-with/9781801071321/>
 
-Exercise:
+# Time series analysis with R
 
-Time series analysis with R
+Number of births per month in NY (1946 – 1959)
 
-![](media/image17.jpeg){width="4.364583333333333in"
-height="4.464583333333334in"}
+### Use the ts() function to plot some time series data
 
-Number of births per month in NY (1946 -- 1959)
-
-Use the ts() function to plot some time series data
-
-> births \<- scan(\"http://robjhyndman.com/tsdldata/data/nybirths.dat\")
->
-> birthstimeseries \<- ts(births, frequency=12, start=c(1946,1))
->
-> plot.ts(birthstimeseries)
->
-> Note: If the scan function wont import the data then download
->
-> the dataset
-> ([[http://robjhyndman.com/tsdldata/data/nybirths.dat]{.underline}](http://robjhyndman.com/tsdldata/data/nybirths.dat))
-> and
->
-> import it into R studio.
->
-> [[https://a-little-book-of-r-for-time-]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
->
-> [[series.readthedocs.io/en/latest/src/timeseries.html]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
-
-Now add a regression line to study the trend:
-
-![](media/image18.jpeg){width="3.9763888888888888in"
-height="4.066666666666666in"}
-
+```{r}
+births <- scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+birthstimeseries <- ts(births, frequency=12, start=c(1946,1))
 plot.ts(birthstimeseries)
 
-abline(reg=lm(birthstimeseries\~time(birthstimeseries)))
+```
 
-> Try using a simple moving average to also study the trend. You might
-> need to install the TTR library.
+Note: If the scan function wont import the data then download the dataset
+(<http://robjhyndman.com/tsdldata/data/nybirths.dat>) and import it into R
+studio.
 
-![](media/image19.jpeg){width="5.231944444444444in"
-height="5.351388888888889in"}
+<https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html>
 
-> After SMA is applied
->
-> library(\"TTR\")
->
-> birthstimeseries \<- SMA(birthstimeseries, n=15)
->
-> plot.ts(birthstimeseries)
+### Now add a regression line to study the trend:
 
-Now Study the Seasonality Trend Decomposition (STD):
+```{r}
+plot.ts(birthstimeseries)
+abline(reg=lm(birthstimeseries~time(birthstimeseries)))
+```
 
-![](media/image20.jpeg){width="5.1125in" height="5.229166666666667in"}
+### Try using a simple moving average to also study the trend. You might need to install the TTR library.
 
-> birthstimeseriescomponents \<- decompose(birthstimeseries)
->
-> plot(birthstimeseriescomponents)
->
-> Try filtering out the random signal:
+```{r}
+library("TTR")
+birthstimeseries <- SMA(birthstimeseries, n=15)
+plot.ts(birthstimeseries)
+```
 
-![](media/image21.jpeg){width="3.803472222222222in"
-height="3.890277777777778in"}
+After SMA is applied
 
-> birthstimeseriescomponents \<- decompose(birthstimeseries)
->
-> birthstimeseriesseasonallyadjusted \<- birthstimeseries -
-> birthstimeseriescomponents\$random
+### Now Study the Seasonality Trend Decomposition (STD):
 
-![](media/image22.png){width="3.829861111111111in"
-height="0.3055555555555556in"}
+```{r}
+birthstimeseriescomponents <- decompose(birthstimeseries)
+plot(birthstimeseriescomponents)
+```
 
-> plot.ts(birthstimeseriesseasonallyadjusted)
->
-> Study auto-correlation where the lag=1
+### Try filtering out the random signal:
 
--   Code plot(birthstimeseries\[2:168\], birthstimeseries\[1:167\])
-    cor(birthstimeseries\[2:168\], birthstimeseries\[1:167\])
+```{r}
+birthstimeseriescomponents <- decompose(birthstimeseries)
+birthstimeseriesseasonallyadjusted <- birthstimeseries 
+- birthstimeseriescomponents$random
+plot.ts(birthstimeseriesseasonallyadjusted)
+```
 
-![](media/image23.jpeg){width="7.71875in" height="4.531944444444444in"}
+### Study auto-correlation where the lag=1
 
-> r=0.7880606
->
-> Now compute the auto-correlation for 1-24 lags
+```{r}
+plot(birthstimeseries[2:168], birthstimeseries[1:167]) 
+cor(birthstimeseries[2:168], birthstimeseries[1:167])
+```
 
-![](media/image24.jpeg){width="6.678472222222222in"
-height="4.158333333333333in"}
+r=0.7880606
 
-> acf( birthstimeseries, lag.max=24 )
->
-> Notice that the correlation is highest
->
-> when there is a 12 month lag
->
-> Now compute the partial auto-correlation
->
-> pacf(birthstimeseries, lag.max=24)
+### Now compute the auto-correlation for 1-24 lags
 
-![](media/image25.jpeg){width="5.38125in" height="3.3506944444444446in"}
+```{r}
+acf( birthstimeseries, lag.max=24 )
+```
 
-> Use the Augmented dickey fuller test for stationarity
+Notice that the correlation is highest when there is a 12 month lag
+
+### Now compute the partial auto-correlation
+
+```{r}
+pacf(birthstimeseries, lag.max=24)
+```
+
+### Use the Augmented dickey fuller test for stationarity
 
 -   Null hypothesis: non-stationary
-
 -   Alternative hypothesis: stationary
 
-> library(\"tseries\")
->
-> adf.test(birthstimeseries)
->
-> Is the time series stationary?
->
-> **Now try differencing the signal -- notice the de-trending**
+```{r}
+library("tseries")
+adf.test(birthstimeseries)
+```
 
+Is the time series stationary?
+
+### **Now try differencing the signal – notice the de-trending**
+
+```{r}
 plot.ts( diff(birthstimeseries) )
-
-![](media/image26.png){width="13.333333333333334in"
-height="3.9319444444444445in"}
+```
 
 First order differencing
 
-> Try ARIMA modelling using R
->
-> library(forecast)
+# Try ARIMA modelling using R
 
-![](media/image27.jpeg){width="4.699305555555555in"
-height="3.077777777777778in"}
+```{r}
+library(forecast)
+modelfit <- auto.arima(AirPassengers)
+forecasts <- forecast( modelfit, h=50 )
 
-> modelfit \<- auto.arima(AirPassengers)
->
-> forecasts \<- forecast( modelfit, h=50 )
->
-> plot( forecasts )
->
-> Read: https://otexts.com/fpp2/arima-r.html
->
-> Evaluate the accuracy of the model
->
-> accuracy(forecasts)
+plot( forecasts )
+```
 
-![](media/image28.png){width="11.82638888888889in"
-height="1.4638888888888888in"}
+<https://otexts.com/fpp2/arima-r.html>
 
-> Have a go at trying to do training and testing
->
-> library(forecast)
->
-> #9 years of training data
->
-> AirPassengersTrain \<- ts(AirPassengers\[1:108\], frequency=12,
-> start=c(1949,1))
->
-> #3 years of testing data
->
-> AirPassengersTest \<- ts(AirPassengers\[109:144\], frequency=12,
-> start=c(1958,1))
->
-> modelfit \<- auto.arima(AirPassengersTrain)
->
-> forecasts \<- forecast( modelfit, h=36 )
->
-> accuracy(f = forecasts, x = AirPassengersTest)
->
-> plot( AirPassengersTest, col=\"red\", ylab=\"values\")
->
-> lines(forecasts\$mean, col=\"blue\")
+### Evaluate the accuracy of the model
 
-![](media/image29.jpeg){width="9.722222222222221in"
-height="0.8194444444444444in"}
+```{r}
+accuracy(forecasts)
+```
 
-> Other links to explore /references
+### Have a go at trying to do training and testing
 
--   [[https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/]{.underline}](https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/)
+```{r}
+library(forecast)
+#9 years of training data
+AirPassengersTrain <- ts(AirPassengers[1:108], frequency=12, start=c(1949,1))
+#3 years of testing data
+AirPassengersTest <- ts(AirPassengers[109:144], frequency=12, start=c(1958,1))
+modelfit <- auto.arima(AirPassengersTrain)
+forecasts <- forecast( modelfit, h=36 )
+accuracy(f = forecasts, x = AirPassengersTest)
+plot( AirPassengersTest, col="red", ylab="values")
+lines(forecasts$mean, col="blue")
+```
 
--   [[https://otexts.com/fpp2/]{.underline}](https://otexts.com/fpp2/)
+# Other links to explore /references
+
+-   <https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/>
+-   <https://otexts.com/fpp2/>

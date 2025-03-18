@@ -1,5 +1,6 @@
-**Machine learningo using the Caret Package & Introduction to Synthetic
-Data**
+# Week 6 - Exercise
+
+# **Machine learning using the Caret Package & Introduction to Synthetic Data**
 
 The caret package is a powerful machine learning package in R.
 
@@ -7,7 +8,9 @@ The caret package is a powerful machine learning package in R.
 
 Open R studio and activate the caret package:
 
-library(\"caret\")
+```{r}
+library("caret")
+```
 
 Download the cancer dataset as a CSV file and import into R studio:
 
@@ -15,25 +18,32 @@ Download the cancer dataset as a CSV file and import into R studio:
 
 Select all rows and the first 32 columns:
 
-data \<- data\[,c(1:32)\]
+```{r}
+data <- data[,c(1:32)]
+```
 
 Convert the data\$diagnosis variable to a factor().
 
-data\$diagnosis \<- as.factor(data\$diagnosis)
+```{r}
+data$diagnosis <- as.factor(data$diagnosis)
+```
 
-Use createDataPartition function to create a training and test set
-(70/30 split).
+Use createDataPartition function to create a training and test set (70/30
+split).
 
-partition \<- createDataPartition(data\$diagnosis, p=0.7, list=FALSE)
+```{r}
+partition <- createDataPartition(data$diagnosis, p=0.7, list=FALSE)
+trainingData <- data[partition,]
+testData <- data[-partition,]
 
-trainingData \<- data\[partition,\]
-
-testData \<- data\[-partition,\]
+```
 
 You can learn more about the createDataPartition() function using the
 documentation:
 
+```{r}
 ?createDataPartition
+```
 
 or on the web page:
 
@@ -41,221 +51,195 @@ or on the web page:
 
 e.g. the argument p is the proportion for the training set.
 
-Now build a model using K-NN with caret using the training set:
+### Now build a model using K-NN with caret using the training set:
 
-model \<- train(diagnosis\~., method=\"knn\", data= **trainingData**)
+```{r}
+model <- train(diagnosis~., method="knn", data= trainingData)
+```
 
-The diagnosis column is the label and here we are using all other
-columns as the features.
+The diagnosis column is the label and here we are using all other columns as the
+features.
 
 Type model in the console and you should get the following output:
 
-![A screenshot of a computer program Description automatically
-generated](media/image1.png){width="6.263888888888889in"
-height="3.8375in"}
+```{r}
+model
+```
 
-You can see the accuracy and kappa for different K-NN models using
-different values for the parameter k. You can see that the model
-performs best when using 5 nearest neighbours when using the training
-data for classification.
+You can see the accuracy and kappa for different K-NN models using different
+values for the parameter k. You can see that the model performs best when using
+5 nearest neighbours when using the training data for classification.
 
 Now test the model on the test set:
 
-testingTheModel \<- predict(model, newdata = testData)
+```{r}
+testingTheModel <- predict(model, newdata = testData)
+```
 
-Use the confusion matrix function to study the various evaluation
-metrics:
+Use the confusion matrix function to study the various evaluation metrics:
 
-confusionMatrix(testingTheModel, testData\$diagnosis)
+```{r}
+confusionMatrix(testingTheModel, testData$diagnosis)
+```
 
-You should get this:
+Study the metrics. Kappa is a measure of agreement between the predicted and the
+actual labels in the test set.
 
-![A screenshot of a computer Description automatically
-generated](media/image2.png){width="6.263888888888889in"
-height="6.370833333333334in"}
+The no-information rate is the proportion of the data with the majority class.
 
-Study the metrics. Kappa is a measure of agreement between the predicted
-and the actual labels in the test set.
-
-The no-information rate is the proportion of the data with the majority
-class.
-
-The ![](media/image3.png){width="1.4807895888013998in"
-height="0.20681430446194227in"}is a statistical test that tests to see
-if there is a statistically significant difference between the accuracy
-of the algorithm versus the no information rate. For a model to be
-useful, the algorithm would typically need a higher accuracy than the no
-information rate. The no information rate on a balanced test set in a
-binary classification problem would be 50%.
+The P-Value [Acc \> NIR] is a statistical test that tests to see if there is a
+statistically significant difference between the accuracy of the algorithm
+versus the no information rate. For a model to be useful, the algorithm would
+typically need a higher accuracy than the no information rate. The no
+information rate on a balanced test set in a binary classification problem would
+be 50%.
 
 The following code will also tell use what the no-information rate is:
 
-table(testData\$diagnosis)
+```{r}
+table(testData$diagnosis)
+```
 
-![A close-up of numbers Description automatically
-generated](media/image4.png){width="0.9232797462817148in"
-height="0.5425459317585302in"}
+So B is the majority class, hence the no information rate is 107/170 (\~62.94%).
 
-So B is the majority class, hence the no information rate is 107/170
-(\~62.94%).
+Try the following statistical test to get a p-value when comparing proportion of
+correctly classified cases (accuracy) vs. the no-information rate:
 
-Try the following statistical test to get a p-value when comparing
-proportion of correctly classified cases (accuracy) vs. the
-no-information rate:
-
+```{r}
 prop.test(c(116,107),c(170,170))
+```
 
-![A screenshot of a computer code Description automatically
-generated](media/image5.png){width="6.263888888888889in"
-height="3.1319444444444446in"}
-
-You can see that the accuracy is not statistically significantly better
-than the no-information rate.
+You can see that the accuracy is not statistically significantly better than the
+no-information rate.
 
 You can use the following code to setup 10-fold cross validation:
 
-control \<- trainControl(method=\"repeatedcv\", number=10,
-savePredictions = TRUE)
-
-model \<- train(diagnosis\~., method=\"knn\", data= **trainingData**,
-trControl=control)
-
+```{r}
+control <- trainControl(method="repeatedcv", number=10, savePredictions = TRUE)
+model <- train(diagnosis~., method="knn", data= trainingData, trControl=control)
 model
+```
 
-![A screenshot of a computer program Description automatically
-generated](media/image6.png){width="6.263888888888889in"
-height="3.7069444444444444in"}
-
-Even with 10-fold CV, a model where is k=5 is still the best K-NN
-classifier.
+Even with 10-fold CV, a model where is k=5 is still the best K-NN classifier.
 
 You can see the predictions for each fold using the following code:
 
-cv\<-model\$pred
-
+```{r}
+cv<-model$pred
 cv
-
-![A screenshot of a computer Description automatically
-generated](media/image7.png){width="3.3828630796150483in"
-height="2.325718503937008in"}
+```
 
 You can see that there were 10-folds as expected:
 
-table(model\$pred\$Resample)
+```{r}
+table(model$pred$Resample)
+```
 
-![A close-up of a computer code Description automatically
-generated](media/image8.png){width="6.263888888888889in"
-height="1.3333333333333333in"}
+Obviously 399 (size of training set) divided by 10 is almost \~40 samples per
+fold, however you will notice that 3 different K-NN algorithms were also tested
+(with k as 5, 7 and 9 respectively).
 
-Obviously 399 (size of training set) divided by 10 is almost \~40
-samples per fold, however you will notice that 3 different K-NN
-algorithms were also tested (with k as 5, 7 and 9 respectively).
+As you could see, the method argument in the train function specifies the
+machine learning algorithm to be used.
 
-As you could see, the method argument in the train function specifies
-the machine learning algorithm to be used.
+Use the following code to see the range of machine learning algorithms that
+could be used:
 
-Use the following code to see the range of machine learning algorithms
-that could be used:
-
+```{r}
 names(getModelInfo())
-
-![A screenshot of a computer code Description automatically
-generated](media/image9.png){width="6.263888888888889in"
-height="4.535416666666666in"}
+```
 
 Now try a different technique such as support vector machines:
 
-model \<- train(diagnosis\~., method=\"**svmLinear**\", data=
-trainingData, trControl=control)
-
+```{r}
+model <- train(diagnosis~., method="svmLinear", data= trainingData, trControl=control)
 model
-
-![A white paper with black text Description automatically
-generated](media/image10.png){width="6.263888888888889in"
-height="3.390972222222222in"}
-
-![A screenshot of a computer Description automatically
-generated](media/image11.png){width="6.263888888888889in"
-height="6.384722222222222in"}
+```
 
 You can see that the SVM perform better than the K-NN model.
 
 This time you will see that there are around 40 cases per fold:
 
-cv\<-model\$pred
+```{r}
+cv<-model$pred
+table(model$pred$Resample)
+```
 
-table(model\$pred\$Resample)
+As a useful exercise, consider building a range of models and present the
+results (accuracy, sensitivity etc.) from each model on a useful graph to show
+how each model performs in comparison to each other.
 
-As a useful exercise, consider building a range of models and present
-the results (accuracy, sensitivity etc.) from each model on a useful
-graph to show how each model performs in comparison to each other.
+# **Synthetic data**
 
-**Synthetic data**
+When using a dataset with class imbalance, the dataset can be balanced by
+under-sampling and/or oversampling. You can increase the size of the minority
+class by simulating synthetic cases.
 
-When using a dataset with class imbalance, the dataset can be balanced
-by under-sampling and/or oversampling. You can increase the size of the
-minority class by simulating synthetic cases.
-
-One approach is using SMOTE which stands for Synthetic Minority
-Over-sampling Technique.
+One approach is using SMOTE which stands for Synthetic Minority Over-sampling
+Technique.
 
 Install and activate the smotefamily package.
 
+```{r}
 library(smotefamily)
+```
 
 See example provided in documentation:
 
+```{r}
 ?SMOTE
+```
 
 Generate a dataset:
 
+```{r}
 dataSet = sample_generator(1000, ratio = 0.70)
+```
 
-This generates a dataset with 1000 cases, 2 features and one label/class
-called result.
+This generates a dataset with 1000 cases, 2 features and one label/class called
+result.
 
-The ratio argument defines the class imbalance (70% for the majority
-class) in the dataset as can be seen below:
+The ratio argument defines the class imbalance (70% for the majority class) in
+the dataset as can be seen below:
 
-table(dataSet\$result)
-
-![A close-up of a sign Description automatically
-generated](media/image12.png){width="3.375in"
-height="1.2222222222222223in"}
+```{r}
+table(dataSet$result)
+```
 
 Generate synthetic data for class balancing:
 
-generateData = SMOTE(dataSet\[,c(1,2)\], dataSet\[,c(3)\], K=5)
+```{r}
+generateData = SMOTE(dataSet[,c(1,2)], dataSet[,c(3)], K=5)
+```
 
-The following now stores a new dataset that includes the original
-dataset along with the synthetic data in the minority class.
+The following now stores a new dataset that includes the original dataset along
+with the synthetic data in the minority class.
 
-newDataSet \<- generateData\$data
+```{r}
+newDataSet <- generateData$data
+```
 
 You can now check the new class balance which is now improved:
 
-table(newDataSet\$class)
+```{r}
+table(newDataSet$class)
+```
 
-![A close-up of a sign Description automatically
-generated](media/image13.png){width="3.7777777777777777in"
-height="1.2083333333333333in"}
-
-You can also create an entire synthetic dataset from an original dataset
-if indeed you wanted to share data that reflects the characteristics of
-the real dataset but remains synthetic / simulated.
+You can also create an entire synthetic dataset from an original dataset if
+indeed you wanted to share data that reflects the characteristics of the real
+dataset but remains synthetic / simulated.
 
 Review the **synthpop** package:
 
 <https://synthpop.org.uk/get-started.html>
 
-Use the online tool to generate synthetic data from the data variables
-provided and then explore the comparative plots that show the
-similarities and differences between the original dataset and the
-corresponding synthetic dataset.
+Use the online tool to generate synthetic data from the data variables provided
+and then explore the comparative plots that show the similarities and
+differences between the original dataset and the corresponding synthetic
+dataset.
 
 <https://synthpop.shinyapps.io/synthpop/>
 
-You can explore the example provided on the website and also review the
-paper:
+You can explore the example provided on the website and also review the paper:
 
 <https://unece.org/fileadmin/DAM/stats/documents/ece/ces/ge.46/20150/Paper_24_bnowok_synthpop.pdf>

@@ -1,77 +1,76 @@
-**Other probability distributions**
+# Week 2 - Exercise 4
+
+# **Other probability distributions**
 
 The normal distribution models most variables but not all variables are
-continuous numbers and not all continuous numbers have a bell shape,
-hence you may need to use a different distribution to model and
-approximate some variables.
+continuous numbers and not all continuous numbers have a bell shape, hence you
+may need to use a different distribution to model and approximate some
+variables.
 
-**Binomial distributions**
+## **Binomial distributions**
 
-This distribution models events that have binary outcomes (e.g. pass or
-fail, yes or no).
+This distribution models events that have binary outcomes (e.g. pass or fail,
+yes or no).
 
-Imagine you had 20 multiple choice questions. Each question has 4
-answers (only one is correct), hence the outcome for each question is
-either correct or incorrect. The probability of getting one question
-correct at random guess is ¼ (0.25 or 25%).
+Imagine you had 20 multiple choice questions. Each question has 4 answers (only
+one is correct), hence the outcome for each question is either correct or
+incorrect. The probability of getting one question correct at random guess is ¼
+(0.25 or 25%).
 
-**If you answer the questions randomly, what is the probability of
-getting precisely 50% of the questions correct:**
+## **If you answer the questions randomly, what is the probability of getting precisely 50% of the questions correct:**
 
-> R Code:
->
-> dbinom(10, size=20, prob=0.25)
+```{r}
+dbinom(10, size=20, prob=0.25)
+```
 
-**What is the probability of getting 50% or less questions correct?**
+## **What is the probability of getting 50% or less questions correct?**
 
-> R Code:
->
-> This is the cumulative probability function:
->
-> pbinom(10, size=20, prob=0.25)
+This is the cumulative probability function:
 
-**Poisson distribution**
+```{r}
+pbinom(10, size=20, prob=0.25)
+```
 
-You can use google to see what a Poisson distribution looks like. It
-models the probability of events that occur per a time interval -- for
-example:
+# **Poisson distribution**
 
-**On average, per minute, if there are 7 people in a coffee shop queue,
-what is the probability that there are 6 or less people in this queue?**
+You can use google to see what a Poisson distribution looks like. It models the
+probability of events that occur per a time interval – for example:
 
-> R Code:
->
-> ppois(6, lambda=7)
+## **On average, per minute, if there are 7 people in a coffee shop queue, what is the probability that there are 6 or less people in this queue?**
 
-**The probability of having 6 or more people in the queue is the inverse
-of this:**
+```{r}
+ppois(6, lambda=7)
+```
 
-> i.e. 1 - ppois(6, lambda=7)
->
-> or you can write this code:
->
-> ppois(6, lambda=7, lower=FALSE)
+## **The probability of having 6 or more people in the queue is the inverse of this:**
 
-**Exponential distribution**
+```{r}
+1 - ppois(6, lambda=7)
+```
 
-**Imagine you deliver food for fast food outlet, if your food delivery
-times fit an exponential distribution, and if your mean delivery time is
-10 minutes, what is the probability of delivering food in less than 5
-minutes?**
+or you can write this code:
 
-The rate of delivery in the distribution is 1 delivery every 10 minutes,
-hence 1/10.
+```{r}
+ppois(6, lambda=7, lower=FALSE)
+```
 
-> R Code:
->
-> pexp(5, rate=1/10)
+# **Exponential distribution**
 
-Feel free to complete similar R code demonstrations for different
-distributions:
-[[https://www.r-tutor.com/elementary-statistics/probability-distributions/chi-squared-distribution]{.underline}](https://www.r-tutor.com/elementary-statistics/probability-distributions/chi-squared-distribution)
+**Imagine you deliver food for fast food outlet, if your food delivery times fit
+an exponential distribution, and if your mean delivery time is 10 minutes, what
+is the probability of delivering food in less than 5 minutes?**
+
+## The rate of delivery in the distribution is 1 delivery every 10 minutes, hence 1/10.
+
+```{r}
+pexp(5, rate=1/10)
+```
+
+Feel free to complete similar R code demonstrations for different distributions:
+<https://www.r-tutor.com/elementary-statistics/probability-distributions/chi-squared-distribution>
 
 **Reference:**
 
 **This tutorial is adapted from:**
 
-[[https://www.r-tutor.com/elementary-statistics/probability-distributions]{.underline}](https://www.r-tutor.com/elementary-statistics/probability-distributions)
+<https://www.r-tutor.com/elementary-statistics/probability-distributions>

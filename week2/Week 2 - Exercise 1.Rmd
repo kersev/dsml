@@ -3,149 +3,156 @@ title: "Week 2 - Exercise 1"
 output: rmarkdown::github_document
 ---
 
-Exercise
+# Week 2 - Exercise 1
 
-**Continuing on from last week, try the following code snippets:**
+Continuing on from last week, try the following code snippets:
 
-> **1. The apply() function:**
->
-> Read about the apply function by typing in
->
-> **?apply**
->
-> *The structure of the apply function is as follows:*
->
-> apply(m, dimcode, f, fargs)
->
-> Now try the apply function with the mean function:
->
-> **x \<- matrix(1:20, nrow = 10, ncol = 2)**
->
-> **apply(x, 2, mean)**
->
-> Now try the following code and try to understand each statement:
->
-> **x \<- matrix(1:20, nrow = 10, ncol = 2)**
->
-> **rowSums \<- apply(x, 1, sum)**
->
-> **rowMeans \<- apply(x, 1, mean)**
->
-> **colSums \<- apply(x, 2, sum)**
->
-> **colMeans \<- apply(x, 2, mean)**
->
-> Now try this code using the quantile function with the probs argument.
-> Note that the probs argument is of the quantile function as opposed to
-> the apply function.
->
-> **apply(x, 1, quantile, probs = c(0.25, 0.75))**
->
-> **2. Factors**
->
-> Factors represent nominal/categorical data.
->
-> Try the following code:
->
-> **?factor**
->
-> **x \<- factor( c(\"yes\", \"yes\", \"no\", \"yes\", \"no\") )**
->
-> **x**
->
-> The print out should be:
+# 1. The apply() function:
 
-1.  ***yes yes no yes no Levels: no yes***
+Read about the apply function by typing in
 
-> Note: levels is a statistical term meaning categories.
+```{r}
+?apply
+```
 
-3.  **The table function:**
+*The structure of the apply function is as follows:*
 
-> Now try the table() function in R. This function takes a factor
-> variable and provides the number of occurrences of each category/level
-> in that variable.
->
-> **x \<- factor( c(\"yes\", \"yes\", \"no\", \"yes\", \"no\") )**
->
-> **table(x)**
->
-> The print out should be:
->
-> **no** **yes**
->
-> **23**
+```{r}
+apply(m, dimcode, f, fargs)
+```
 
-4.  **The tapply() function:**
+Now try the apply function with the mean function:
 
-> The tapply() function is a mixture of the table and apply functions.
-> The tapply function runs a function across two variables, for example
-> you can run the mean function to calculate the average age of people
-> in each subgroup (by affiliation). Try the following code:
->
-> **ages \<- c(25,26,37,56,42,25)**
->
-> **affill \<- factor(c("U", "R", "R","D", "D", "U")) tapply(ages,
-> affill , mean)**
->
-> **tapply(ages, affill , range)**
+```{r}
+x <- matrix(1:20, nrow = 10, ncol = 2)
+apply(x, 2, mean)
+```
 
-5.  **Handling missing values:** Try the following code: **x \<-
-    c(25,26,NA,56,42,25)**
+Now try the following code and try to understand each statement:
 
-> **is.na(x)**
->
-> **is.nan(x)**
->
-> The function is.na(x) is used to test for NA and returns a logical
-> vector. The function is.nan(x) is used to test for NaN and returns a
-> logical vector.
->
-> Try the following code:
->
-> **x \<- c(1, 2, NA, 10, 3)**
->
-> **is.na(x)**
->
-> *Print out should be: \[1\] FALSE FALSE TRUE FALSE FALSE*
->
-> **is.nan(x)**
->
-> *Print out should be: \[1\] FALSE FALSE FALSE FALSE FALSE*
->
-> **x \<- c(1, 2, NaN, NA, 4)**
->
-> **is.na(x)**
->
-> *Print out should be: \[1\] FALSE FALSE TRUE TRUE FALSE*
->
-> **is.nan(x)**
->
-> *Print out should be: \[1\] FALSE FALSE TRUE FALSE FALSE*
+```{r}
+x <- matrix(1:20, nrow = 10, ncol = 2)
+rowSums <- apply(x, 1, sum)
+rowMeans <- apply(x, 1, mean)
+colSums <- apply(x, 2, sum)
+colMeans <- apply(x, 2, mean)
+```
 
-6.  **Data cleansing of missing values:**
+Now try this code using the quantile function with the probs argument. Note that
+the probs argument is of the quantile function as opposed to the apply function.
 
-> Try the following two approaches for cleansing missing values. The
-> first approach sets all missing values to 0 and the second just inputs
-> the mean average.
->
-> **x \<- c(1, 2, NA, 10, 3)**
->
-> **x\[is.na(x)\] \<- 0**
->
-> **x \<- c(1, 2, NA, 10, 3)**
->
-> **x\[is.na(x)\] \<- mean(x)**
+```{r}
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+```
 
-7.  **The mean function with missing values:**
+# 2. Factors
 
-> If you try the following code, you will notice that it does not work
-> as expected:
->
-> **x \<- c(1, 2, NA, 10, 3)**
->
-> **mean(x)**
->
-> To work as expected you need to use the na.rm argument to remove NA
-> values:
->
-> **mean(x, na.rm=TRUE)**
+Factors represent nominal/categorical data.
+
+Try the following code:
+
+```{r}
+?factor
+x <- factor( c("yes", "yes", "no", "yes", "no") )
+x
+```
+
+The print out should be:
+
+```{r}
+yes yes no yes no 
+Levels: no yes
+```
+
+Note: levels is a statistical term meaning categories.
+
+# 3. The table function:
+
+Now try the table() function in R. This function takes a factor variable and
+provides the number of occurrences of each category/level in that variable.
+
+```{r}
+x <- factor( c("yes", "yes", "no", "yes", "no") )
+table(x)
+```
+
+The print out should be:
+
+```{r}
+no yes
+23
+```
+
+# 4. The tapply() function:
+
+The tapply() function is a mixture of the table and apply functions. The tapply
+function runs a function across two variables, for example you can run the mean
+function to calculate the average age of people in each subgroup (by
+affiliation). Try the following code:
+
+```{r}
+ages <- c(25,26,37,56,42,25)
+affill <- factor(c("U", "R", "R", "D", "D", "U")) 
+tapply(ages, affill , mean)
+tapply(ages, affill , range)
+```
+
+# 5. Handling missing values:
+
+Try the following code:
+
+```{r}
+x <- c(25,26,NA,56,42,25)
+is.na(x)
+is.nan(x)
+```
+
+The function is.na(x) is used to test for NA and returns a logical vector. The
+function is.nan(x) is used to test for NaN and returns a logical vector.
+
+Try the following code:
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+is.na(x)
+# Print out should be: [1] FALSE FALSE TRUE FALSE FALSE*
+
+is.nan(x)
+# *Print out should be: [1] FALSE FALSE FALSE FALSE FALSE*
+
+x <- c(1, 2, NaN, NA, 4)
+is.na(x)
+# *Print out should be: [1] FALSE FALSE TRUE TRUE FALSE*
+
+is.nan(x)
+# *Print out should be: [1] FALSE FALSE TRUE FALSE FALSE*
+```
+
+# 6. Data cleansing of missing values:
+
+Try the following two approaches for cleansing missing values. The first
+approach sets all missing values to 0 and the second just inputs the mean
+average.
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+x[is.na(x)] <- 0
+x <- c(1, 2, NA, 10, 3)
+x[is.na(x)] <- mean(x)
+```
+
+# 7. The mean function with missing values:
+
+If you try the following code, you will notice that it does not work as
+expected:
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+mean(x)
+```
+
+To work as expected you need to use the na.rm argument to remove NA values:
+
+```{r}
+mean(x, na.rm=TRUE)
+```

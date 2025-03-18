@@ -1,0 +1,182 @@
+---
+title: "Run Data Visualization"
+output: html_document
+---
+
+## Loading and Preparing Data
+
+Let's first create some sample running data if you don't have it already.
+
+```{r create_data}
+# Create sample data (replace this with your actual data loading)
+set.seed(123)
+n <- 20
+rundata <- data.frame(
+  FirstRun = rnorm(n, mean = 30, sd = 5),  # Times in minutes
+  SecondRun = rnorm(n, mean = 28, sd = 4)  # Usually faster second time
+)
+
+# View the first few rows
+head(rundata)
+```
+
+## Basic Statistics
+
+```{r basic_stats}
+# Summary statistics
+summary(rundata)
+
+# Standard deviation
+cat("Standard Deviation - First Run:", sd(rundata$FirstRun), "\n")
+cat("Standard Deviation - Second Run:", sd(rundata$SecondRun), "\n")
+
+# Mean Absolute Deviation
+mad_mean <- function(x) { mean(abs(x - mean(x))) }
+cat("MAD - First Run:", mad_mean(rundata$FirstRun), "\n")
+cat("MAD - Second Run:", mad_mean(rundata$SecondRun), "\n")
+
+# Median Absolute Deviation
+cat("Median AD - First Run:", mad(rundata$FirstRun, constant=1), "\n")
+cat("Median AD - Second Run:", mad(rundata$SecondRun, constant=1), "\n")
+
+# Quartile Deviation
+cat("Quartile Deviation - First Run:", IQR(rundata$FirstRun)/2, "\n")
+cat("Quartile Deviation - Second Run:", IQR(rundata$SecondRun)/2, "\n")
+```
+
+## Visualizing the Run Data
+
+### Scatter Plot
+
+```{r scatter_plot}
+# Basic scatter plot
+plot(rundata$FirstRun, rundata$SecondRun,
+     main="First Run vs Second Run",
+     xlab="First Run Time (minutes)", ylab="Second Run Time (minutes)",
+     pch=19, col="blue")
+
+# Add regression line
+abline(lm(rundata$SecondRun ~ rundata$FirstRun), col="red")
+
+# Add line of equality (y=x)
+abline(0, 1, lty=2)
+legend("topleft", legend=c("Regression Line", "Line of Equality"), 
+       col=c("red", "black"), lty=c(1, 2))
+```
+
+### Dot Plots
+
+```{r dot_plots, fig.height=6}
+# Create dot plots for both runs
+par(mfrow=c(2,1))
+
+dotchart(rundata$FirstRun, 
+         main="First Run Times", 
+         xlab="Time (minutes)")
+
+dotchart(rundata$SecondRun, 
+         main="Second Run Times", 
+         xlab="Time (minutes)")
+
+# Reset plot layout
+par(mfrow=c(1,1))
+
+# Comparing both runs with groups
+library(reshape2)
+run_long <- melt(rundata[,c("FirstRun","SecondRun")])
+names(run_long) <- c("Run", "Time")
+dotchart(run_long$Time, groups=run_long$Run, 
+         main="Comparison of Run Times",
+         xlab="Time (minutes)")
+```
+
+### Bar Plots
+
+```{r bar_plots}
+# Side-by-side bar plot of all data points
+barplot(t(as.matrix(rundata)), 
+        beside=TRUE, 
+        main="All Run Times",
+        ylab="Time (minutes)",
+        col=c("blue","red"),
+        legend.text=c("First Run", "Second Run"))
+
+# Bar plot of means
+means <- colMeans(rundata[,c("FirstRun","SecondRun")])
+barplot(means, 
+        main="Average Run Times",
+        ylab="Time (minutes)", 
+        col=c("skyblue","coral"),
+        names.arg=c("First Run", "Second Run"))
+```
+
+### Line Charts
+
+```{r line_charts}
+# Line chart showing individual progression
+plot(1:nrow(rundata), rundata$FirstRun, type="l", col="blue", 
+     main="Run Times Progression", ylab="Time (minutes)", xlab="Run Number")
+lines(1:nrow(rundata), rundata$SecondRun, col="red")
+legend("topright", legend=c("First Run", "Second Run"), 
+       col=c("blue", "red"), lty=1)
+
+# Connected scatter plot
+plot(rundata$FirstRun, type="b", col="blue", pch=19,
+     main="Run Times Comparison", ylab="Time (minutes)", xlab="Run Number")
+lines(rundata$SecondRun, type="b", col="red", pch=19)
+legend("topright", legend=c("First Run", "Second Run"), 
+       col=c("blue", "red"), pch=19, lty=1)
+```
+
+### Pie Charts
+
+```{r pie_charts}
+# For means of each run
+means <- colMeans(rundata[,c("FirstRun","SecondRun")])
+pie(means, 
+    labels=paste(c("First Run", "Second Run"), "\n", round(means, 1), " min"),
+    main="Proportion of Average Run Times",
+    col=c("lightblue","lightcoral"))
+```
+
+### Boxplots
+
+```{r boxplots}
+# Side-by-side boxplots
+boxplot(rundata[,c("FirstRun","SecondRun")],
+        names=c("First Run", "Second Run"),
+        main="Distribution of Run Times",
+        ylab="Time (minutes)",
+        col=c("lightblue","lightgreen"))
+
+# Add points for individual observations
+stripchart(rundata[,c("FirstRun","SecondRun")], 
+           vertical=TRUE, method="jitter", 
+           pch=19, col="darkgray", add=TRUE)
+```
+
+## Improvement Analysis
+
+```{r improvement}
+# Calculate improvement
+rundata$Improvement <- rundata$FirstRun - rundata$SecondRun
+rundata$PercentImprovement <- (rundata$Improvement / rundata$FirstRun) * 100
+
+# Summary of improvement
+summary(rundata$Improvement)
+summary(rundata$PercentImprovement)
+
+# Histogram of improvement
+hist(rundata$Improvement, 
+     main="Distribution of Time Improvement",
+     xlab="Improvement (minutes)",
+     col="lightgreen",
+     breaks=10)
+
+# Boxplot of improvement
+boxplot(rundata$Improvement, 
+        main="Time Improvement",
+        ylab="Minutes",
+        col="lightgreen",
+        horizontal=TRUE)
+```

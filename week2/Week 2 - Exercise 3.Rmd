@@ -1,95 +1,84 @@
-Exercise - Tutorial
+# Week 2 - Exercise 3
 
-> **Download rundata.csv from BBL and open in Excel**
+Download rundata.csv from BBL and open in Excel
 
-![](media/image1.png){width="4.124305555555556in"
-height="0.5416666666666666in"}
+-   R Tutorial – insert the following code
 
--   Tutorial
+Import rundata.csv into R Studio View(rundata)
 
-> -- insert the following code
->
-> Import rundata.csv into R Studio View(rundata)
+From Text Base
 
-![](media/image2.png){width="7.625in" height="4.552083333333333in"}
+```{r}
+rundata$FirstRun
+```
 
-Tutorial
+```{r}
+mean(rundata$FirstRun)
+```
 
-> rundata\$FirstRun
->
-> mean(rundata\$FirstRun)
->
-> sd(rundata\$FirstRun)
->
-> summary(rundata\$FirstRun)
+```{r}
+sd(rundata$FirstRun)
+```
 
-![](media/image3.jpeg){width="4.930555555555555in" height="0.875in"}
+```{r}
+summary(rundata$FirstRun)
+```
 
-hist(rundata\$FirstRun)
+```{r}
+hist(rundata$FirstRun)
+```
 
-![](media/image4.jpeg){width="6.054166666666666in"
-height="5.915277777777778in"}
+## Spend time understanding the other parameters of the hist() function
 
-Spend time understanding the other
-
-parameters of the hist() function
-
-> ?hist
->
-> hist(exams\$First.Test, ylab=\"y-axis title\", xlab="x-axis title\",
-> main="main title")
-
-dens \<- density(rundata\$FirstRun)
-
+```{r}
+?hist
+hist(rundata$FirstRun, ylab="y-axis title", xlab="x-axis title", main="main title")
+dens <- density(rundata$FirstRun)
 plot(dens)
+```
 
-![](media/image5.jpeg){width="5.7972222222222225in"
-height="5.664583333333334in"}
+## Computing the probability of running a distance of 20 to 25km
 
-> Computing the probability of running a distance of 20 to 25km
->
-> convertToFunc \<- with(dens, splinefun(x,y))
->
-> integrate(convertToFunc, lower=20, upper=25)
->
-> Normality Testing
->
-> Shapiro-Wilk test of normality.
->
-> shapiro.test(rundata\$FirstRun)
->
-> **[Hypothesis test]{.underline}**
->
-> **H~0~ = Null hypothesis:** Data is normally distributed
->
-> **H~1~ = Alternative hypothesis:** Data is not normally distributed
+```{r}
+convertToFunc <- with(dens, splinefun(x,y))
+integrate(convertToFunc, lower=20, upper=25)
+```
 
-![](media/image6.jpeg){width="7.997916666666667in"
-height="2.790277777777778in"}
+## Normality Testing
 
-![](media/image7.png){width="9.845833333333333in"
-height="4.917361111111111in"}
+### Shapiro-Wilk test of normality.
 
-![](media/image8.png){width="9.557638888888889in"
-height="4.756944444444445in"}
+```{r}
+shapiro.test(rundata$FirstRun)
+```
 
-Write this code to create overlapping density functions and try to
-interpret the results.
+### Hypothesis test
 
-![](media/image9.jpeg){width="5.513888888888889in" height="5.3875in"}
+$H_0 = \text{Null hypotheseis}:\text{Data is normally distributed}$
 
-plot(density(rundata\$FirstRun), col=\"red\")
-lines(density(rundata\$SecondRun), col=\"green\") legend(\"bottom\",
-legend = c(\"First run\",\"Second run\"), fill=c(\"red\",\"green\"))
+$H_1 = \text{Alternative hypotheseis}:\text{Data is NOT normally distributed}$
 
+```{r}
+hist(rundata$FirstRun)
+hist(rundata$SecondRun)
+```
+
+```{r}
+plot(density(x = rundata$FirstRun))
+plot(density(x = rundata$SecondRun))
+```
+
+Write this code to create overlapping density functions and try to interpret the
+results.
+
+```{r}
+plot(density(rundata$FirstRun), col="red")
+lines(density(rundata$SecondRun), col="green")
+legend("bottom", legend = c("First run","Second run"), fill=c("red","green"))
 boxplot(rundata)
-
 ?boxplot
+```
 
-![](media/image10.jpeg){width="5.7027777777777775in"
-height="5.572222222222222in"}
-
-plot(rundata\$FirstRun, rundata\$SecondRun)
-
-![](media/image11.jpeg){width="5.108333333333333in"
-height="4.990972222222222in"}
+```{r}
+plot(rundata$FirstRun, rundata$SecondRun)
+```

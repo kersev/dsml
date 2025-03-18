@@ -7,13 +7,14 @@ output: rmarkdown::github_document
 
 ## Random variables
 
-> *“A random variable, usually written X, is a variable* *whose possible values are numerical outcomes of a* *random phenomenon.”* [http://www.stat.yale.edu/Courses/1997-98/101/ranvar.html](http://www.stat.yale.edu/Courses/1997-98/101/ranvar.html)
-> 
+> *“A random variable, usually written X, is a variable* *whose possible values
+> are numerical outcomes of a* *random phenomenon.”*
+> <http://www.stat.yale.edu/Courses/1997-98/101/ranvar.html>
 
 Two types:
 
-- Discrete (number of students in a class)
-- Continuous (amount of time it take to run a mile)
+-   Discrete (number of students in a class)
+-   Continuous (amount of time it take to run a mile)
 
 ### Discrete and Continuous
 
@@ -28,8 +29,9 @@ $$
 
 ## **Probability distribution**
 
-> *“A probability distribution is… an equation that* *links each outcome of a statistical experiment* *with its probability of occurrence.”* [http://stattrek.com/probability-distributions/probability-distribution.aspx](http://stattrek.com/probability-distributions/probability-distribution.aspx)
-> 
+> *“A probability distribution is… an equation that* *links each outcome of a
+> statistical experiment* *with its probability of occurrence.”*
+> <http://stattrek.com/probability-distributions/probability-distribution.aspx>
 
 ## Discrete Probability Distribution
 
@@ -41,13 +43,13 @@ E.G. Probability distribution of the number of heads?
 
 ![image.png](lecimages/image.png)
 
-[http://stattrek.com/probability-distributions/probability-distribution.aspx](http://stattrek.com/probability-distributions/probability-distribution.aspx)
+<http://stattrek.com/probability-distributions/probability-distribution.aspx>
 
 ## Cumulative probability
 
-> *“A cumulative probability refers to the probability* *that the value of a random variable falls within a* *specified range.”*
-[https://stattrek.com/statistics/dictionary.aspx?definition=cumulative_probability](https://stattrek.com/statistics/dictionary.aspx?definition=cumulative_probability)
-> 
+> *“A cumulative probability refers to the probability* *that the value of a
+> random variable falls within a* *specified range.”*
+> <https://stattrek.com/statistics/dictionary.aspx?definition=cumulative_probability>
 
 Probability that 2 coin flips includes 1 or fewer heads?
 
@@ -57,19 +59,19 @@ $$
 
 ![](lecimages/c22c6cb9-eb50-4012-b424-8f8ebf06bac9.png)
 
-[https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/discrete-and-continuous-random-variables/v/discrete-probability-distribution](https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/discrete-and-continuous-random-variables/v/discrete-probability-distribution)
+<https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/discrete-and-continuous-random-variables/v/discrete-probability-distribution>
 
 ## Continuous variables
 
-- Height, weight, distance, time etc.
-- So how do we work with continuous variables and their distributions?
+-   Height, weight, distance, time etc.
+-   So how do we work with continuous variables and their distributions?
 
 ![](lecimages/image5.png)
 
 ## Discretization / Quantization of continuous variables
 
-- Range = max – min
-- Number of intervals/bins: Not less than 10 and no more than 20
+-   Range = max – min
+-   Number of intervals/bins: Not less than 10 and no more than 20
 
 Step interval size = range / number of intervals/bins
 
@@ -77,24 +79,27 @@ $$
 k = \left\lceil \frac{\max x - \min x}{h} \right\rceil .
 $$
 
-This formula is used to calculate the number of bins or intervals needed to divide a range of data, often used in creating histograms.
+This formula is used to calculate the number of bins or intervals needed to
+divide a range of data, often used in creating histograms.
 
 In simple terms:
 
-- Take the maximum value in your dataset
-- Subtract the minimum value in your dataset
-- Divide this range by h (which represents the width of each bin)
-- Round up to the nearest whole number
+-   Take the maximum value in your dataset
+-   Subtract the minimum value in your dataset
+-   Divide this range by h (which represents the width of each bin)
+-   Round up to the nearest whole number
 
-The result, k, tells you how many bins of width h you would need to cover the entire range of your data.
+The result, k, tells you how many bins of width h you would need to cover the
+entire range of your data.
 
-For example, if your data ranges from 10 to 45, and you want each bin to be 5 units wide, you would calculate:
-k = ceiling((45 - 10)/5) = ceiling(7) = 7
+For example, if your data ranges from 10 to 45, and you want each bin to be 5
+units wide, you would calculate: k = ceiling((45 - 10)/5) = ceiling(7) = 7
 
 So you would need 7 bins to cover the entire range of data with bins of width 5.
 
 <aside>
-<img src="https://www.notion.so/icons/chat-user_lightgray.svg" alt="https://www.notion.so/icons/chat-user_lightgray.svg" width="40px" />
+
+<img src="https://www.notion.so/icons/chat-user_lightgray.svg" alt="https://www.notion.so/icons/chat-user_lightgray.svg" width="40px"/>
 
 *Intervals are also known as bins (k=bin width)*
 
@@ -106,28 +111,32 @@ Histograms can change depending on the number of bins
 
 ![](lecimages/image8.png)
 
-[http://www.shodor.org/interactivate/activities/Histogram/](http://www.shodor.org/interactivate/activities/Histogram/)
+<http://www.shodor.org/interactivate/activities/Histogram/>
 
 ## Computing Bin size
 
-- **Square-root choice**
-    
+-   **Square-root choice**
+
     $$
-    k = \sqrt n ,
+      k = \sqrt n ,
+      $$
+
+-   **Sturges' formula**
+
     $$
-    
-- **Sturges' formula**
-    
-    $$
-    k = \lceil log_2~n \rceil + 1,
-    $$
-    
-    - If n was 8 then k = 4
-    - If n was 16 then k = 5
-- **Freedman-Diaconis**
-- **Rice**
-- **Scott**
-- **…**
+      k = \lceil log_2~n \rceil + 1,
+      $$
+
+    -   If n was 8 then k = 4
+    -   If n was 16 then k = 5
+
+-   **Freedman-Diaconis**
+
+-   **Rice**
+
+-   **Scott**
+
+-   **…**
 
 ### **Number of bins computed**
 
@@ -145,13 +154,13 @@ What is the probability that it will take you 50 minutes?
 
 Distribution of times it took you to drive to work (average=50, SD=20)
 
-**P(49 < Y < 51)**
+**P(49 \< Y \< 51)**
 
 ![image.png](lecimages/image%202.png)
 
-Distribution of times it took you to drive to work **(average=50, SD=20)** 
+Distribution of times it took you to drive to work **(average=50, SD=20)**
 
-**P(49 < Y < 51)**
+**P(49 \< Y \< 51)**
 
 ### **tigerstats R package**
 
@@ -165,21 +174,21 @@ pnormGC( c(49,51), region="between", mean=50, sd=20, graph=TRUE )
 
 ## Descriptive statistics – I know you know this
 
-- Central tendency
-    - mean, median, mode, geometric mean interquartile mean…
-- Spread
-    - variance, standard deviation, range, interquartile range
+-   Central tendency
+    -   mean, median, mode, geometric mean interquartile mean…
+-   Spread
+    -   variance, standard deviation, range, interquartile range
 
 ## What measures should I use?
 
-- Parametric statistics
-    - Mean ± SD
-    - t-test family
-    - Pearson correlation
-- Non-parametric statistics
-    - Median ± IQR
-    - Wilcoxon or Mann Whitney test
-    - Spearman correlation
+-   Parametric statistics
+    -   Mean ± SD
+    -   t-test family
+    -   Pearson correlation
+-   Non-parametric statistics
+    -   Median ± IQR
+    -   Wilcoxon or Mann Whitney test
+    -   Spearman correlation
 
 ![image.png](lecimages/image%204.png)
 
@@ -187,8 +196,10 @@ Exact distribution vs. using an approximate distribution
 
 ## Central limit theorem
 
-> *“If the sample is large (n>=30) then statistical theory says that the sample mean is normally distributed... This is a result of a famous statistical theorem, the Central limit theorem.”* Source: [https://en.wikibooks.org/wiki/Statistics/Testing_Data/t-tests](https://en.wikibooks.org/wiki/Statistics/Testing_Data/t-tests)
-> 
+> *“If the sample is large (n\>=30) then statistical theory says that the sample
+> mean is normally distributed... This is a result of a famous statistical
+> theorem, the Central limit theorem.”* Source:
+> <https://en.wikibooks.org/wiki/Statistics/Testing_Data/t-tests>
 
 ### Normal distribution
 
@@ -196,9 +207,9 @@ $$
 AreaUnderNormalCurve = \int_{-\infty}^{\infty} f(x)dx = 1
 $$
 
-![[https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG](https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG)](lecimages/image20.png)
+![<https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG>](lecimages/image20.png)
 
-[https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG](https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG)
+<https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG>
 
 ### Cumulative distribution function (CDF)
 
@@ -215,54 +226,56 @@ pnorm(30, 50, 25)
 
 ![image.png](lecimages/image%206.png)
 
-- A z-value is used to standardise a number so that it becomes ‘metric agnostic’
-- Z-values then can be summed with z-values derived from other metrics to create a composite score.
+-   A z-value is used to standardise a number so that it becomes ‘metric
+    agnostic’
+-   Z-values then can be summed with z-values derived from other metrics to
+    create a composite score.
 
 ## Problem with z-scores
 
-- From –infinity to +infinity
-- Confusing
+-   From –infinity to +infinity
+-   Confusing
 
 ## Sigma scale
 
-- All positive scores
-- Divide distribution into 100 equal parts
-- 0 = 3 SDs below the mean
-- 100 = 3 SDs above the mean
+-   All positive scores
+-   Divide distribution into 100 equal parts
+-   0 = 3 SDs below the mean
+-   100 = 3 SDs above the mean
 
 16z + 50
 
 ## Hull scale
 
-- All positive scores
-- Divide distribution into 100 equal parts
-- 0 = 3.5 SDs below the mean
-- 100 = 3.5 SDs above the mean
+-   All positive scores
+-   Divide distribution into 100 equal parts
+-   0 = 3.5 SDs below the mean
+-   100 = 3.5 SDs above the mean
 
 14z + 50
 
 ## t scale
 
-- All positive scores
-- Divide distribution into 100 equal parts
-- 0 = 5 SDs below the mean
-- 100 = 5 SDs above the mean
+-   All positive scores
+-   Divide distribution into 100 equal parts
+-   0 = 5 SDs below the mean
+-   100 = 5 SDs above the mean
 
 10 Z + 50
 
 ## Whilst you might assume that your variable is normally distributed, you should test this?
 
-![[http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP](http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP)](lecimages/image25.png)
+![<http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP>](lecimages/image25.png)
 
-[http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP](http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP)
+<http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP>
 
 ## Skewness
 
 Example – what about salary distribution
 
-![[https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png](https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png)](lecimages/image26.png)
+![<https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png>](lecimages/image26.png)
 
-[https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png](https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png)
+<https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png>
 
 E.g. mean is a bad measure of the distribution if the variable is skewed
 
@@ -274,32 +287,32 @@ Measure of the tailedness and peakness
 
 ## Kurtosis
 
-- Kurtosis of a normal distributed variable is 3.
-- Distributions with kurtosis less than 3 are said to be *platykurtic*
-- Distributions with kurtosis greater than 3 are said to be *leptokurtic*.
+-   Kurtosis of a normal distributed variable is 3.
+-   Distributions with kurtosis less than 3 are said to be *platykurtic*
+-   Distributions with kurtosis greater than 3 are said to be *leptokurtic*.
 
 ## Types of distributions
 
-- Normal (Gaussian)
-- Binomial distributions
-- Chi-square
+-   Normal (Gaussian)
+-   Binomial distributions
+-   Chi-square
 
 *Tutorial on other distributions*
 
-- Uniform
-- Beta
-- Gamma
-- Poisson
-- Exponential
-- Log
-- … … …
+-   Uniform
+-   Beta
+-   Gamma
+-   Poisson
+-   Exponential
+-   Log
+-   … … …
 
 ## Discretization features for Machine Learning
 
-- Some algorithms may only use nominal features
-    - E.g. Decision trees
-- How would you convert heights to categories? E.g. small, typical, tall…
-- Is there an optimal method for this?
+-   Some algorithms may only use nominal features
+    -   E.g. Decision trees
+-   How would you convert heights to categories? E.g. small, typical, tall…
+-   Is there an optimal method for this?
 
 ## **Entropy-Based Discretization**
 
@@ -309,12 +322,12 @@ $$
 
 M = number of classes
 
-P = probability, e.g. number of people aged <25 earning <=50k (class)
+P = probability, e.g. number of people aged \<25 earning \<=50k (class)
 
-|               | **Salary <60k** | **Salary >60k** |
-|---------------|-----------------|-----------------|
-| **Aged <30**  | 30              | 2               |
-| **Aged >30**  | 8               | 22              |
+|               | **Salary \<60k** | **Salary \>60k** |
+|---------------|------------------|------------------|
+| **Aged \<30** | 30               | 2                |
+| **Aged \>30** | 8                | 22               |
 
 ```{r}
 # Entropy(age<30) = (30/32 * log2(30/32)) + (2/32 * log2(2/32)) = 0.3372901
@@ -323,9 +336,11 @@ P = probability, e.g. number of people aged <25 earning <=50k (class)
 ```
 
 <aside>
-<img src="https://www.notion.so/icons/warning_pink.svg" alt="https://www.notion.so/icons/warning_pink.svg" width="40px" />
 
-Be careful when dichotomizing variables (converting a numeric variable into categories)
+<img src="https://www.notion.so/icons/warning_pink.svg" alt="https://www.notion.so/icons/warning_pink.svg" width="40px"/>
+
+Be careful when dichotomizing variables (converting a numeric variable into
+categories)
 
 </aside>
 
@@ -352,7 +367,8 @@ rundata$FinalRun <- rundata$SecondRun + rnorm(99, 7, 3)
 
 ![](lecimages/image30.png)
 
-Let’s assume each row is a runner and each number is how far they ran at each consecutive run.
+Let’s assume each row is a runner and each number is how far they ran at each
+consecutive run.
 
 ### Tutorial
 
@@ -365,7 +381,8 @@ summary(rundata$FirstRun)
 
 ![image.png](lecimages/image%208.png)
 
-### hist(rundata$FirstRun)
+### hist(rundata\$FirstRun)
+
 ```{r}
 hist(rundata$FirstRun)
 ```
@@ -451,7 +468,7 @@ skewness(time)
 kurtosis(time) #platykurtic…
 ```
 
-[https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/](https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/)
+<https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/>
 
 ```{r}
 library(ggplot2)
@@ -494,7 +511,8 @@ summary(x)
 ![image.png](lecimages/image%2021.png)
 
 <aside>
-<img src="https://www.notion.so/icons/warning_pink.svg" alt="https://www.notion.so/icons/warning_pink.svg" width="40px" />
+
+<img src="https://www.notion.so/icons/warning_pink.svg" alt="https://www.notion.so/icons/warning_pink.svg" width="40px"/>
 
 Can I transform my data to make it normally distributed?
 
@@ -504,8 +522,8 @@ Try taking the *log()* of your vector
 
 Other exercises
 
-[https://www.r-bloggers.com/normal-distribution-functions/](https://www.r-bloggers.com/normal-distribution-functions/)
+<https://www.r-bloggers.com/normal-distribution-functions/>
 
-[https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/](https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/)
+<https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/>
 
-[https://www.r-statistics.com/2013/05/log-transformations-for-skewed-and-wide-distributions-from-practical-data-science-with-r/](https://www.r-statistics.com/2013/05/log-transformations-for-skewed-and-wide-distributions-from-practical-data-science-with-r/)
+<https://www.r-statistics.com/2013/05/log-transformations-for-skewed-and-wide-distributions-from-practical-data-science-with-r/>

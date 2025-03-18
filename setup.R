@@ -4,6 +4,18 @@ install.packages("haven")       # SPSS, SAS, Stata file import
 install.packages("jsonlite")    # JSON handling
 install.packages("DBI")         # Database interface
 install.packages("RSQLite")     # SQLite database
+install.packages("class")
+install.packages("tidyr")
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("readxl")
+install.packages("stringr")
+install.packages("scales")
+install.packages("lubridate")
+install.ppackages("C50")
+install.packages("gmodels")
+install.packages("boruta")
 
 # Data Manipulation
 install.packages("tidyverse")   # Collection including dplyr, ggplot2, tidyr, etc.

@@ -1,0 +1,340 @@
+---
+title: "Data Science and Machine Learning Basics"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Basics
+
+## Vector creation
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+y <- 1:5
+```
+
+## Data types
+
+```{r}
+numeric_var <- 10.5
+integer_var <- 10L
+character_var <- "hello"
+logical_var <- TRUE
+```
+
+## Data structures
+
+```{r}
+# One-dimensional, same type
+vector <- c(1, 2, 3) 
+
+# One-dimensional, mixed types
+list <- list(1, "a", TRUE) 
+
+# Two-dimensional, same type
+matrix <- matrix(1:6, nrow=2, ncol=3) 
+
+# Two-dimensional, different types per column
+data.frame <- data.frame(
+  id = 1:3,
+  name = c("A", "B", "C")
+)
+```
+
+## Indexing
+
+```{r}
+# Second element
+vector[2] 
+
+# First row, second column
+matrix[1, 2] 
+
+# Column 'name'
+data.frame$name 
+
+# Rows where id > 1
+data.frame[data.frame$id > 1, ] 
+```
+
+## Installing/loading packages
+
+```{r eval=FALSE}
+install.packages("package_name")
+library(package_name)
+```
+
+# Descriptive Statistics
+
+## Measures of central tendency
+
+```{r}
+mean(x)
+median(x)
+
+# Mode (no built-in function)
+table(x) # Frequency table
+```
+
+## Measures of dispersion
+
+```{r}
+range(x) # Min and max
+var(x)   # Variance
+sd(x)    # Standard deviation
+IQR(x)   # Interquartile range
+```
+
+## Summary statistics
+
+```{r}
+summary(x) # Min, Q1, Median, Mean, Q3, Max
+```
+
+# Probability Distributions in R
+
+## Normal distribution
+
+```{r}
+# Random generation
+rnorm(10, mean = 0, sd = 1) 
+
+# Density (PDF)
+dnorm(0, mean = 0, sd = 1) 
+
+# Cumulative probability (CDF)
+pnorm(0, mean = 0, sd = 1) 
+
+# Quantile function (inverse CDF)
+qnorm(0.5, mean = 0, sd = 1) 
+```
+
+## Binomial distribution
+
+```{r}
+# Random generation
+rbinom(10, size = 10, prob = 0.5) 
+
+# Probability mass function
+dbinom(5, size = 10, prob = 0.5) 
+
+# Cumulative probability
+pbinom(5, size = 10, prob = 0.5) 
+
+# Quantile function
+qbinom(0.5, size = 10, prob = 0.5) 
+```
+
+Other distributions follow same pattern: `r*()`, `d*()`, `p*()`, `q*()` for: -
+pois (Poisson) - unif (Uniform) - t (t-distribution) - f (F-distribution) -
+chisq (Chi-squared), etc.
+
+# Hypothesis Testing
+
+## t-tests
+
+```{r eval=FALSE}
+# Two independent samples
+t.test(x, y) 
+
+# Paired samples
+t.test(x, y, paired = TRUE) 
+
+# One sample against hypothesized mean
+t.test(x, mu = 0) 
+```
+
+## Chi-square test
+
+```{r eval=FALSE}
+# Test of independence
+chisq.test(table(factor1, factor2)) 
+```
+
+## Correlation tests
+
+```{r eval=FALSE}
+# Pearson correlation by default
+cor.test(x, y) 
+
+# Spearman correlation
+cor.test(x, y, method="spearman") 
+```
+
+# Linear Regression
+
+## Simple linear regression
+
+```{r eval=FALSE}
+model <- lm(y ~ x, data = df)
+```
+
+## Multiple linear regression
+
+```{r eval=FALSE}
+model <- lm(y ~ x1 + x2 + x3, data = df)
+```
+
+## Model inspection
+
+```{r eval=FALSE}
+summary(model)          # Model summary
+coef(model)             # Coefficients
+confint(model)          # Confidence intervals for coefficients
+residuals(model)        # Residuals
+fitted(model)           # Fitted values
+plot(model)             # Diagnostic plots
+```
+
+## Prediction
+
+```{r eval=FALSE}
+predict(model, newdata = new_df)
+```
+
+# Logistic Regression
+
+## Binary logistic regression
+
+```{r eval=FALSE}
+model <- glm(y ~ x1 + x2, data = df, family = binomial)
+```
+
+## Model inspection
+
+```{r eval=FALSE}
+summary(model)
+exp(coef(model))  # Convert log-odds to odds ratios
+```
+
+## Prediction (probabilities)
+
+```{r eval=FALSE}
+predict(model, newdata = new_df, type = "response")
+```
+
+# Time Series Analysis
+
+## Creating time series object
+
+```{r eval=FALSE}
+# Monthly data
+ts_data <- ts(data, frequency = 12) 
+```
+
+## Decomposition
+
+```{r eval=FALSE}
+# Type can be "multiplicative" or "additive"
+decomposed <- decompose(ts_data, type = "multiplicative") 
+plot(decomposed)
+```
+
+## Autocorrelation
+
+```{r eval=FALSE}
+acf(ts_data)   # Autocorrelation function
+pacf(ts_data)  # Partial autocorrelation function
+```
+
+# Supervised Machine Learning
+
+## K-Nearest Neighbors (KNN)
+
+```{r eval=FALSE}
+library(class)
+prediction <- knn(train = train_data, test = test_data, cl = train_labels, k = 5)
+```
+
+## Decision Trees
+
+```{r eval=FALSE}
+library(rpart)
+tree_model <- rpart(formula = y ~ ., data = training_data, method = "class")
+plot(tree_model)
+text(tree_model)
+
+# Prediction
+predictions <- predict(tree_model, newdata = test_data, type = "class")
+```
+
+## Boruta (Feature Selection)
+
+```{r eval=FALSE}
+library(Boruta)
+boruta_output <- Boruta(y ~ ., data = df)
+print(boruta_output)
+plot(boruta_output)
+```
+
+## Confusion Matrix Metrics
+
+```{r eval=FALSE}
+library(caret)
+confusionMatrix(predictions, reference)
+```
+
+Metrics: - Accuracy = (TP + TN) / (TP + TN + FP + FN) - Precision = TP / (TP +
+FP) - Recall (Sensitivity) = TP / (TP + FN) - Specificity = TN / (TN + FP) - F1
+Score = 2 \* (Precision \* Recall) / (Precision + Recall)
+
+## Caret Package
+
+```{r eval=FALSE}
+library(caret)
+
+# Data splitting
+trainIndex <- createDataPartition(y, p = 0.7, list = FALSE)
+training <- data[trainIndex, ]
+testing <- data[-trainIndex, ]
+
+# Training with cross-validation
+ctrl <- trainControl(method = "cv", number = 10)
+model <- train(y ~ ., data = training, method = "rf", trControl = ctrl)
+
+# Prediction
+predictions <- predict(model, newdata = testing)
+
+# Evaluation
+confusionMatrix(predictions, testing$y)
+```
+
+# Key Concepts
+
+## Statistical Concepts
+
+-   **Law of Large Numbers**: Sample mean approaches population mean as sample
+    size increases
+-   **Central Limit Theorem**: Distribution of sample means approximates normal
+    distribution regardless of population distribution
+-   **p-value**: Probability of observing test statistic as extreme or more
+    extreme than observed, assuming null hypothesis is true
+-   **Type I Error**: False positive (rejecting true null hypothesis)
+-   **Type II Error**: False negative (failing to reject false null hypothesis)
+-   **Confidence Interval**: Range of values likely to contain population
+    parameter with specified confidence level
+
+## Machine Learning Concepts
+
+-   **Supervised Learning**: Algorithm trained on labeled data
+-   **Unsupervised Learning**: Algorithm finds patterns in unlabeled data
+-   **Classification**: Predicting categorical output
+-   **Regression**: Predicting continuous output
+-   **Feature Engineering**: Process of creating new features from raw data
+-   **Overfitting**: Model performs well on training data but poorly on new data
+-   **Cross-validation**: Technique to assess how model generalizes to
+    independent data
+
+## Ethical Considerations
+
+-   **Algorithmic Bias**: Systematic errors creating unfair outcomes
+-   **GDPR Principles**: Lawfulness, fairness, transparency, purpose limitation,
+    data minimization, accuracy, storage limitation, integrity, confidentiality,
+    accountability
+-   **Data Anonymization**: Removing personally identifiable information
+-   **Synthetic Data**: Artificially generated data mimicking statistical
+    properties of real data
+-   **Ethics by Design**: Integrating ethical considerations throughout data
+    science lifecycle

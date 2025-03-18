@@ -13,7 +13,7 @@ install.packages("readxl")
 install.packages("stringr")
 install.packages("scales")
 install.packages("lubridate")
-install.ppackages("C50")
+install.packages("C50")
 install.packages("gmodels")
 install.packages("boruta")
 

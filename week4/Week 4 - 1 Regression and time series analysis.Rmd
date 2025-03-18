@@ -1,0 +1,1281 @@
+> Regression, Time Series & Survival Analysis
+
+Prof. Raymond Bond
+
+> School of Computing
+>
+> rb.bond@ulster.ac.uk
+
+Lecture Outline
+
+-   Review correlation
+
+-   Linear regression
+
+-   Multiple regression
+
+-   Model fitness and significance
+
+-   Using regression as a predictive model
+
+-   Evaluating a linear regression model
+
+-   Logistic regression
+
+-   Time series analysis
+
+-   Survival analysis
+
+Correlation / association
+
+-   Correlation
+
+> -- Strength of association between variables
+
+![](media/image1.jpeg){width="6.973611111111111in"
+height="3.8534722222222224in"}
+
+> [[https://en.wikipedia.org/wiki/Pearson_correlation_coefficient]{.underline}](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)
+
+Correlation coefficients
+
+-   Parametric
+
+> -- Pearson
+
+cor(x, y, method = c(\"pearson\", \"kendall\", \"spearman\"))
+
+-   Non- Parametric
+
+> -- Spearman's rho
+>
+> -- Kendall's tau (likely better for smaller sample sizes)
+
+-   Partial correlation
+
+Iris dataset:
+
+[[https://www.kaggle.com/datasets/uciml/iris?resource=download]{.underline}](https://www.kaggle.com/datasets/uciml/iris?resource=download)
+
+cor.test(iris\$Sepal.Length, iris\$Sepal.Width, method=\"pearson\")
+
+![](media/image2.png){width="8.909722222222221in"
+height="5.410416666666666in"}
+
+Adjacency matrix
+
+cor(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
+\"Petal.Length\",\"Petal.Width\")\])
+
+![](media/image3.jpeg){width="9.598611111111111in"
+height="1.8833333333333333in"}
+
+Scatterplot Matrix (SPLOM)
+
+> pairs(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
+> \"Petal.Length\",\"Petal.Width\")\])
+
+![](media/image4.jpeg){width="6.926388888888889in" height="5.9125in"}
+
+> install.packages(\"psych\")
+>
+> library(psych)
+>
+> pairs.panels(iris\[c(\"Sepal.Length\",\"Sepal.Width\",
+> \"Petal.Length\",\"Petal.Width\")\])
+
+![](media/image5.jpeg){width="7.516666666666667in"
+height="6.490972222222222in"}
+
+![](media/image6.png){width="8.685416666666667in"
+height="6.490972222222222in"}
+
+> Correlation ellipse
+>
+> Loess curve ![](media/image7.png){width="2.3180555555555555in"
+> height="0.2638888888888889in"}
+
+Means
+
+> Lantz, B. *Machine learning with R: expert techniques for predictive
+> modeling*. Packt publishing ltd.
+
+Correlation is not causation
+
+> The crow of the rooster and the sun rise
+
+*"Lucky is he who has been able to understand the causes of things." -
+Virgil*
+
+[[https://libquotes.com/virgil/quote/lbn0r6u]{.underline}](https://libquotes.com/virgil/quote/lbn0r6u)
+
+"...you are smarter than your data. Data do not understand causes and
+effects; humans do..."
+
+> --Judea Pearl and Dana Mackenzie
+>
+> Humans can do counterfactual reasoning etc....
+>
+> Pearl J, Mackenzie D. The book of why: the new
+>
+> science of cause and effect. Penguin
+>
+> Definition of Regression
+>
+> Regression models the relationship between one or many **independent**
+> variables (features) with one **dependent/target** variable.
+>
+> Typically used to model **continuous variables** However, dummy
+> variables can be created. e.g. heartDisease = 1 or 0
+>
+> **Multiple regression** vs. **simple linear regression**
+
+[[https://en.wikipedia.org/wiki/Linear_regression]{.underline}](https://en.wikipedia.org/wiki/Linear_regression)
+
+Regression? Strange term?
+
+> Regression?
+>
+> Regression to the mean
+>
+> Heights of parents vs. heights of their children
+
+*"It appeared from these experiments that the offspring did not tend to
+resemble their parents in size, but always to be more mediocre than they
+-- to be smaller than the parents, if the parents were large; to be
+larger than the parents, if the parents were small."*
+
+Sir Francis Galton
+
+[[https://select-statistics.co.uk/blog/regression-to-the-mean-as-relevant-today-as-it-was-in-the-1900s/]{.underline}](https://select-statistics.co.uk/blog/regression-to-the-mean-as-relevant-today-as-it-was-in-the-1900s/)
+
+Simple Linear Regression
+
+![](media/image8.jpeg){width="4.704861111111111in"
+height="4.597222222222222in"}
+
+![](media/image9.jpeg){width="0.5430555555555555in"
+height="0.5402777777777777in"}= m\*X + b
+
+[e.g.]{.mark} = 1.2\*X + 2
+
+> Coefficient
+>
+> Intercept
+
+![](media/image10.png){width="0.8465277777777778in"
+height="0.9076388888888889in"}
+
+> ![](media/image12.jpeg){width="0.5430555555555555in"
+> height="0.5402777777777777in"}= m\*X + b
+>
+> = b~0~ + b~1~ X
+
+![](media/image13.png){width="2.75in" height="1.1402777777777777in"}
+
+Multiple Linear Regression
+
+> hat
+
+![](media/image14.png){width="0.73125in" height="0.39305555555555555in"}
+
+![](media/image15.jpeg){width="0.5402777777777777in"
+height="0.5430555555555555in"}= b\*X + c\*Y + d\*Z + a
+
+![](media/image16.png){width="3.3583333333333334in"
+height="2.2305555555555556in"}
+
+> Uppercase sigma
+
+![](media/image17.png){width="10.0in" height="7.5in"}
+
+> Finds the regression line that has the least squared error between
+> what is predicted and the actual values. OLS minimizes the sum of the
+> squared **residuals**.
+>
+> It finds **m** and **b**.
+
+Exercise -- watch online videos
+
+-   [[https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data/residuals-least-squares-rsquared/v/second-regression-example]{.underline}](https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data/residuals-least-squares-rsquared/v/second-regression-example)
+
+> [Using regression to predict sales based on temperature:]{.mark}
+
+-   [[https://www.youtube.com/watch?v=aq8VU5KLmkY]{.underline}](https://www.youtube.com/watch?v=aq8VU5KLmkY)
+
+![](media/image18.png){width="10.0in" height="7.5in"}
+
+Definition: How the regression line fits the observed data
+
+Goodness of Fit
+
+**R-squared = proportion of explained variance**
+
+-   **Squared (**Coefficient of determination**)**
+
+<!-- -->
+
+-   R-squared is the % of the total variation which the model explains
+
+-   R-squared is always between 0 and 100% or 0 and 1
+
+-   R-squared is a statistical measure of how close the data are to the
+    fitted regression line.
+
+http://blog.minitab.com/blog/adventures-in-statistics/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
+
+![](media/image19.png){width="10.0in" height="7.5in"}
+
+Goodness of Fit:
+
+> Residuals absolute error
+>
+> Residual = Observed value - Predicted value e = y - ŷ
+>
+> Residuals error e = Σ \|y - ŷ\| / n
+
+5
+
+> 4
+>
+> 1.5
+>
+> 3
+>
+> 2
+>
+> -1
+>
+> 1
+>
+> [<http://stattrek.com/regression/residual-analysis.aspx?Tutorial=AP>
+> <https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data/residuals-least-squares-rsquared/a/introduction-to-residuals>]{.underline}
+>
+> Residual plot
+>
+> 5
+
+![](media/image20.png){width="5.554861111111111in"
+height="4.949305555555555in"}
+
+4
+
+3
+
+2
+
+1
+
+-1
+
+-2
+
+[<http://stattrek.com/regression/residual-analysis.aspx?Tutorial=AP>
+<https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data/residuals-least-squares-rsquared/a/introduction-to-residuals>]{.underline}
+
+Statistical Significance in
+
+Regression - F Test
+
+> Compares a model with no predictors (intercept-only model) to your
+> model.
+>
+> **"Null hypothesis:** The fit of the intercept-only model and your
+> model are equal.
+>
+> **Alternative hypothesis:** The fit of the intercept-only model is
+> significantly reduced compared to your model."
+
+http://blog.minitab.com/blog/adventures-in-statistics/what-is-the-f-test-of-overall-significance-in-regression-analysi
+
+Simpsons Paradox
+
+![](media/image21.jpeg){width="7.727083333333334in"
+height="5.144444444444445in"}
+
+[[https://en.wikipedia.org/wiki/Simpson%27s_paradox]{.underline}](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+
+Beware of making inferences
+
+from medical records
+
+-   1986 study -- 2 procedures to remove kidney stones
+
+> -- Open surgery and nephrolithotomy
+
+-   Data analysis showed that one type of treatment was better than the
+    other
+
+-   But it turned out on closer inspection that one type of treatment
+    was typically used by doctors when there was a small kidney stone
+
+Reinhart A. Statistics done wrong: The woefully complete guide. No
+starch press
+
+Julious, S.A. and Mullee, M.A., 1994. Confounding and Simpson\'s
+paradox. *Bmj*, *309*(6967), pp.1480-1481.
+
+Bickel, P.J., Hammel, E.A. and O\'Connell, J.W., 1975. Sex Bias in
+Graduate Admissions: Data from Berkeley: Measuring bias is harder than
+is usually assumed, and the evidence is sometimes contrary to
+expectation. *Science*, *187*(4175), pp.398-404.
+
+Anscombe\'s quartet
+
+![](media/image22.jpeg){width="7.5in" height="5.4534722222222225in"}
+
+> [[https://en.wikipedia.org/wiki/Anscombe%27s_quartet]{.underline}](https://en.wikipedia.org/wiki/Anscombe%27s_quartet)
+
+[*[Anscombe, F.
+J.]{.underline}*](https://en.wikipedia.org/wiki/Frank_Anscombe) *(1973).
+\"Graphs in Statistical Analysis\". [[American
+Statistician]{.underline}](https://en.wikipedia.org/wiki/American_Statistician).
+**27** (1): 17--*
+
+21. *[[doi]{.underline}](https://en.wikipedia.org/wiki/Digital_object_identifier):[[10.1080/00031305.1973.10478966]{.underline}](https://doi.org/10.1080%2F00031305.1973.10478966).*
+    [*[JSTOR]{.underline}*](https://en.wikipedia.org/wiki/JSTOR)
+    *[[2682899]{.underline}](https://www.jstor.org/stable/2682899).*
+
+> **Segmented regression**
+
+-   AKA piecewise regression / \"broken-stick regression"
+
+![](media/image23.png){width="8.16388888888889in"
+height="4.353472222222222in"}
+
+> When x \< 2
+>
+> When x \> 2
+>
+> [[https://stats.stackexchange.com/questions/14538/not-usual-piecewise-linear-regression]{.underline}](https://stats.stackexchange.com/questions/14538/not-usual-piecewise-linear-regression)
+
+Building a model using
+
+Multiple Regression
+
+-   Stepwise regression
+
+> -- Use a test for each independent variable (correlation)
+>
+> -- Model building using iteration
+
+-   Forward selection
+
+-   Backwards elimination
+
+> Keep in mind [multicollinearity]{.mark}
+
+-   This is when multiple predictors are highly correlated meaning that
+    coefficients maybe less interpretable
+
+-   Variance inflation factor (VIF)
+
+Tutorial and Exercises
+
+**Open in rundata.csv in Excel**
+
+plot(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image24.jpeg){width="5.560416666666667in"
+height="5.432638888888889in"}
+
+plot(rundata\$FirstRun, rundata\$SecondRun) reg1 \<- lm(
+rundata\$SecondRun \~rundata\$FirstRun)
+
+abline(reg1)
+
+![](media/image25.jpeg){width="4.690972222222222in"
+height="4.583333333333333in"}
+
+Compute the Pearson Correlation Coefficient
+
+> cor(rundata\$FirstRun, rundata\$SecondRun)
+>
+> *r* = 0.9762012
+
+![](media/image26.jpeg){width="7.503472222222222in"
+height="1.1034722222222222in"}
+
+> https://en.wikipedia.org/wiki/Correlation
+
+Check if the Correlation is
+
+significant
+
+> cor.test(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image27.jpeg){width="4.84375in" height="1.9166666666666667in"}
+
+Simple Linear Regression Tutorial
+
+![](media/image28.jpeg){width="4.690972222222222in"
+height="4.583333333333333in"}
+
+> Y = m\*X + b
+>
+> Multiple Regression Tutorial
+
+lma \<- lm(rundata\$FinalRun \~ FirstRun + SecondRun, data=rundata)
+
+summary(lma)
+
+help(\"\~\") - tilde is used to separate the left- and right-hand sides
+in a model formula.
+
+![](media/image29.jpeg){width="6.916666666666667in"
+height="5.138888888888889in"}
+
+> Reason for Adjusted R Squared
+>
+> Use [adjusted R-squared]{.underline} since R-squared can improve just
+> by adding more independent variables
+
+http://blog.minitab.com/blog/adventures-in-statistics/multiple-regession-analysis-use-adjusted-r-squared-and-predicted-r-squared-to-include-the-correct-number-of-variables
+
+> Simple Regression Tutorial
+
+lma \<- lm(FinalRun \~ FirstRun + SecondRun, data=rundata)
+
+newdata \<- data.frame(FirstRun=22, SecondRun=25)
+
+predict(lma, newdata)
+
+![](media/image30.jpeg){width="1.3888888888888888in"
+height="0.8472222222222222in"}
+
+help(\"\~\") - tilde is used to separate the left- and right-hand sides
+in a model formula.
+
+> Simple Regression Tutorial
+
+Important to randomly reorder dataset to avoid order bias.
+
+set.seed(12345)
+
+run2 \<- rundata\[ order( runif(99) ) , \]
+
+lma \<- lm(FinalRun \~ FirstRun + SecondRun, data=run2\[c(1:80),\])
+
+testing \<- run2\[c(81:99), \] predictions \<- predict(lma, testing)
+
+Simple Regression Tutorial
+
+> Different between prediction and truth
+
+diff \<- predictions - testing\$FinalRun
+
+![](media/image31.jpeg){width="4.165277777777778in"
+height="4.069444444444445in"}
+
+diff_ABS \<- abs(diff)
+
+mean(diff)
+
+hist(diff_ABS)
+
+boxplot(diff_ABS)
+
+Simple Regression Tutorial
+
+How many predicted distances of the final run were higher than the real
+distance of the final run?
+
+length( diff\[diff\> 0\] )
+
+How many predicted distances were within 2km of the real distance of the
+final run?
+
+length( diff_ABS\[diff_ABS\<=2\] )
+
+> Simple Regression Tutorial
+
+testing\$prediction \<- predictions
+
+testing\$difference \<- diff_ABS
+
+![](media/image32.png){width="7.604861111111111in"
+height="7.111111111111111in"}
+
+> You should have two new
+>
+> columns similar to this.
+>
+> Other topics
+
+-   Accounting for nonlinear relationships / polynomials
+
+> -- e.g. square a variable and add it to the model
+
+-   i.e. newVariable \<- someIndependentVariable\^2
+
+<!-- -->
+
+-   Interaction effects
+
+> --
+>
+> --
+
+Using when wanting to assess the combined effect of variables
+dependentVariable \~ IndependentVariableOne\* IndependentVariableTwo
+
+Lantz, B. *Machine learning with R: expert techniques for predictive
+modeling*. Packt publishing ltd.
+
+Logistic Regression
+
+> A regression model where the dependent variable is nominal/categorical
+>
+> Useful for feature engineering Useful for binary classification
+
+-   Technology adoption
+
+-   Success/Unsuccess
+
+-   Pass/Fail
+
+-   Admitted or not admitted
+
+> Useful for calculating the Odds Ratios for each independent variable,
+> hence good for feature selection
+
+Logistic Regression
+
+**Input:** can take any value from a negative infinity to a positive
+infinity
+
+**Output:** values from 0 to 1 (a probability)
+
+![](media/image33.jpeg){width="4.083333333333333in"
+height="2.7534722222222223in"}
+
+> https://en.wikipedia.org/wiki/Logistic_regression
+
+![](media/image34.jpeg){width="9.0in" height="6.522222222222222in"}
+
+[[https://en.wikipedia.org/wiki/Logistic_regression#/media](https://en.wikipedia.org/wiki/Logistic_regression)
+[/File:Exam_pass_logistic_curve.jpeg](https://en.wikipedia.org/wiki/Logistic_regression)]{.underline}
+
+> [[Michaelg
+> 2015](https://commons.wikimedia.org/wiki/User:Michaelg2015). [CC BY-SA
+> 4.0](https://creativecommons.org/licenses/by-sa/4.0)]{.underline}
+>
+> Video Exercise
+
+StatQuest: Logistic Regression. -
+[[https://www.youtube.com/watch?v=yIYKR4sgzI8]{.underline}](https://www.youtube.com/watch?v=yIYKR4sgzI8)
+
+> Other related techniques
+
+-   Multinomial logistic regression
+
+Exercise
+
+rundata\$superrun = ifelse(rundata\$FinalRun \>= 45, 1, 0)
+
+> logitModel \<- glm(superrun \~ FirstRun + SecondRun, data=rundata,
+> family=binomial(link=\"logit\"))
+
+![](media/image35.jpeg){width="4.024305555555555in"
+height="3.4097222222222223in"}
+
+summary(logitModel)
+
+> Exercise
+
+exp(coef(logitModel))
+
+> exp(cbind(OR = coef(logitModel), confint(logitModel)))
+
+![](media/image36.jpeg){width="5.847222222222222in"
+height="1.0972222222222223in"}
+
+> ![](media/image37.png){width="10.0in" height="7.5in"}
+>
+> What are the odds of winning the
+
+next football game?
+
+> From the last 10 games, if you won 5 and lost 3 then what are the odds
+> of winning the next game?
+>
+> 5/3 = 1.66... times
+>
+> StatQuest: Odds and Log(Odds):
+> [[https://www.youtube.com/watch?v=ARfXDSkQf1Y&t=86s]{.underline}](https://www.youtube.com/watch?v=ARfXDSkQf1Y&t=86s)
+
+![](media/image38.png){width="10.0in" height="7.5in"}
+
+Spend time learning thsese for binary
+
+> 100
+
+(100 -- specificity)
+
+IntrestedStatisticalinstudyingrelationshipbtw Modelvars vs. PredictiveML
+power,algorithmaccuracyresidualerror
+
+What is the difference?
+
+> To learn more - watch
+
+-   Stats quest:
+
+> -- Logistic regression overview
+
+-   [[https://www.youtube.com/watch?v=yIYKR4sgzI8]{.underline}](https://www.youtube.com/watch?v=yIYKR4sgzI8)
+
+> -- Logistic regression coefficients
+
+-   [[https://www.youtube.com/watch?v=vN5cNN2-HWE]{.underline}](https://www.youtube.com/watch?v=vN5cNN2-HWE)
+
+> -- Maximum likelihood
+
+-   [[https://www.youtube.com/watch?v=BfKanl1aSG0]{.underline}](https://www.youtube.com/watch?v=BfKanl1aSG0)
+
+> -- R squared and p values for logistic regression
+
+-   [[https://www.youtube.com/watch?v=xxFYro8QuXA]{.underline}](https://www.youtube.com/watch?v=xxFYro8QuXA)
+
+> -- Odds ratios from logit
+
+-   [[https://www.youtube.com/watch?v=8nm0G-1uJzA]{.underline}](https://www.youtube.com/watch?v=8nm0G-1uJzA)
+
+> Receiver Operator Characteristic -- Optional Exercise / Reading
+
+-   [[Play:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [--
+> [http://www.navan.name/roc/]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+-   [[Watch:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [https://www.youtube.com/watch?v=OAl6e](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+![](media/image39.png){width="8.375in" height="2.7777777777777776e-2in"}
+
+> [[AyP-yo]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+-   [[Read:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [[http://people.inf.elte.hu/kiss/13dwhdm/roc.p](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+> [df](https://www.youtube.com/watch?v=OAl6eAyP-yo)]{.underline}
+>
+> Optional Exercise
+
+Studying the Titanic passenger survival
+
+-Titanic dataset from Kaggle
+[[https://www.kaggle.com/c/titanic]{.underline}](https://www.kaggle.com/c/titanic)
+-build a logistic regression model for survival
+
+![](media/image40.jpeg){width="7.196527777777778in"
+height="4.6402777777777775in"}
+
+> What is a time series?
+
+-   Data that has a temporal dimension and can be plotted as a line
+    graph
+
+> -- Minutes
+>
+> -- Hours
+>
+> -- Days
+>
+> -- Months
+>
+> -- Years
+
+-   Examples: Temperature over days of the year, number of callers to a
+    call-line per hour, number of patients in A&E per day....
+
+> Time series analysis methods
+
+-   Time-domain analysis (we will focus on this)
+
+-   Frequency domain analysis (Fourier, wavelet analysis)
+
+X axis and Y axis = x and t
+
+> x~1\ =~ first value in vector
+>
+> t~1~ = first time point (first day, hour...)
+
+![](media/image41.png){width="9.605555555555556in" height="4.9125in"}
+
+> Trend and Seasonality
+
+Peaks and troughs
+
+> Number of births per month in NY (1946 -- 1959)
+
+[[https://a-little-book-of-r-for-time-]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
+
+[[series.readthedocs.io/en/latest/src/timeseries.html]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
+
+![](media/image42.jpeg){width="4.802777777777778in" height="4.9125in"}
+
+Number of births per month in NY (1946 -- 1959)
+
+> [[https://a-little-book-of-r-for-time-]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
+>
+> [[series.readthedocs.io/en/latest/src/timeseries.html]{.underline}](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html)
+>
+> R Code
+>
+> births \<- scan(\"http://robjhyndman.com/tsdldata/data/nybirths.dat\")
+>
+> birthstimeseries \<- [ts(births, frequency=12,
+> start=c(1946,1))]{.mark}
+>
+> plot.ts(birthstimeseries)
+
+Studying the trend
+
+![](media/image43.jpeg){width="4.709027777777778in"
+height="4.815972222222222in"}
+
+> **Plotting a regression line**
+>
+> R Code
+>
+> plot.ts(birthstimeseries)
+>
+> abline(reg=lm(birthstimeseries\~time(birthstimeseries)))
+
+**[Models the trend but nothing else.]{.mark}**
+
+Studying the trend
+
+**Using Moving Average Smoothing -- notice how this denoises the
+signal**
+
+![](media/image44.png){width="8.799305555555556in"
+height="4.013194444444444in"}
+
+> After SMA is applied
+
+![](media/image45.png){width="0.9152777777777777in" height="0.3125in"}
+
+Studying the trend
+
+**Using Simple Moving Average (SMA)**
+
+![](media/image46.jpeg){width="3.9243055555555557in"
+height="4.013194444444444in"}
+
+After SMA is applied
+
+> library(\"TTR\")
+>
+> birthstimeseries \<- SMA(birthstimeseries, n=15)
+>
+> plot.ts(birthstimeseries)
+>
+> Seasonality Trend Decomposition (STD)
+
+-   A technique to decompose a time series into different components
+
+> -- The trend
+>
+> -- The seasonality
+>
+> -- The random values
+
+Seasonality Trend Decomposition (STD)
+
+![](media/image47.jpeg){width="4.253472222222222in"
+height="4.350694444444445in"}
+
+> R Code
+>
+> birthstimeseriescomponents \<- decompose(birthstimeseries)
+>
+> plot(birthstimeseriescomponents)
+>
+> Filtering the random/error
+
+![](media/image48.jpeg){width="4.48125in" height="4.583333333333333in"}
+
+> birthstimeseriescomponents \<- decompose(birthstimeseries)
+>
+> [birthstimeseriesseasonallyadjusted \<- birthstimeseries -
+> birthstimeseriescomponents\$random]{.mark}
+>
+> plot.ts(birthstimeseriesseasonallyadjusted)
+>
+> Filtering the seasonality
+
+![](media/image49.jpeg){width="3.936111111111111in"
+height="4.026388888888889in"}
+
+> birthstimeseriescomponents \<- decompose(birthstimeseries)
+>
+> [birthstimeseriesseasonallyadjusted \<- birthstimeseries -
+> birthstimeseriescomponents\$seasonal]{.mark}
+>
+> plot.ts(birthstimeseriesseasonallyadjusted)
+>
+> Auto-correlation and partial auto-correlation
+
+-   Auto-correlation is a technique used to determine if a time series
+    'correlates' with itself (hence the term auto) with different
+    lags/shifts
+
+-   Determines whether a given time series is somewhat dependent on the
+    past -- i.e. seasonality
+
+-   E.g. is there a correlation between [t and t-1, aka with a lag of
+    1]{.mark}
+
+-   Auto-correlations are calculated for many lags -- up to a given
+    maximum lag value
+
+Auto-correlation (lag=1)
+
+-   Code
+
+> plot(birthstimeseries\[2:168\], birthstimeseries\[1:167\])
+
+[cor(birthstimeseries\[2:168\], birthstimeseries\[1:167\])]{.mark}
+
+![](media/image50.jpeg){width="5.788888888888889in"
+height="3.3993055555555554in"}
+
+> r=0.7880606
+>
+> Correlogram - Auto-correlation
+
+![](media/image51.jpeg){width="6.5625in" height="4.086111111111111in"}
+
+> R Code
+
+[acf(birthstimeseries, lag.max=24)]{.mark}
+
+> Time series data that does not exhibit any auto-correlation is known
+> as ['White Noise']{.mark}
+>
+> Partial auto-correlation
+
+-   This technique is similar to auto-correlation except the [values
+    represent the unique correlation between t and t-lag by factoring in
+    all the correlations in-between t and t-lag]{.mark}
+
+-   In other words, it provides a [unique correlation]{.mark}
+
+-   Both auto and partial correlation charts are also used to determine
+    the type of ARIMA model that can be used for forecasting values
+
+Partial auto-correlation
+
+![](media/image52.jpeg){width="6.356944444444444in"
+height="3.9583333333333335in"}
+
+pacf(birthstimeseries, lag.max=24)
+
+Auto-
+
+correlation
+
+Partial auto-
+
+![](media/image53.png){width="10.0in" height="7.5in"}
+
+correlation
+
+> 12 months
+
+Stationarity
+
+-   Stationarity
+
+> -- Stationary time series
+>
+> -- Non-Stationary time series
+
+-   A stationary time series means that the distribution is consistent
+    over time! Allowing the time series to be modelled
+
+-   Stationarity can be a pre-requisite for time series forecasting
+
+-   [A time series with a trend or seasonality is not stationary]{.mark}
+
+-   Example: A time series resembling white-noise is stationary
+
+> https://otexts.com/fpp2/stationarity.html
+>
+> A time series can be stationary if
+
+-   The mean value is constant over time (taking the mean at different
+    windows)
+
+-   The variance/SD is constant over time
+
+![](media/image54.png){width="10.0in" height="7.5in"}
+
+x x
+
+> t
+
+t
+
+> Both intervals have a similar mean and SD,
+>
+> hence a consistent distribution
+
+![](media/image55.png){width="10.0in" height="7.5in"}
+
+x ^x^
+
+> t ^t^
+>
+> Stationary mean
+
+Non-Stationary SD
+
+> Seasonality
+
+![](media/image56.png){width="3.022222222222222in" height="3.00625in"}
+
+> x
+>
+> t
+
+![](media/image57.jpeg){width="5.625in" height="5.625in"}
+
+> [[https://en.wikipedia.org/wiki/Stationary_process#/medi](https://en.wikipedia.org/wiki/Stationary_process)
+> [a/File:Stationarycomparison.png](https://en.wikipedia.org/wiki/Stationary_process)]{.underline}
+>
+> [[Protonk]{.underline}](https://en.wikipedia.org/wiki/User:Protonk)
+> [[CC BY-SA
+> 3.0]{.underline}](https://creativecommons.org/licenses/by-sa/3.0)
+
+Augmented dickey fuller test for stationarity
+
+-   Null hypothesis: non-stationary
+
+-   Alternative hypothesis: stationary
+
+> R Code
+
+![](media/image58.jpeg){width="6.209027777777778in"
+height="1.7958333333333334in"}
+
+> library(\"tseries\")
+>
+> x \<- rnorm(1000)
+>
+> adf.test(x)
+>
+> **[Stationarize your data:]{.mark}** Transforming non-stationary time
+> series data to stationary time series data
+
+-   **Differencing**
+
+> -- Differencing is a one possible solution to remove the trend
+> (inconsistent
+>
+> mean) and seasonality (although to remove seasonality you need to
+> difference between current point and the corresponding point in the
+> previous period/season)
+>
+> [So if the temperature for 3 days was 10, 12, 15, 17... This would be
+> plotted as 2, 3, 2...]{.mark}
+>
+> Removes trend
+>
+> Removes season
+
+^Y^t ^--\ Y^t-1
+
+^Y^t ^--\ Y^t-s
+
+> **Differencing (first order)**
+>
+> **-- notice the de-trending**
+
+R Code
+
+[plot.ts( diff(birthstimeseries) )]{.mark}
+
+![](media/image59.png){width="10.0in" height="2.948611111111111in"}
+
+> First order differencing
+
+ARMA/ARIMA models for
+
+forecasting
+
+ARIMA stands for:
+
+-   **Auto-regressive** (meaning that we are using multiple regression
+    with different values from the same variable at different time
+    points)
+
+-   **Integrated** (differencing)
+
+-   **Moving Average** (a model -- different from MA smoothing)
+
+ARMA is used when the time series is already stationary When it isn't,
+you use ARIMA
+
+AR and MA are two separate forecasting models that are being combined
+here
+
+[[https://www.statisticshowto.com/arma-model/]{.underline}](https://www.statisticshowto.com/arma-model/)
+
+> Setting parameters for ARIMA models / forecasting
+
+^**AR**\ order^ **MA** order
+
+![](media/image60.png){width="1.3423611111111111in"
+height="0.5993055555555555in"}
+
+ARMA(p, q)
+
+ARIMA(p, d, q)
+
+![](media/image61.png){width="0.8076388888888889in"
+height="0.8284722222222223in"}
+
+P = number of lagged values
+
+as independent variables in the regression model
+
+> ^**AR**\ order^ Order of **differencing** **MA** order
+
+https://otexts.com/fpp2/AR.html
+
+> Setting parameters for ARIMA models / forecasting
+
+Full control of model parameters in R:
+
+[NOTE: Data is monthly number of airline passengers - 1949 to
+1960]{.mark}
+
+modelfit \<- arima(AirPassengers, c(1, 1, 1), seasonal = list(order =
+c(0, 1, 1), period = 12) )
+
+forecasts \<- predict(modelfit, n.ahead = 120)
+
+ts.plot(AirPassengers, forecasts\$pred, lty = c(1,3))
+
+Ref:
+[[https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/]{.underline}](https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/)
+
+> Setting parameters for ARIMA models / forecasting
+
+![](media/image63.jpeg){width="6.785416666666666in"
+height="5.115277777777778in"}
+
+[[https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/]{.underline}](https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/)
+
+> The automatic approach
+
+library(forecast)
+
+modelfit \<- auto.arima(AirPassengers)
+
+forecasts \<- forecast( modelfit, h=50 )
+
+plot( forecasts )
+
+Read: https://otexts.com/fpp2/arima-r.html
+
+The automatic approach
+
+![](media/image64.jpeg){width="6.156944444444444in"
+height="4.032638888888889in"}
+
+![](media/image65.jpeg){width="6.479166666666667in"
+height="5.614583333333333in"}
+
+checkresiduals(modelfit)
+
+Metrics
+
+accuracy(forecasts)
+
+![](media/image66.png){width="8.870138888888889in"
+height="1.1152777777777778in"}
+
+> Training and testing
+
+library(forecast)
+
+#9 years of training data
+
+AirPassengersTrain \<- ts(AirPassengers\[1:108\], frequency=12,
+start=c(1949,1))
+
+#3 years of testing data
+
+AirPassengersTest \<- ts(AirPassengers\[109:144\], frequency=12,
+start=c(1958,1))
+
+modelfit \<- auto.arima(AirPassengersTrain)
+
+forecasts \<- forecast( modelfit, h=36 )
+
+accuracy(f = forecasts, x = AirPassengersTest)
+
+![](media/image67.jpeg){width="7.291666666666667in"
+height="0.6145833333333334in"}
+
+Training and testing
+
+![](media/image68.png){width="7.291666666666667in"
+height="1.9027777777777777in"}
+
+Overfitting??
+
+> mean( abs( AirPassengersTest - forecasts\$mean ) )
+
+![](media/image69.jpeg){width="0.8125in" height="0.2708333333333333in"}
+
+Training and testing
+
+![](media/image70.jpeg){width="4.86875in" height="5.227777777777778in"}
+
+plot( AirPassengersTest, col=\"red\", ylab=\"values\")
+
+lines(forecasts\$mean, col=\"blue\")
+
+> Other R functions -- simulating a time series
+
+simulatedTS \<- arima.sim(model=list(order=c(0,0,1), ma=0.9), n=100)
+
+plot(x)
+
+![](media/image71.jpeg){width="5.58125in" height="3.654861111111111in"}
+
+Links to explore /references
+
+-   [[https://otexts.com/fpp2/]{.underline}](https://otexts.com/fpp2/)
+
+-   [[https://www.analyticsvidhya.com/blog/2015](https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/)
+    [/12/complete-tutorial-time-series-modeling/](https://www.analyticsvidhya.com/blog/2015/12/complete-tutorial-time-series-modeling/)]{.underline}
+
+-   MA tutorial -
+    [[https://www.youtube.com/watch?v=voryLhxi](https://www.youtube.com/watch?v=voryLhxiPzE)
+    [PzE](https://www.youtube.com/watch?v=voryLhxiPzE)]{.underline}
+
+Survival analysis
+
+-   Typically used to study the survival of patients
+
+> -- Examples:
+
+-   comparing the 'survival rates' of patients who are on different
+    treatments
+
+-   Comparing user retention between 2 apps
+
+> Kaplan Meier plots
+
+![](media/image72.jpeg){width="5.333333333333333in"
+height="4.597222222222222in"}
+
+> Probability of survival at a certain number of days
+>
+> Hypothesis test
+>
+> • Log-rank test
+
+[[https://en.wikipedia.org/wiki/Kaplan%E2%80%93Meier]{.underline}](https://en.wikipedia.org/wiki/Kaplan%E2%80%93Meier_estimator)
+
+[[\_estimator#/media/File:Km_plot.jpg](https://en.wikipedia.org/wiki/Kaplan%E2%80%93Meier_estimator)
+•[Public
+Domain](https://commons.wikimedia.org/wiki/File:Km_plot.jpg)]{.underline}
+
+> User retention curves
+
+![](media/image73.jpeg){width="5.410416666666666in"
+height="6.158333333333333in"}
+
+> Devices
+>
+> App
+
+Sheng, Y., Doyle, J.,
+
+Bond, R., Jaiswal, R.,
+
+Gavin, S. and Dinsmore,
+
+J., 2022. Home-based
+
+digital health technologies
+
+for older adults to self-
+
+manage multiple chronic
+
+conditions: A data-
+
+informed analysis of user
+
+engagement from a
+
+longitudinal trial. *Digital*
+
+*Health*, *8*,
+
+p.20552076221125957.
+
+> User retention curves
+
+![](media/image74.jpeg){width="8.1875in" height="3.761111111111111in"}
+
+> Bond, R., Moorhead, A., Mulvenna, M., O\'Neill, S., Potts, C. and
+> Murphy, N., 2019. Exploring temporal behaviour of app users completing
+> ecological momentary assessments using mental health scales and mood
+> logs. *Behaviour & Information Technology*, *38*(10), pp.1016-1027.
+>
+> Example code/solution for user retention analysis / Kaplan Meier plots
+
+**User tenure:** number of days between a user's first day of engagement
+and their last day of engagement app/service) for each user. This code
+assumes that your have calculated this already.
+
+The code counts the number of people in the service at day 1, day 2 ...
+etc.
+
+Example only:
+
+**a** = maximum user tenure
+
+tmp \<- vector(length=**a**)
+
+> for(i in 1: **a**){
+>
+> numberOfUsers \<- test\$user_tenures\[test\$user_tenures \> i\]
+>
+> tmp\[i\] \<- length(numberOfUsers)
+>
+> }
+>
+> plot(tmp, type = \'l\', main=\"User retention curve\", ylab=\"Number
+> of users\", xlab=\"Number of days\")
+
+Survival package/s: Example
+
+> Source:
+> [[https://www.tutorialspoint.com/r/r_survival_analysis.htm]{.underline}](https://www.tutorialspoint.com/r/r_survival_analysis.htm)
+
+**install.packages(\"survival\")**
+
+library(\"survival\")
+
+survfit( Surv(pbc\$time, pbc\$status == 2)\~1 )
+
+plot( survfit( Surv(pbc\$time, pbc\$status == 2) \~1) )
+
+![](media/image75.png){width="9.850694444444445in"
+height="7.372222222222222in"}
+
+> Kaplan Meier plot
+
+Source:
+[[https://www.tutorialspoint.com/r/r_survival_analysis.htm]{.underline}](https://www.tutorialspoint.com/r/r_survival_analysis.htm)

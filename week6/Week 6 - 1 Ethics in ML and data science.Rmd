@@ -1,0 +1,659 @@
+Ethics in Data Science &
+
+Machine Learning
+
+> Prof. Raymond Bond
+>
+> Rb.bond@ulster.ac.uk
+
+Data Governance
+
+> **Personal data:**
+
+**General Data Protection Regulation (GDPR)**
+
+-   7 principles
+
+    1.  *"Lawfulness, fairness and transparency*
+
+    2.  *Purpose limitation*
+
+    3.  *Data minimisation*
+
+    4.  *Accuracy*
+
+    5.  *Storage limitation*
+
+    6.  *Integrity and confidentiality (security)*
+
+    7.  *Accountability"*
+
+> [[https://ico.org.uk/for-organisations/guide-to-]{.underline}](https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/principles/)
+>
+> [[data-protection/guide-to-the-general-data-]{.underline}](https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/principles/)
+>
+> [[protection-regulation-gdpr/principles/]{.underline}](https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/principles/)
+
+Data Quality
+
+-   Veracity of the data
+
+-   How is the data collected?
+
+    -   Automated data: sensors/web usage
+
+    -   Paper forms
+
+    -   Digital forms
+
+> **Discussion**
+
+-   How can we improve the quality of the data?
+
+<!-- -->
+
+-   Staff training
+
+-   Digital form validation / completion
+
+> Anonymous data
+>
+> **Data anonymization processes**
+>
+> How can we fully anonymize data?
+
+![](media/image1.png){width="4.666666666666667in"
+height="0.4027777777777778in"}
+
+-   No full names/identifiers
+
+-   Non-identifiable data
+
+-   Can anonymity and non-identifiability always be guaranteed?
+
+> Synthetic data
+
+-   Synthetic data for class balancing
+
+    -   Important that the ML classifier gets roughly the same exposure
+        to examples from each of the different classes in order to learn
+        to distinguish between them.
+
+    -   Synthetic Minority Over-sampling Technique (SMOTE)
+
+![](media/image2.jpeg){width="3.375in" height="1.2222222222222223in"}
+
+> library(smotefamily)
+>
+> dataSet = sample_generator(1000, ratio = 0.70)
+>
+> table(dataSet\$result)
+>
+> This generates a dataset with 1000 cases, 2 features and one
+> label/class called result.
+>
+> The ratio argument defines the class imbalance (70% for the majority
+> class) in the dataset as can be seen below:
+>
+> Synthetic data
+>
+> generateData = SMOTE(dataSet\[,c(1,2)\], dataSet\[,c(3)\], K=5)
+>
+> The following now stores a new dataset that includes the original
+> dataset along with the synthetic data in the minority class.
+>
+> newDataSet \<- generateData\$data
+>
+> You can now check the new class balance which is now improved:
+>
+> table(newDataSet\$class)
+
+![](media/image3.jpeg){width="3.7777777777777777in"
+height="1.2083333333333333in"}
+
+> Sharing synthetic data (a method for improving privacy/reduce the risk
+> of identifiability and increase anonymity)
+
+![](media/image4.jpeg){width="10.506944444444445in"
+height="5.822916666666667in"}
+
+> privacy preserving?
+
+Rankin, D., Black, M., Bond, R., Wallace, J., Mulvenna, M. and Epelde,
+G., 2020. Reliability of supervised machine learning using synthetic
+data in health care: Model to preserve privacy for data sharing. *JMIR
+medical informatics*, *8*(7), p.e18910.
+
+Research questions
+
+> *"What is the differential in performance when using synthetic data
+> versus real data for training and testing supervised machine learning
+> models?*
+>
+> *What is the variance of absolute difference of accuracies between
+> machine learning models training on real and synthetic datasets?*
+>
+> *How often does the winning machine learning technique change when
+> training using real data to training using synthetic data?\..."*
+>
+> Rankin, D., Black, M., Bond, R., Wallace, J., Mulvenna, M. and Epelde,
+> G., 2020. Reliability of supervised machine learning using synthetic
+> data in health care: Model to preserve privacy for data sharing. *JMIR
+> medical informatics*, *8*(7), p.e18910.
+
+![](media/image5.jpeg){width="9.55625in" height="6.8805555555555555in"}
+
+Rankin, D., Black, M., Bond, R., Wallace, J., Mulvenna, M. and Epelde,
+G., 2020. Reliability of supervised machine learning using synthetic
+data in health care: Model to preserve privacy for data sharing. *JMIR
+medical informatics*, *8*(7), p.e18910.
+
+> ^synthpop\ package^
+> [[https://synthpop.org.uk/get-started.html]{.underline}](https://synthpop.org.uk/get-started.html)
+
+![](media/image6.jpeg){width="8.5in" height="3.7506944444444446in"}
+
+[[https://synthpop.shinyapps.io/synthpop/]{.underline}](https://synthpop.shinyapps.io/synthpop/)
+
+> ^synthpop\ package^
+> [[https://synthpop.org.uk/get-started.html]{.underline}](https://synthpop.org.uk/get-started.html)
+>
+> [[https://synthpop.shinyapps.io/synthpop/]{.underline}](https://synthpop.shinyapps.io/synthpop/)
+
+![](media/image7.jpeg){width="8.5in" height="4.199305555555555in"}
+
+[[https://synthpop.org.uk/assets/workshop_session_2_going_over_first_pra]{.underline}](https://synthpop.org.uk/assets/workshop_session_1_introduction_to_synthpop.pdf)
+
+[[ctical.pdf]{.underline}](https://synthpop.org.uk/assets/workshop_session_1_introduction_to_synthpop.pdf)
+
+[[https://synthpop.org.uk/assets/workshop_session_1_introduction_to_syn]{.underline}](https://synthpop.org.uk/assets/workshop_session_1_introduction_to_synthpop.pdf)
+
+[[thpop.pdf]{.underline}](https://synthpop.org.uk/assets/workshop_session_1_introduction_to_synthpop.pdf)
+
+> Data sharing
+
+-   Pseudo-anonymized data
+
+    -   Useful for Data Sharing without sharing identifiable data
+
+-   Encryption is important when sharing data
+
+    -   Cloud based, Pen drives
+
+-   Data sharing agreements
+
+    -   Specifies a protocol, expectations, timelines etc.
+
+> Consent for data collection
+
+-   Informed consent
+
+    -   Participant information sheets
+
+    -   Terms and conditions
+
+    -   Privacy policies
+
+-   What about 'Dynamic consent'
+
+    -   The right to change your mind
+
+![](media/image8.png){width="2.9145833333333333in"
+height="0.4722222222222222in"}
+
+Budin-Ljøsne, I., Teare, H.J., Kaye, J., Beck, S., Bentzen, H.B.,
+Caenazzo, L., Collett, C., D'Abramo, F., Felzmann, H., Finlay, T. and
+Javaid, M.K., 2017. Dynamic consent: a potential solution to some of the
+challenges of modern biomedical research. *BMC medical ethics*, *18*(1),
+pp.1-10.
+
+> Open data
+
+-   Free to the world to download
+
+-   Provides analysis at scale
+
+-   Caveat is that
+
+    -   It can dominate data science projects
+
+    -   Data can be 'over analysed'
+
+> Also having open data does not necessarily mean that it is easily
+> accessible data!
+
+![](media/image9.png){width="8.580555555555556in"
+height="0.8888888888888888in"}
+
+> Problem with health data science
+>
+> *"It's easy to let ourselves be driven by what we can do with the
+> data, rather than by the most pressing clinical need. We see many AI
+> solutions addressing the same tasks, because those are the tasks for
+> which the data are available. "*
+
+![](media/image10.png){width="10.856944444444444in"
+height="0.8888888888888888in"}
+
+> Bethany Percha, Mount Sinai Health System
+>
+> https://eithealth.eu/wp-content/uploads/2020/03/EIT-Health-and-McKinsey_Transforming-Healthcare-with-AI.pdf
+
+Importance of data provenance & metadata
+
+> Transference and generalisability
+
+FAIR Principles
+
+-   [F]{.mark}indable
+
+-   [A]{.mark}ccessible
+
+-   [I]{.mark}nteroperable
+
+-   Reusable
+
+![](media/image11.png){width="0.2048611111111111in"
+height="0.4722222222222222in"}
+
+[[https://www.go-fair.org/fair-principles/]{.underline}](https://www.go-fair.org/fair-principles/)
+
+> Other pitfalls with data/machine learning
+
+-   A lack of data provenance
+
+-   Overfitting / problem of transference
+
+![](media/image12.png){width="1.69375in" height="0.4722222222222222in"}
+
+> • [The labels --]{.mark} are they reliable? Is the ground truth the
+> gold standard???
+
+![](media/image13.png){width="2.738888888888889in"
+height="0.4722222222222222in"}
+
+-   Concept drift
+
+-   Data leakage
+
+-   Class balancing
+
+-   Missing data
+
+-   Algorithmic bias
+
+-   Black box
+
+-   ...
+
+> Beware of biases / cognitive biases
+
+-   Confirmation bias
+
+-   Anchoring
+
+-   Priming
+
+-   Availability bias
+
+-   Scarcity effect
+
+-   ...
+
+![](media/image14.png){width="9.495833333333334in" height="0.75in"}
+
+> Automation paradox. Automation bias.
+>
+> Trust Calibration.
+
+-   Bond RR, Novotny T, Andrsova I, Koc L, Sisakova M, Finlay D,
+    Guldenring D, McLaughlin J, Peace A, McGilligan V, Leslie SJ.
+    Automation bias in medicine: The influence of automated diagnoses on
+    interpreter accuracy and uncertainty when reading
+    electrocardiograms. Journal of electrocardiology. 2018 Nov
+    1;51(6):S6-11.
+
+-   Knoery, C.R., Bond, R., Iftikhar, A., Rjoob, K., McGilligan, V.,
+    Peace, A., Heaton, J. and Leslie, S.J., 2019. SPICED-ACS: Study of
+    the potential
+
+> impact of a computer-generated ECG diagnostic algorithmic certainty
+> index in STEMI diagnosis: Towards transparent AI. Journal of
+> electrocardiology, 57, pp.S86-S91.
+>
+> **ML is a form of induction** Problem of induction
+>
+> White swans and black swans.
+>
+> The inductivist Turkey:
+>
+> Bertrand Russell
+>
+> The Black Box
+
+![](media/image15.png){width="13.333333333333334in" height="7.5in"}
+
+> Ensemble
+>
+> **Accuracy**
+
+SVM
+
+> K-NN
+
+Decision Trees
+
+Logistic regression
+
+> 0%
+
+Black box
+
+**Explainability**
+
+White box
+
+> Ethical AI Standards
+
+-   **IEEE P7000™** - [[Engineering Methodologies for Ethical Life-Cyle
+    Concerns Working]{.underline}](http://sites.ieee.org/sagroups-7000/)
+
+-   **IEEE P7001™** - [Transparency of Autonomous Systems]{.underline}
+
+-   **IEEE P7002™** - [Data Privacy Process]{.underline}
+
+-   **IEEE P7003™** - [[Algorithmic Bias
+    Considerations]{.underline}](https://standards.ieee.org/develop/project/7003.html)
+
+-   **IEEE P7004™** - [[Standard on Child and Student Data
+    Governance]{.underline}](https://standards.ieee.org/develop/project/7003.html)
+
+-   **IEEE P7005™** - [[Standard on Employer Data
+    Governance]{.underline}](https://standards.ieee.org/develop/project/7005.html)
+
+-   **IEEE P7006™** - [[Standard on Personal Data AI Agent Working
+    Group]{.underline}](https://standards.ieee.org/develop/project/7006.html)
+
+-   **IEEE P7007™** - [[Ontological Standard for Ethically driven
+    Robotics and Automation
+    Systems]{.underline}](https://standards.ieee.org/develop/project/7007.html)
+
+-   **IEEE P7008™** - [[Standard for Ethically Driven Nudging for
+    Robotic, Intelligent and Autonomous
+    Systems]{.underline}](https://standards.ieee.org/develop/project/7008.html)
+
+-   **IEEE P7009™** - [[Standard for Fail-Safe Design of Autonomous and
+    Semi-Autonomous
+    Systems]{.underline}](https://standards.ieee.org/develop/project/7009.html)
+
+-   **IEEE P7010™** - [[Wellbeing Metrics Standard for Ethical
+    Artificial Intelligence and Autonomous
+    Systems]{.underline}](https://standards.ieee.org/develop/project/7010.html)
+
+-   ... \...
+
+> Algorithmic bias
+>
+> Many areas for potential bias:
+
+-   Using AI/ML for recruitment
+
+-   Using AI/ML for assisting sentencing
+
+    -   [[https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing]{.underline}](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)
+
+-   NLP in smart speakers
+
+-   Online search (e.g. searching for 'CEOs' in online image search
+    engines)
+
+-   ... ...
+
+> Algorithmic bias tools
+>
+> [[https://www.ibm.com/blogs/research/2018/09/ai-fairness-360/]{.underline}](https://www.ibm.com/blogs/research/2018/09/ai-fairness-360/)
+>
+> Algorithmic bias audits
+>
+> Fairness tools / fairness metrics
+
+O\'neil, C., 2016. *Weapons of math destruction: How big data increases
+inequality and threatens democracy*.
+
+FAT acronym
+
+> Fairness
+>
+> Example: Gender balance
+>
+> Accountability
+>
+> Considering the human
+>
+> Transparency
+>
+> Exposing the rationale
+>
+> Chatila R, Firth-Butterflied K, Havens JC, Karachalios K. The IEEE
+> global initiative for ethical considerations in artificial
+> intelligence and autonomous systems \[standards\]. IEEE Robotics &
+> Automation Magazine. 2017 Mar;24(1):110-.
+
+The problems of evaluating and reporting ML results
+
+-   Inconsistent evaluation/reporting approaches
+
+    -   Different testing split
+
+    -   Different evaluation metrics
+
+    -   Then how can we do meta-analysis?
+
+-   Algorithm might only be tested on clean data (what about noisy real
+    world![](media/image16.png){width="8.888888888888889e-2in"
+    height="0.3645833333333333in"}data?)
+
+![](media/image17.png){width="10.811111111111112in"
+height="0.8888888888888888in"}
+
+> Solutions: further reading:
+
+-   [TRIPOD-]{.mark}ML (Transparent Reporting of a Multivariable
+    Prediction Model for Individual Prognosis or Diagnosis[-- Machine
+    Learning)]{.mark}
+
+![](media/image18.png){width="10.11111111111111in"
+height="0.3055555555555556in"}
+
+> https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(19)30037-6/fulltext
+> https://www.nature.com/articles/s41591-020-1034-x
+>
+> Variability of testing methods
+
+-   Training / testing split
+
+    -   60/40, 70/30, 80/20, 90/10
+
+        -   Sometimes we talk about a validation set
+
+-   K-fold cross validation
+
+    -   5-folds
+
+    -   10-folds
+
+    -   Leave One Out Cross Validation
+
+![](media/image19.jpeg){width="5.24375in" height="1.2020833333333334in"}
+
+https://en.wikipedia.org/wiki/Cross-validation\_(statistics)#/media/File:KfoldCV.gif
+
+![](media/image20.jpeg){width="3.76875in" height="1.1333333333333333in"}
+
+> https://en.wikipedia.org/wiki/Cross-validation\_(statistics)#/media/File:LOOCV.gif
+>
+> Variability of testing metrics
+
+-   Accuracy
+
+    -   Balanced accuracy
+
+    -   Class accuracy
+
+-   Sensitivity / Specificity
+
+-   Recall / Precision
+
+-   Kappa
+
+-   ROC AUC
+
+-   F1 score
+
+-   ...
+
++Central tendency from k-fold trials (±SD) +Confidence intervals
+
+> +68% *SE~p~ = sqrt \[ p(1 - p) / n \]*
+
+-   95%
+
+-   99%
+
++Chi-square testing
+
++Visualizations
+
+Meta-analysis is made difficult:
+
+![](media/image21.png){width="10.270833333333334in"
+height="0.8194444444444444in"}
+
+Apple (F1 score) vs Oranges (accuracy)
+
+> ![](media/image22.png){width="3.6756944444444444in" height="0.75in"}
+
+-   Leading to reproducibility problems
+
+    -   *"70% of researchers have tried and failed to reproduce another
+        scientist\'s experiments"*
+
+        -   [[https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970]{.underline}](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970)
+
+-   3 types of reproducibility problems (Goodman, 2016):
+
+    -   methods, results, and inferential reproducibility
+
+![](media/image23.png){width="3.325in" height="0.4027777777777778in"}
+
+Goodman, S.N., Fanelli, D. and Ioannidis, J.P., 2016. What does research
+reproducibility mean?. *Science translational medicine*, *8*(341),
+pp.341ps12-341ps12.
+
+Cockburn A, Dragicevic P, Besançon L, Gutwin C. **Threats of a
+replication crisis in empirical computer science.** Communications of
+the ACM. 2020 Jul 22;63(8):70-9.
+
+> ![](media/image24.jpeg){width="5.4125in" height="7.111111111111111in"}
+>
+> https://www.cs.mcgill.ca/\~jpineau/Reproducibilit yChecklist.pdf
+>
+> Crowdsourcing ethics -- self driving cars
+
+[[https://www.moralmachine.net/]{.underline}](https://www.moralmachine.net/)
+
+> *"There\'s a great phrase, written in the \'70s: \'The definition of
+> today\'s [AI is a machine that can make a perfect]{.mark} chess move
+> while the room is on fire."*
+
+![](media/image25.png){width="7.419444444444444in"
+height="1.1805555555555556in"}
+
+> \- Fei-Fei Li
+>
+> Ethics in statistics -- key topics
+
+-   Under-powered studies
+
+-   File drawer effect
+
+-   Multiple hypothesis testing
+
+-   P-hacking
+
+-   Removing anomalies / outliers
+
+-   Pseudo-replication
+
+*"Torture the data until it confesses"*
+
+Reinhart, A., 2015. *Statistics done wrong: The woefully complete
+guide*. No starch press.
+
+> Other relevant topics
+
+-   IP in generative AI (e.g. ChatGBT)
+
+> General UI ethics:
+
+-   Evil design
+
+-   Dark patterns (https://darkpatterns.org/types-of-dark-pattern)
+
+-   Persuasive design
+
+-   Persuasive technology
+
+-   Nudge theory
+
+> Sustainability issues in ML
+
+-   Reproducibility
+
+-   Maintainability
+
+-   Updatability
+
+-   Reusability of code (good use of code comments and documentation...)
+
+-   Transferability (can it be used for transfer learning?)
+
+-   Interoperability (can it be used in different environments,
+    machines, and be future proof?)
+
+-   Green computing / cost of training algorithms / cloud computing
+    (e.g. LLMs)
+
+-   Long term effects:
+
+<!-- -->
+
+-   Concept drift issues
+
+-   User competence
+
+-   Employability / jobs
+
+![](media/image26.png){width="13.333333333333334in" height="7.5in"}
+
+following factors in data
+
+science and ML projects?
+
+-   Legalities
+
+-   Social aspects
+
+-   Ethical qualities
+
+-   Professional aspects
+
+-   Sustainability
+
+-   Inclusivity and accessibility
+
+-   Trustworthiness
+
+Can we measure and evaluate these
+
+factors?

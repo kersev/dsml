@@ -1,0 +1,943 @@
+Statistical Computing with R
+
+> Prof. Raymond Bond
+>
+> School of Computing
+
+rb.bond@ulster.ac.uk
+
+> Introduction to R Resources
+
+-   BOOK: The Art of R Programming
+
+-   [http://www.statmethods.net]{.underline}
+
+What is R and its history?
+
+-   [Statistical computing]{.mark}
+
+-   [Developed by John Chambers at Bell Labs]{.mark}
+
+SPSS vs. R
+
+R vs. Python
+
+> Computer Programming Paradigms
+
+-   Procedural Programming
+
+-   Object Oriented Programming
+
+-   **[Functional Programming]{.mark}**
+
+*"Functional Programming is when functions ...are used as the
+fundamental building blocks of a program."*
+
+> c2.com/cgi/wiki?FunctionalProgramming
+>
+> RAM needed
+
+-   CSV file with 1,500,000 rows and 120 columns, each cell being a
+    number.
+
+![](media/image1.png){width="8.0in" height="1.6166666666666667in"}
+
+> Double-precision floating-point format
+
+![](media/image2.jpeg){width="8.6in" height="1.6236111111111111in"}
+
+> 2^11^ = 2048
+
+2^52^ = 4,503,599,627,370,496
+
+> https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+
+-   Some people use R for only it's built in functions
+
+> x \<- c(1,5,3)
+>
+> mean(x)
+
+-   Some people program custom functions
+
+<!-- -->
+
+-   \<- function(a, b) { y \<- a\*b
+
+> return(y)
+>
+> }
+>
+> f(2,3)
+
+R has 5 basic or
+
+"atomic" classes of objects (modes)
+
+1.  character
+
+2.  numeric
+
+3.  integer
+
+4.  complex
+
+5.  logical (True/False)
+
+> The most basic object is a vector
+
+-   A vector can only contain objects of the same class/mode
+
+-   The one exception is a *list*, which is represented as a vector but
+    can contain objects of different classes
+
+-   Empty vectors can be created with the vector() function.
+
+> Vectors
+
+x \<- c(0.5, 0.6)
+
+\## numeric
+
+x \<- c(TRUE, FALSE)
+
+\## logical
+
+x \<- c(T, F)
+
+\## logical
+
+x \<- c(\"a\", \"b\", \"c\")
+
+\## character
+
+x \<- c(1,2,3)
+
+\## integer
+
+x \<- c(1+0i, 2+4i)
+
+\## complex
+
+> THE : OPERATOR
+
+x \<- c(1:20)
+
+x \<- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+
+> Vector() method
+
+y \<- vector(length=2)
+
+y\[1\] \<- 3
+
+y\[2\] \<- 8
+
+Note: vectors are not 0 based
+
+R Studio
+
+![](media/image3.jpeg){width="10.0in" height="6.095138888888889in"}
+
+![](media/image4.jpeg){width="7.697222222222222in"
+height="5.927777777777778in"}
+
+Google Colab / Jupyter notebooks
+
+![](media/image5.jpeg){width="6.350694444444445in"
+height="4.604861111111111in"}
+
+-   System
+
+<!-- -->
+
+-   Download R from CRAN (Comprehensive R Archive Network)
+
+> [--
+> [http://cran.r-project.org]{.underline}](http://cran.r-project.org)
+>
+> -- You are downloading the BASE package
+
+-   the **base** package which is required to run R and contains the
+    most fundamental functions.
+
+> -- You then download other packages that you may need -- more on this
+> later
+
+Numbers
+
+-   Numbers (double precision real numbers)
+
+-   If you want an integer, you specify the L suffix
+
+> -- 1 gives you a numeric object; 1L gives you an integer object
+
+-   There is also the number Inf (infinity);
+
+> -- e.g. 1 / 0 = Inf
+>
+> -- 1 / Inf = 0
+
+-   The value NaN ("not a number");
+
+> -- e.g. 0 / 0 = NaN
+>
+> -- can also be thought of as a missing value
+>
+> -- NULL can be thought of as undefined
+>
+> Working directory
+
+-   Shows the working directory (wd) getwd()
+
+-   Changes the wd setwd("C:/myfolder/data\")
+
+Saved workspace is in a file called .Rdata
+
+> Hello world example
+
+R is case sensitive (so msg and Msg are different variables)
+
+Type the following into the R console:
+
+\<- is the assignment operator.
+
+msg \<- "hello world"; print(msg); #explicit printing
+
+msg; #auto-printing occurs
+
+> Mixing Objects
+
+What will happen here?
+
+y \<- c(1.7, \"a")
+
+y \<- c(TRUE, 2)
+
+y \<- c(\"a\", TRUE)
+
+-   ***Implicit coercion*** occurs so that every element in the vector
+    is of the same class (Regress to lowest common denominator)
+
+> What would happen here?
+
+x \<- c(1,2,3)
+
+-   \<- c(x,x,1,2,3) length(y)
+
+length(x)
+
+Creating Vectors using seq()
+
+-   \<- seq(from=12, to=30,by=3) \[1\] 12 15 18 21 24 27 30
+
+seq(12, 30, 3)
+
+> Creating Vectors using repeat function
+
+-   \<- rep(8, 4) \[1\]8888
+
+-   \<- rep(c(5,6,7), 4)
+
+\[1\]567 567 567 567
+
+> Evaluating Vectors using any() and all()
+
+-   \<- c(50:100)
+
+> *x \<- 50:100*
+
+any(x \> 8)
+
+any(x \< 8)
+
+all(x \> 50)
+
+> Sub-vectors (subsetting/filtering)
+
+x \<- c(7,1,3)
+
+y \<- x\[2:3\] Notice the square brackets!
+
+-   \<- x\[x \> 2\]
+
+-   \<- x\[x \>= 2\]
+
+-   \<- x\[c(1,3)\]
+
+-   \<- x\[c(1:3)\]
+
+Logical Operators
+
+![](media/image6.jpeg){width="4.496527777777778in"
+height="5.333333333333333in"}
+
+> http://www.statmethods.net/management/operators.html
+>
+> Sub-vectors (subsetting/filtering)
+
+x \<- c(1,5,3)
+
+y \<- x\[x \> 2 \| x == 1\]
+
+y \<- x\[x \> 2 & x \< 4\]
+
+Recoding example - ?
+
+-   \<- c(5,2,3,8) x\[x \> 4\] \<- 0
+
+> Using the subset() function
+
+x \<- c(1:5) *//same as c(1,2,3,4,5)*
+
+y \<- subset(x, x \> 2)
+
+3 4 5
+
+x\[x \> 2\]
+
+Advantage of subset() -- removes NA values
+
+Using the which() function
+
+-   \<- c(8, 1, 5, 2) which(x \> 2)
+
+1 3 which.max(x)
+
+Arithmetic Operators
+
+![](media/image7.jpeg){width="5.120138888888889in"
+height="4.0569444444444445in"}
+
+http://www.statmethods.net/management/operators.html
+
+> Vectorisation/Vectorised Functions
+
+-   \<- c(3,4,2) y \<- c(5,3,1)
+
+-   \> y
+
+FALSE TRUE TRUE
+
+> Vectorisation/Vectorised Functions
+
+-   \<- c(9,16,25) sqrt(x)
+
+3 4 5
+
+> Vectorisation and Vectorised Functions
+
+-   \<- c(9.5,16.3,25.1) round(x)
+
+10 16 25
+
+> Recycling
+
+-   R automatically repeats or recycles vectors when necessary
+
+<!-- -->
+
+-   \<- c(3,4,2) x+2
+
+5 6 4 *\# element wise addition*
+
+c(3,4,2) + c(2,2,2)
+
+> Recycling
+
+c(1,2,4) + c(6,0,9,20,22,11)
+
+Becomes
+
+c(1,2,4,1,2,4) + c(6,0,9,20,22,11)
+
+> Recycling
+
+c(2) + c(6,0,9,20,22)
+
+2 + c(6,0,9,20,22)
+
+Becomes
+
+c(2,2,2,2,2) + c(6,0,9,20,22)
+
+> 3 Key principles
+
+-   **Recycling**
+
+> -- Automatic lengthening/repetition of vectors
+
+-   **Filtering**
+
+> -- Subsetting / creating sub vectors
+
+-   **Vectorisation**
+
+> -- Where functions are applied to **element-wise** to vectors
+
+Explicit Coercion
+
+-   Coercion from one class to another using the as.\* functions: x \<-
+    0:6 // same as x \<- c(0:6) or x \<- c(0,1,2,3,4,5,6)
+
+class(x)
+
+\[1\] \"integer"
+
+as.numeric(x)
+
+\[1\]0123456
+
+as.logical(x)
+
+\[1\] FALSE TRUE TRUE TRUE TRUE TRUE TRUE
+
+as.character(x)
+
+\[1\] \"0\" \"1\" \"2\" \"3\" \"4\" \"5\" \"6"
+
+Simulating Data in R
+
+?rnorm
+
+-   \<- rnorm(10)
+
+-   \<- rnorm(10, 20, 2) rnorm(n=10, mean=20, sd=2)
+
+![](media/image8.jpeg){width="4.902777777777778in" height="0.75in"}
+
+summary(x)
+
+Setting the seed
+
+set.seed(1)
+
+rnorm(5)
+
+rnorm(5)
+
+set.seed(1)
+
+rnorm(5)
+
+> Bootstrapping: Random Sampling
+
+set.seed(1)
+
+sample(c(1:10), 4)
+
+3457
+
+Bootstrapping with replacement
+
+![](media/image9.png){width="0.4263888888888889in"
+height="0.9534722222222223in"}
+
+sample(c(1:10), 10, replace = TRUE)
+
+2978285978
+
+Matrices and Arrays
+
+-   Matrices are 2 dimensional vectors (or 2D arrays)
+
+-   3 dimensional vectors are referred to as 3D arrays (no longer a
+    matrix)
+
+-   Column major order (what is this?)
+
+> m \<- matrix( c(1,2,3,4,5,6), nrow = 2, ncol = 3)
+>
+> m
+
+Matrices and Arrays
+
+> m \<- matrix( c(1,2,3,4,5,6), nrow = 2, ncol = 3)
+>
+> dim(m)
+>
+> nrow(m)
+>
+> ncol(m)
+>
+> colnames(m) \<- c('a', 'b', ['c')]{.mark}
+>
+> m\[,'b'\]
+>
+> Matrices -- Extraction ?
+>
+> m \<- matrix(c(1:6), nrow = 2, ncol = 3)
+>
+> m\[2,2\] - 4
+>
+> m\[,2\] - all rows in column 2
+>
+> m\[1,\] -- all columns in row 1
+>
+> m\[,1:2\] all rows in columns 1 and 2
+>
+> Matrices -- Setting Values
+>
+> m \<- matrix(c(1:6), nrow = 2, ncol = 3)
+>
+> m\[1,1\] \<- 1
+>
+> m\[1,2\] \<- 3
+>
+> x \<- c(1:3)
+>
+> y \<- c(10:12)
+
+cbind(x, y)
+
+x
+
+> \[1,\] 1
+>
+> \[2,\] 2
+>
+> \[3,\] 3
+>
+> rbind(x, y) \[,1\]
+
+-   1
+
+> y10
+
+Matrices can be created by *column-binding* or *row-binding*
+
+> y
+>
+> 10
+>
+> 11
+>
+> 12
+>
+> \[,2\] \[,3\]
+
+-   3
+
+> 1112
+
+Apply() Function
+
+> **[Functional Programming:]{.mark} One of the most used functions in
+> R:**
+>
+> apply(m, dimcode, f, fargs)
+>
+> x \<- matrix(1:20, nrow = 10, ncol = 2)
+>
+> apply(x, 2, mean)
+>
+> round( apply(x, 2, mean) )
+>
+> Apply() Function
+
+apply(m, dimcode, f, fargs)
+
+x \<- matrix(1:20, nrow = 10, ncol = 2)
+
+rowSums \<- apply(x, 1, sum)
+
+rowMeans \<- apply(x, 1, mean)
+
+colSums \<- apply(x, 2, sum)
+
+colMeans \<- apply(x, 2, mean)
+
+[apply(x, 1, quantile, probs = c(0.25, 0.75))]{.mark}
+
+-   \<- matrix(rnorm(200), 20, 10) boxplot(x)
+
+![](media/image10.jpeg){width="3.953472222222222in"
+height="4.486805555555556in"}
+
+Apply() Function -
+
+[Customized]{.mark}
+
+> x \<- matrix(c(1:6), nrow = 3, ncol = 2)
+>
+> f \<- function(x) {
+>
+> return( x / c(2,8) )
+>
+> }
+>
+> **y \<- apply(x, 1, f)**
+
+Other Matrix functions
+
+-   Transpose
+
+> -- t()
+
+Lists
+
+-   A list is a vector that can contain elements of different
+    modes/classes/data types
+
+> x \<- list(1, \"a\", TRUE, 500)
+>
+> x\[\[2\]\]
+>
+> "a"
+>
+> Note the use of double brackets!
+>
+> Lists -- key vale pairs
+>
+> x \<- list(name= 'ray', age= 32, male=TRUE)
+>
+> x\$name
+>
+> ray
+
+Factors
+
+> [Factors represent nominal/categorical data.]{.mark}
+>
+> "1^st^ Class" , "2.1" and "2.2"
+>
+> "Labor" and "Tory"
+>
+> "GCSE" and "A-level" and "BSc" "Cat" and "Dog" and "Hammster" What
+> about? - Jill, Jack, Susie, Jason ?
+
+Factors
+
+> x \<- factor(c(\"yes\", \"yes\", \"no\", \"yes\", \"no\"))
+>
+> x
+
+1.  yes yes no yes no
+
+> **Levels: no yes**
+>
+> table(x)
+>
+> no yes
+
+-   3
+
+Factors
+
+> x \<- factor(c(\"yes\", \"yes\", \"no\", \"yes\", \"no\"),
+> levels=c(\"no\", \"yes","undecided"))
+
+Missing values: NA and
+
+NAN
+
+-   Missing values are denoted by NA or NaN
+
+-   is.na(x) is used to test for NA
+
+-   is.nan(x) is used to test for NaN
+
+> **[Data Cleansing scenario]{.mark}**
+>
+> x\[is.na(x)\] \<- 0
+>
+> x\[is.na(x)\] \<- mean(x)
+
+NA and NAN functions
+
+> Note: **NaN values are also an NA but the opposite is not true**
+>
+> x \<- c(1, 2, NA, 10, 3)
+>
+> is.na(x)
+>
+> \[1\] FALSE FALSE TRUE FALSE FALSE
+>
+> is.nan(x)
+>
+> \[1\] FALSE FALSE FALSE FALSE FALSE
+>
+> [x \<- c(1, 2, NaN, NA, 4)]{.mark}
+>
+> [is.na(x)]{.mark}
+>
+> [\[1\] FALSE FALSE TRUE TRUE FALSE]{.mark}
+>
+> is.nan(x)
+>
+> \[1\] FALSE FALSE TRUE FALSE FALSE
+
+Handling NA and NAN
+
+> x \<- c(1, 2, NA, 10, 3)
+>
+> mean(x)
+>
+> NA
+>
+> mean(x, [na.rm=TRUE]{.mark})
+
+Data Frames
+
+-   Stores tabular data
+
+-   Every list element in the data frame has to have the same length
+
+-   Different from matrices as data frames can store different classes
+    of elements just like lists
+
+-   **Can be described as a list of equal length vectors**
+
+-   Basically a 2 dimensional list (a list of lists)
+
+-   Data frames are created or imported using
+
+> -- data.frame(), read.table() or read.csv()
+
+-   A data frame be converted to a matrix
+
+> -- data.matrix(data frame)
+>
+> x \<- data.frame( a= c(1,2,3), b= c(T, T, F) )
+>
+> x
+
+> nrow(x)
+>
+> \[1\] 3
+>
+> ncol(x)
+>
+> \[1\] 2
+
+-   \<- data.frame(names= c("ray", "susan", "joe"), ages= c(31, 24, 45))
+
+> str(x)
+>
+> x\$names
+
+-   \<- data.frame(names= c("ray", "susan", "joe"), ages= c(31, 24, 45),
+    stringsAsFactors=FALSE)
+
+Harmonize different Data
+
+Frames
+
+> merge()
+>
+> merge(d1, d2, by.x="fullnames", by.y="names")
+
+R's Built in Datasets
+
+![](media/image11.jpeg){width="6.066666666666666in"
+height="4.490277777777778in"}
+
+> data()
+
+R's Built in Datasets
+
+> Nile
+>
+> ?Nile
+>
+> mean(Nile)
+>
+> sd(Nile)
+>
+> summary(Nile)
+>
+> Time series of annual river flow
+>
+> R Packages
+>
+> install.packages(\"psych\")
+>
+> library(psych)
+>
+> describe(mydata)
+
+Tidyverse -
+
+https://www.tidyverse.org/
+
+A collection of data science packages/libraries for R
+
+install.packages(\"tidyverse\")
+
+> •readr -- for reading in datasets
+>
+> •dplyr -- for data wrangling
+>
+> •tidyr -- for subsetting/filtering
+>
+> •...
+>
+> ggplot2
+>
+> install.packages(\"ggplot2\")
+>
+> library(ggplot2)
+>
+> [[http://docs.ggplot2.org/current/]{.underline}](http://docs.ggplot2.org/current/)
+
+ggplot2
+
+> ?mpg
+
+-   \<- ggplot(mpg, aes(class, hwy))
+
+-   \+ geom_boxplot()
+
+![](media/image12.jpeg){width="5.626388888888889in"
+height="4.170138888888889in"}
+
+-   \<- ggplot(mpg, aes(class, hwy))
+
+-   \+ geom_boxplot() + geom_jitter(width = 0.2)
+
+![](media/image13.jpeg){width="5.626388888888889in"
+height="4.170138888888889in"}
+
+> p + geom_boxplot(aes(colour = drv))
+
+![](media/image14.jpeg){width="5.629861111111111in"
+height="4.170138888888889in"}
+
+> If-then-else statements
+>
+> x \<- 5
+>
+> if(x \> 3) {
+>
+> y \<- 10
+>
+> } else {
+>
+> y \<- 0
+>
+> }
+>
+> For loops
+>
+> x \<- c(1,5,4,3,2)
+>
+> for(i in 1:5) {
+>
+> print(x\[i\])
+>
+> }
+>
+> for(i in 1:length(x)) {
+>
+> print(x\[i\])
+>
+> }
+>
+> Nested For loops
+>
+> x \<- matrix(1:6, 2, 3)
+>
+> for(i in seq_len( nrow(x) ) ) {
+>
+> for(j in seq_len( ncol(x) ) ) {
+>
+> print(x\[i, j\])
+>
+> }
+>
+> }
+
+While Loop
+
+> i \<- 1
+>
+> while(i \< 20) {
+>
+> print(i)
+>
+> i \<- i + 1
+>
+> }
+
+Repeat and Break
+
+> repeat {
+>
+> if(\<condition\>) {
+>
+> break
+>
+> } else {
+>
+> #do some calculations
+>
+> }
+>
+> }
+
+Next
+
+> for(i in 1:50) {
+>
+> if(i \<= 10) {
+
+-   Skip the first 10 iterations **next**
+
+> }
+>
+> \# Do some calculations
+>
+> }
+
+Custom Functions
+
+-   \<- function(\<arguments\>) {
+
+    -   Do something interesting
+
+> }
+
+Functions
+
+-   Not all arguments have to be used
+
+-   You can pass in arguments in the right order or an arbitrary order
+    providing you specify the argument names
+
+> args(sd)
+>
+> sd(mydata, na.rm=TRUE)
+>
+> sd(na.rm=TRUE, x = mydata)
+
+Functions
+
+-   \<- function(a, b) { y \<- a\*b
+
+> return(y)
+>
+> }
+>
+> f(2,3)
+>
+> f(a=2,b=3)
+>
+> f(b=3, a=2)
+>
+> Functions
+>
+> f \<- function(a, b) {
+
+-   \<- a\*b
+
+-   
+
+> }
+>
+> The Argument '...'
+>
+> myplot \<- function(x, y, type = \"l\", \...) {
+>
+> plot(x, y, type = type, \...)
+>
+> }

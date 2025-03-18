@@ -1,0 +1,581 @@
+Probability distributions
+
+> Prof. Raymond Bond
+>
+> School of Computing
+
+rb.bond@ulster.ac.uk
+
+What is exploratory data analysis?
+
+EDA
+
+http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm
+
+Random variables
+
+> *"A random variable, usually written X, is a variable whose possible
+> values are numerical outcomes of a*
+>
+> *random phenomenon."*
+>
+> [Two types:]{.mark}
+
+-   [Discrete (number of students in a class)]{.mark}
+
+-   [Continuous (amount of time it take to run a mile)]{.mark}
+
+Discrete and Continuous
+
+![](media/image1.jpeg){width="3.5236111111111112in"
+height="1.7131944444444445in"}
+
+> *Y = Time it takes to run a mile*
+
+**Probability distribution**
+
+> *"A probability distribution is... an equation that links each outcome
+> of a statistical experiment with its probability of occurrence."*
+>
+> http://stattrek.com/probability-distributions/probability-distribution.aspx
+>
+> Discrete Probability Distribution
+>
+> Suppose you [flip a coin 2 times.]{.mark} Possible outcomes: **HH, HT,
+> TH and TT**
+>
+> E.G. Probability distribution of the number of heads?
+
+![](media/image2.png){width="8.57638888888889in"
+height="2.296527777777778in"}
+
+http://stattrek.com/probability-distributions/probability-distribution.aspx
+
+Cumulative probability
+
+> *"A cumulative probability refers to the probability that the value of
+> a random variable falls within a specified range."*
+>
+> [[https://stattrek.com/statistics/dictionary.aspx?definition=](https://stattrek.com/statistics/dictionary.aspx?definition=cumulative_probability)
+> [cumulative_probability](https://stattrek.com/statistics/dictionary.aspx?definition=cumulative_probability)]{.underline}
+
+Probability that 2 coin flips includes 1 or fewer heads?
+
+> **P(X≤1)=P(X=0)+P(X=1)**
+>
+> **= 0.25 + 0.50 = 0.75**
+
+Cumulative probability
+
+![](media/image3.jpeg){width="7.313194444444444in"
+height="2.6069444444444443in"}
+
+https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/discrete-and-continuous-random-variables/v/discrete-probability-distribution
+
+Continuous variables
+
+-   Height, weight, distance, time etc.
+
+-   So how do we work with continuous variables and their distributions?
+
+![](media/image4.jpeg){width="7.725694444444445in" height="7.5in"}
+
+> Discretization / Quantization of continuous variables
+
+-   Range = max -- min
+
+-   Number of intervals/bins: Not less than 10 and no more than 20
+
+Step interval size = range / number of intervals/bins
+
+![](media/image5.jpeg){width="2.5972222222222223in"
+height="0.6805555555555556in"}
+
+*\* Intervals are also known as bins ([k=bin width]{.mark})*
+
+> [Histograms can change depending on the number of bins]{.mark}
+
+![](media/image6.jpeg){width="7.451388888888889in"
+height="5.719444444444444in"}
+
+[[http://www.shodor.org/interactivate/activities/Histogram/]{.underline}](http://www.shodor.org/interactivate/activities/Histogram/)
+
+> [Histograms can change depending on the number of bins]{.mark}
+
+![](media/image7.jpeg){width="8.215277777777779in"
+height="6.336111111111111in"}
+
+[[http://www.shodor.org/interactivate/activities/Histogram/]{.underline}](http://www.shodor.org/interactivate/activities/Histogram/)
+
+> Computing Bin size
+
+![](media/image8.jpeg){width="1.6409722222222223in"
+height="0.5708333333333333in"}
+
+• **Square-root choice** • **Sturges\' formula**
+
+![](media/image9.jpeg){width="2.722916666666667in"
+height="0.45416666666666666in"}
+
+> -- [If n was 8 then k = 4]{.mark}
+>
+> -- [If n was 16 then k = 5]{.mark}
+
+-   **Freedman-Diaconis**
+
+-   **Rice**
+
+-   **Scott**
+
+-   **...**
+
+**Number of bins computed**
+
+![](media/image10.jpeg){width="10.0in" height="3.0277777777777777in"}
+
+> [~~[https://www.answerminer.com/blog/binning-guide-ideal-histogram]{.underline}~~](https://www.answerminer.com/blog/binning-guide-ideal-histogram)
+
+Continuous Probability Distribution
+
+> Distribution of times it took you to drive to work **(average=50,
+> SD=20)** [What is the probability that it will take you 50
+> minutes?]{.mark}
+>
+> **P(Y = 50)**
+
+![](media/image11.png){width="8.666666666666666in"
+height="3.6354166666666665in"}
+
+> **f(x)**
+
+**50**
+
+![](media/image12.png){width="10.0in" height="7.5in"}
+
+> Distribution of times it took you to drive to work (average=50, SD=20)
+>
+> **P(49 \< Y \< 51)**
+>
+> **f(x)**
+
+**50**
+
+Continuous Probability Distribution
+
+> Distribution of times it took you to drive to work **(average=50,
+> SD=20)**
+>
+> **P(49 \< Y \< 51)**
+>
+> **tigerstats R package**
+>
+> library(\"tigerstats\")
+>
+> ?pnormGC
+>
+> pnormGC( c(49,51), region=\"between\", mean=50, sd=20, graph=TRUE )
+
+![](media/image13.jpeg){width="3.5868055555555554in"
+height="3.029861111111111in"}
+
+![](media/image14.jpeg){width="8.7in" height="7.356944444444444in"}
+
+> Descriptive statistics --
+>
+> I know you know this
+
+-   Central tendency
+
+> -- mean, median, mode, geometric mean interquartile mean...
+
+-   Spread
+
+> -- variance, standard deviation, range, interquartile range
+>
+> What measures should I use?
+
+-   Parametric statistics
+
+> -- Mean ± SD
+>
+> -- t-test family
+>
+> -- Pearson correlation
+
+-   Non-parametric statistics
+
+> -- Median ± IQR
+>
+> -- Wilcoxon or Mann Whitney test
+>
+> -- Spearman correlation
+
+![](media/image15.png){width="5.032638888888889in"
+height="4.917361111111111in"}
+
+> Exact distribution vs. using an approximate distribution
+>
+> Central limit theorem
+
+Quote - *"If the sample is large (n\>=30) then statistical theory says
+that the sample mean is normally distributed\... This is a result of a
+famous statistical theorem, the Central limit theorem."*
+
+Source:
+[[https://en.wikibooks.org/wiki/Statistics/Testing_Data/t-tests]{.underline}](https://en.wikibooks.org/wiki/Statistics/Testing_Data/t-tests)
+
+Normal distribution
+
+![](media/image16.png){width="8.526388888888889in"
+height="6.746527777777778in"}
+
+[[https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG]{.underline}](https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG)
+
+Cumulative distribution function (CDF)
+
+> mean=50, SD=25
+
+![](media/image17.png){width="10.0in" height="3.196527777777778in"}
+
+> = 0.21
+>
+> x = 30
+>
+> 30
+
+Cumulative distribution function (CDF)
+
+> pnorm(q, mean, sd)
+>
+> pnorm(30, 50, 25)
+>
+> *or*
+>
+> pnorm(x=30, mean=50, sd=25)
+>
+> \[1\] 0.2118554
+
+Standardization and Z-values
+
+![](media/image18.png){width="7.266666666666667in"
+height="3.6069444444444443in"}
+
+> Scale() function in R
+
+-   A z-value is used to standardise a number so that it becomes 'metric
+    agnostic'
+
+-   Z-values then can be summed with z-values derived from other metrics
+    to create a composite score.
+
+Problem with z-scores
+
+-   From --infinity to +infinity
+
+-   Confusing
+
+> Sigma scale
+
+-   All positive scores
+
+-   Divide distribution into 100 equal parts
+
+-   0 = 3 SDs below the mean
+
+-   100 = 3 SDs above the mean
+
+16z + 50
+
+> Hull scale
+
+-   All positive scores
+
+-   Divide distribution into 100 equal parts
+
+-   0 = 3.5 SDs below the mean
+
+-   100 = 3.5 SDs above the mean
+
+14z + 50
+
+-   scale
+
+<!-- -->
+
+-   All positive scores
+
+-   Divide distribution into 100 equal parts
+
+-   0 = 5 SDs below the mean
+
+-   100 = 5 SDs above the mean
+
+10Z+50
+
+> Whilst you might assume that your variable is normally distributed,
+> you should test this?
+
+![](media/image19.jpeg){width="9.636805555555556in"
+height="3.720138888888889in"}
+
+[[http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP]{.underline}](http://stattrek.com/statistics/charts/data-patterns.aspx?Tutorial=AP)
+
+> Skewness
+>
+> Example -- what about salary distribution
+
+![](media/image20.jpeg){width="10.0in" height="3.7743055555555554in"}
+
+[[https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_s](https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png)
+[kewness.png](https://commons.wikimedia.org/wiki/File:Relationship_between_mean_and_median_under_different_skewness.png)]{.underline}
+
+E.g. mean is a bad measure of the distribution if the variable is skewed
+
+> Kurtosis
+
+Measure of the tailedness and peakness
+
+![](media/image21.jpeg){width="7.040277777777778in"
+height="3.973611111111111in"}
+
+> Leptokrutic
+>
+> Platykurtic
+>
+> Mesokurtic
+
+Kurtosis
+
+-   Kurtosis of a normal distributied variable is 3.
+
+-   Distributions with kurtosis less than 3 are said to be *platykurtic*
+
+-   Distributions with kurtosis greater than 3 are said to be
+    *leptokurtic*.
+
+Types of distributions
+
+-   Normal (Gaussian)
+
+-   Binomial distributions
+
+-   Chi-square
+
+-   Gamma
+
+-   Poisson
+
+-   Exponential
+
+-   Log
+
+-   ... ... ...
+
+Discretization features for
+
+Machine Learning
+
+-   Some algorithms may only use nominal features
+
+> -- E.g. Decision trees
+
+-   How would you convert heights to categories? E.g. small, typical,
+    tall...
+
+-   Is there an optimal method for this?
+
+> **Entropy-Based Discretization**
+
+![](media/image22.jpeg){width="2.959722222222222in"
+height="0.7090277777777778in"}
+
+> M = number of classes
+>
+> P = probability, e.g. number of people aged \<25 earning \<=50k
+> (class)
+
+> Entropy(age\<30) = (30/32 \* log2(30/32)) + (2/32 \* log2(2/32)) =
+> 0.3372901 Entropy(age\>30) = (8/30 \* log2(8/30)) + (22/30 \*
+> log2(22/30)) = 0.8366407
+>
+> Net entropy = mean(c(0.3372901, 0.8366407)) = 0.5869654
+
+**~~https://natmeurer.com/a-simple-guide-to-entropy-based-discretization/~~**
+
+Be careful when
+
+> dichotomizing variables (converting a numeric variable into
+> categories)
+
+Exercise - Tutorial
+
+[Open rundata.csv on BBL]{.underline}
+
+**Open in Excel**
+
+How you can generate data
+
+run\$FirstRun \<- rnorm(99, 30, 10)
+
+run\$SecondRun \<- run\$FirstRun + rnorm(99, 5, 2)
+
+run\$FinalRun \<- run\$SecondRun + rnorm(99, 7, 3)
+
+![](media/image23.jpeg){width="10.0in" height="5.159722222222222in"}
+
+![](media/image24.jpeg){width="6.420833333333333in"
+height="4.120833333333334in"}
+
+[Let's assume each row is a runner and each number is how far they ran
+at each consecutive run.]{.mark}
+
+Tutorial
+
+rundata\$FirstRun
+
+mean(rundata\$FirstRun)
+
+sd(rundata\$FirstRun)
+
+summary(rundata\$FirstRun)
+
+![](media/image25.jpeg){width="4.930555555555555in" height="0.875in"}
+
+hist(rundata\$FirstRun)
+
+![](media/image26.jpeg){width="6.054166666666666in"
+height="5.915277777777778in"}
+
+> Other parameters
+
+?hist
+
+hist(exams\$ First.Test, ylab=\"y-axis title\", xlab="x-axis title\",
+main="main title")
+
+dens \<- density(rundata\$FirstRun)
+
+plot(dens)
+
+![](media/image27.jpeg){width="5.7972222222222225in"
+height="5.664583333333334in"}
+
+convertToFunc \<- with(dens, splinefun(x,y))
+
+integrate(convertToFunc, lower=20, upper=25)
+
+> Normality Testing
+
+Shapiro-Wilk test of normality.
+
+shapiro.test(rundata\$FirstRun)
+
+**[Hypothesis test]{.underline}**
+
+**H~0~ = Null hypothesis:** Data is normally distributed
+
+**H~1~ = Alternative hypothesis:** Data is not normally distributed
+
+![](media/image28.jpeg){width="7.997916666666667in"
+height="2.790277777777778in"}
+
+![](media/image29.png){width="9.845833333333333in"
+height="4.917361111111111in"}
+
+![](media/image30.png){width="9.557638888888889in"
+height="4.756944444444445in"}
+
+plot(density(rundata\$FirstRun), col=\"red\")
+
+lines(density(rundata\$SecondRun), col=\"green\")
+
+legend(\"bottom\", legend = c(\"First run\",\"Second run\"),
+fill=c(\"red\",\"green\"))
+
+![](media/image31.jpeg){width="5.513888888888889in" height="5.3875in"}
+
+boxplot(rundata)
+
+?boxplot
+
+![](media/image32.jpeg){width="5.7027777777777775in"
+height="5.572222222222222in"}
+
+plot(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image33.jpeg){width="5.108333333333333in"
+height="4.990972222222222in"}
+
+> time \<- c(19.09, 19.55, 17.89, 17.73, 25.15, 27.27, 25.24, 21.05,
+> 21.65, 20.92, 22.61, 15.71, 22.04, 22.60, 24.25)
+>
+> library(moments)
+>
+> skewness(time)
+
+1.  -0.01565162 kurtosis(time)
+
+*slightly skewed*
+
+platykurtic...
+
+> \[1\] 2.301051
+
+https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/
+
+> library(ggplot2)
+>
+> qplot(time, geom = \'histogram\', binwidth = 2) + xlab(\'Time\')
+
+![](media/image34.jpeg){width="4.003472222222222in"
+height="4.003472222222222in"}
+
+https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/
+
+sample \<- rnorm(n = 10000, mean = 55, sd = 4.5)
+
+library(moments)
+
+![](media/image35.jpeg){width="4.870138888888889in"
+height="3.6333333333333333in"}
+
+skewness(sample)
+
+\[1\] -0.008525844
+
+kurtosis(sample)
+
+\[1\] 2.96577
+
+#Histogram
+
+library(ggplot2)
+
+datasim \<- data.frame(sample)
+
+ggplot(datasim, aes(x = sample), binwidth = 2) +
+
+> geom_histogram(aes(y = ..density..), fill = \'red\', alpha = 0.5) +
+>
+> geom_density(colour = \'blue\') + xlab(expression(bold(\'Simulated
+> Samples\'))) + ylab(expression(bold(\'Density\')))
+>
+> Generating a Normal Distribution of a Random Variable
+
+?rnorm
+
+-   \<- rnorm(10)
+
+-   \<- rnorm(10, 20, 2) summary(x)
+
+Can I transform my data to make it normally distributed?
+
+Try taking the *log()* of your vector
+
+> [[https://www.r-statistics.com/2013/05/log-transformations-for-skewed-and-wide-distributions-from-practical-data-science-with-r/]{.underline}](https://www.r-statistics.com/2013/05/log-transformations-for-skewed-and-wide-distributions-from-practical-data-science-with-r/)
+
+Other exercises
+
+[[https://www.r-bloggers.com/normal-distribution-functions/]{.underline}](https://www.r-bloggers.com/normal-distribution-functions/)
+
+[[https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/]{.underline}](https://www.r-bloggers.com/measures-of-skewness-and-kurtosis/)

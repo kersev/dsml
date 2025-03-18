@@ -1,0 +1,887 @@
+**COM747**
+
+Introduction to Data Science and
+
+Machine Learning
+
+Prof. Raymond Bond
+
+School of Computing
+
+Pervasive Computing Research Group
+
+rb.bond@ulster.ac.uk
+
+**Attendance monitoring**
+
+Demonstrators
+
+Kevin Nolan
+
+Jialin Lyu
+
+Ciara Sempey
+
+Module specification
+
+Student assessment plan
+
+Module handbook
+
+> Plagiarism and referencing
+
+**By undertaking this coursework, you agree with the following
+statement:**
+
+"*I declare that this is all my own work. Any material I have referred
+to has been accurately referenced and any contribution of Artificial
+Intelligence technology has been fully acknowledged. I have read the
+University's policy on academic misconduct and understand the different
+forms of academic misconduct. If it is shown that material has been
+falsified, plagiarised, or I have otherwise attempted to obtain an
+unfair advantage for myself or others, I understand that I may face
+sanctions in accordance with the policies and procedures of the
+University. A mark of zero may be awarded and the reason for that mark
+will be recorded on my file.*"
+
+-   **Remember, plagiarism is a serious offense -- please ensure that
+    you use your own words** even when referencing a source.
+
+-   [Do remember]{.mark} to [reference all sources as well as tutorials
+    etc.]{.mark}
+
+-   You can read more about plagiarism on the Ulster website:
+    [[https://www.ulster.ac.uk/student/exams/cheating-and-plagiarism]{.underline}](https://www.ulster.ac.uk/student/exams/cheating-and-plagiarism).
+
+-   You can also access guidance on the use of AI on the Ulster website:
+    [[https://www.ulster.ac.uk/learningenhancement/cqe/strategies/ai]{.underline}](https://www.ulster.ac.uk/learningenhancement/cqe/strategies/ai)
+
+> Books -- required reading
+
+-   Lantz, B. (2023) Machine Learning with R, Packt Publishing.
+    [[https://learning.oreilly.com/library/view/machine-learning-with/9781801071321/]{.underline}](https://learning.oreilly.com/library/view/machine-learning-with/9781801071321/)
+
+-   Géron, A. (2022). Hands-on machine learning with Scikit-Learn,
+    Keras, and TensorFlow. O\'Reilly Media, Inc.
+    [[https://learning.oreilly.com/library/view/hands-on-machinelearning/9781098125967/]{.underline}](https://learning.oreilly.com/library/view/hands-on-machinelearning/9781098125967/)
+
+> How much data do we create?
+
+![](media/image1.png){width="5.163194444444445in"
+height="1.0208333333333333in"}
+
+> "328.77 million [terabytes per day"]{.mark}
+>
+> 90% of data was created in the last 2 years\*
+
+[**[\*https://explodingtopics.com/blog/data-generated-per-day]{.underline}**](https://explodingtopics.com/blog/data-generated-per-day)
+
+> 'Big Data'
+
+-   Volume
+
+-   Velocity
+
+-   Variety
+
+-   Veracity
+
+Do you have big data? Really?.
+
+It might look big but you may not have enough rows to provide sufficient
+variance given the number of variables. Consider 20 Boolean variables --
+how many rows would you need to represent the possible number of
+permutations?
+
+> 2^20^ = 1,048,576
+>
+> Do I have enough data for my project?
+>
+> Depends: could be based on the number of variables/features, number of
+> outputs/classes...
+>
+> 1 in 10 rule.... for regression?
+>
+> 1000 images for each class... for computer vision?
+
+[<https://machinelearningmastery.com/much-training-data-required-machine-learning/>
+<https://towardsdatascience.com/how-do-you-know-you-have-enough-training-data-ad9b1fd679ee>
+<https://petewarden.com/2017/12/14/how-many-images-do-you-need-to-train-a-neural-network/>]{.underline}
+
+*"the future of big data*
+
+*is small data"*
+
+> Kokol, P., Kokol, M. and Zagoranski, S., 2022. Machine learning on
+> small size samples: A synthetic knowledge synthesis. *Science
+> Progress*, *105*(1), p.00368504211029777.
+
+Questions
+
+What [is]{.mark} data?
+
+What is data analytics?
+
+Why is data analytics important?
+
+![](media/image2.jpeg){width="10.0in" height="4.729166666666667in"}
+
+By Winchester City Council Museums - Flickr, CC BY-SA 2.0,
+
+https://commons.wikimedia.org/w/index.php?curid=39255824
+
+> Columns/variables are also typically called [features]{.mark} or
+> attributes....
+
+Types of variables
+
+-   Categorical / nominal / factors
+
+-   Strings
+
+-   Numeric
+
+-   Continuous
+
+-   Discrete
+
+-   ...
+
+> 0-255 (1 byte)
+
+![](media/image3.png){width="3.2604166666666665in" height="3.6in"}
+
+Images
+
+> ECG / time series -- an array of numbers/amplitudes
+
+![](media/image4.jpeg){width="5.291666666666667in"
+height="1.1041666666666667in"}
+
+> Ptrump16, CC BY-SA 4.0
+>
+> \<https://creativecommons.org/licenses/by-sa/4.0\>, via
+>
+> Wikimedia Commons
+>
+> A table/matrix of numbers
+
+![](media/image5.jpeg){width="8.46875in" height="6.604166666666667in"}
+
+analytics
+
+important?
+
+DIKW Pyramid
+
+https://commons.wikimedia.org/wiki/File:DIKW_Pyramid.svg
+
+> Industry 4.0
+
+![](media/image6.png){width="8.333333333333334in"
+height="5.159027777777778in"}
+
+Credit \"*Christoph Roser at
+[[AllAboutLean.com]{.underline}](http://www.allaboutlean.com/)*"
+
+[[https://commons.wikimedia.org/wiki/File:Industry_4.0.png]{.underline}](https://commons.wikimedia.org/wiki/File:Industry_4.0.png)
+
+> [More data is generated by]{.mark}
+>
+> [sensors and devices]{.mark}
+>
+> [Data is needed for AI algorithms]{.mark}
+
+**Data is the new Oil...** or is it?
+
+Value of data in services --
+
+mental health case study
+
+![](media/image7.jpeg){width="8.364583333333334in" height="4.75in"}
+
+> Bond, R.R., Mulvenna, M.D., Potts, C., O'Neill, S., Ennis, E. and
+> Torous, J., 2023. Digital transformation of mental health services.
+> *npj Mental Health Research*, *2*(1), p.13.
+
+Case Study
+
+Ulster research Application:
+
+> Helpline caller analytics
+>
+> **Caller Characteristics/features:**
+
+1.  Number of calls
+
+2.  Mean call duration
+
+3.  Standard deviation of call durations
+
+> **[4 Steps:]{.mark} Data Preparation for Clustering analysis**:
+
+1.  Derived a new data set: **61,287 callers**/61,287 rows with these 3
+    features
+
+2.  Feature standardisation (important that each feature is metric
+    agnostic so there is no bias)
+
+3.  Choose k
+
+4.  Apply the K-means clustering technique
+
+O'Neill, S., Bond, R.R., Grigorash, A., Ramsey, C., Armour, C. and
+Mulvenna, M.D., 2019. Data analytics of call log data to identify caller
+behaviour patterns from a mental health and well-being helpline. *Health
+informatics journal*, *25*(4), pp.1722-1738.
+
+![](media/image8.png){width="7.706944444444445in"
+height="0.7395833333333334in"}
+
+Useful and Actionable Insights!
+
+> A new paradigm for science:
+
+-   Conventional scientists
+
+> --Prospective studies with a single hypothesis
+
+-   Big data scientists
+
+> --Retrospective data mining
+>
+> --Looking for patterns without a particular hunch --Hypothesis free?
+>
+> Confused about Nomenclature?
+
+Artificial Intelligence Computational Intelligence Intelligent Systems
+
+Data Analytics
+
+Data Mining
+
+Data Science
+
+Data Wrangling
+
+Big Data
+
+Machine Learning
+
+Algorithms
+
+Business Intelligence
+
+Business Analytics
+
+> [Get to know the terms and how they relate.]{.mark}
+
+Statistical modeling, signal processing, feature engineering,
+statistical computing, statistical learning,
+
+> pattern recognition, computer vision...
+>
+> **Task**
+>
+> Explore various definitions of the following phrases/terms:
+
+-   Statistics
+
+-   Data science
+
+-   Data analytics
+
+-   Data mining
+
+-   Knowledge discovery
+
+-   Machine learning
+
+-   Algorithms
+
+-   Artificial intelligence
+
+![](media/image9.jpeg){width="10.0in" height="5.270833333333333in"}
+
+Statistical modelling
+
+vs.
+
+Machine learning
+
+Understanding
+
+vs.
+
+Prediction
+
+Types of data
+
+-   Structured data
+
+> -- SQL Database
+>
+> -- Excel spreadsheet / CSV file
+
+-   Unstructured data
+
+> --Free text responses
+>
+> -- Emails / social media
+>
+> -- Text files
+>
+> -- Doctor's notes
+
+How much unstructured
+
+data do we have?
+
+80% - 90%?
+
+> [[https://www.mongodb.com/unstructured-data#:\~:text=From%2080%25%20to%2090%25%20of,](https://www.mongodb.com/unstructured-data)
+> [used%20to%20guide%20business%20decisions](https://www.mongodb.com/unstructured-data)]{.underline}.
+>
+> Typical data structures
+
+**Typical datasets**
+
+-   Comma separated values (CSV)
+
+-   eXtensible Markup Language (XML)
+
+-   JavaScript Object Notation (JSON)
+
+> --Nested JSON in CSV structures
+
+-   SQL
+
+-   Excel data formats
+
+-   Other: .txt files for text, or RGB data for images etc.
+
+-   **Other terms associated with formats:**
+
+> -- Vectors
+>
+> -- Matrices
+>
+> -- Data frames
+
+Wide and long data formats
+
+> Data wrangling
+
+![](media/image10.png){width="8.057638888888889in"
+height="2.997916666666667in"}
+
+Transform
+
+Open data
+
+-   Free to the world to download
+
+-   Provides analysis at scale
+
+-   Caveat is that
+
+> --It can dominate data science projects
+>
+> --Data can be 'over analysed'
+>
+> --What about data provenance?
+>
+> --What about data quality?
+
+![](media/image11.png){width="5.154861111111111in" height="0.9375in"}
+
+> Also having open data does not necessarily mean that it is easily
+> [accessible data!]{.mark}
+
+Open data
+
+-   Kaggle
+
+-   UCI
+
+-   Open data NI
+
+-   PhysioNet
+
+-   ...
+
+> Problem with health data science
+
+![](media/image12.png){width="8.336805555555555in"
+height="0.5416666666666666in"}
+
+*"It's easy to let ourselves be driven by what we [can do with the data,
+rather than by the most]{.mark} pressing clinical need. We see many AI
+solutions addressing the same tasks, because those are the tasks for
+which the data are available. "*
+
+![](media/image13.png){width="4.038194444444445in"
+height="0.5416666666666666in"}
+
+> Bethany Percha, Mount Sinai Health System
+>
+> https://eithealth.eu/wp-content/uploads/2020/03/EIT-Health-and-
+>
+> McKinsey_Transforming-Healthcare-with-AI.pdf
+>
+> Qualitative and Quantitative
+
+-   Quantitative data
+
+> -- Numbers, numbers, numbers
+>
+> •Temperature
+
+-   Heart rate
+
+-   Likert ratings
+
+<!-- -->
+
+-   Qualitative data
+
+> --Text
+
+-   Surveys
+
+-   Interviews
+
+-   App comments / user feedback
+
+> Qualitative and Quantitative
+
+-   Quantitative analysis
+
+> -- Quantitative statistical analysis
+
+-   Descriptive statistics: Mean and SD
+
+-   Inferential Statistics: t-tests
+
+<!-- -->
+
+-   Qualitative analysis
+
+> --Thematic analysis --Advanced methods:
+
+-   Text analytics
+
+> -- word embeddings
+
+[Mixed methods?]{.mark}
+
+-   Review mining
+
+Quantitative vs. Qualitative
+
+![](media/image14.png){width="8.333333333333333e-2in"
+height="2.4868055555555557in"}
+
+> The What The Why
+
+What is a data scientist?
+
+1.  Statistics
+
+2.  Machine learning
+
+3.  Programming
+
+> Data science is not just about ML
+
+Many other non-ML topics:
+
+![](media/image16.png){width="4.553472222222222in"
+height="0.4791666666666667in"}
+
+-   Data wrangling, cleaning etc.
+
+-   EDA -- descriptive and inferential statistics
+
+-   Data visualization and visual analytics
+
+-   Time series analysis
+
+-   Modelling
+
+-   Text analytics
+
+-   Process mining... ...
+
+![](media/image17.png){width="9.974305555555556in"
+height="0.4166666666666667in"}
+
+> What are these variables? How much should I know about data quality
+> and provenance?
+
+Observations
+
+> •Lack of decision support tools for practicing data scientists
+>
+> •Every data scientist will likely have their own pipeline and personal
+> preferences
+>
+> •Not all data science decisions will always be clearly documented
+
+Cockburn A, Dragicevic P, Besançon L, Gutwin C. **Threats of a
+replication crisis in empirical computer**
+
+**science.** Communications of the ACM. 2020 Jul 22;63(8):70-9.
+
+-   Leading to [reproducibility problems]{.mark}
+
+> --*"70% of researchers have tried and failed to reproduce another
+> scientist\'s experiments"*
+>
+> [--[https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970]{.underline}](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970)
+
+-   3 types of reproducibility problems (Goodman, 2016):
+
+> --methods, results, and inferential reproducibility
+
+Goodman, S.N., Fanelli, D. and Ioannidis, J.P., 2016. What does research
+reproducibility mean?. *Science translational medicine*, *8*(341),
+pp.341ps12-341ps12.
+
+Cockburn A, Dragicevic P, Besançon L, Gutwin C. **Threats of a
+replication crisis in empirical computer science.** Communications of
+the ACM.
+
+2020 Jul 22;63(8):70-9.
+
+![](media/image18.jpeg){width="4.0625in" height="5.333333333333333in"}
+
+> Reproducibility
+>
+> Checklist
+>
+> https://www.cs.mcgill.ca/\~jpineau/Reproduci
+>
+> bilityChecklist.pdf
+>
+> Pre-ML Checklist
+
+https://services.google.com/fh/files/blogs/data-prep-checklist-ml-bd-wp-v2.pdf
+
+> They care about the results and
+>
+> somewhat ignore of the details
+>
+> of the methods.
+>
+> The [Neat]{.mark} and the [Scruffy]{.mark} Data Scientists
+>
+> They care about the
+>
+> details and the ML
+>
+> method.
+
+Kolodner, J.L., 2002. The\" neat\" and the\" scruffy\" in promoting
+learning from analogy: We need to pay attention to both. *The Journal of
+the learning Sciences*, *11*(1), pp.139-152.
+
+> Gartner Analytic Continuum
+
+![](media/image19.png){width="8.333333333333333e-2in"
+height="2.7569444444444446in"}
+
+-   Descriptive analytics
+
+-   Diagnostic analytics
+
+-   Predictive analytics
+
+-   Prescriptive analytics
+
+Hindsight
+
+> Insight Difficulty and Value
+
+Foresight
+
+> [[https://www.argility.com/argility-ecosystem-solutions/industry-4-0/predictive-prescriptive-analytics/]{.underline}](https://www.argility.com/argility-ecosystem-solutions/industry-4-0/predictive-prescriptive-analytics/)
+>
+> Data mining/analytics/science
+
+-   Anomaly detection
+
+-   Association rule learning
+
+-   Clustering
+
+-   Classification
+
+-   Regression
+
+-   Summarization
+
+> [[Fayyad,
+> Usama]{.underline}](https://en.wikipedia.org/wiki/Usama_Fayyad);
+> [[Piatetsky-Shapiro,
+> Gregory]{.underline}](https://en.wikipedia.org/wiki/Gregory_Piatetsky-Shapiro);
+> Smyth, Padhraic (1996). [[\"From Data Mining
+> to](http://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf)
+> [Knowledge Discovery in
+> Databases\"](http://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf)]{.underline}(PDF).
+> Retrieved 17 December 2008.
+
+Workflow:
+
+CRISP-DM Cross-industry standard process for data mining
+
+![](media/image20.jpeg){width="6.375in" height="5.239583333333333in"}
+
+> [[https://en.wikipedia.org/wiki/Cross-]{.underline}](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
+>
+> [[industry_standard_process_for_data_mining]{.underline}](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
+>
+> [[Cross Industry Standard
+> Process](https://en.wikipedia.org/wiki/Cross_Industry_Standard_Process_for_Data_Mining)]{.underline}
+> [[for Data
+> Mining]{.underline}](https://en.wikipedia.org/wiki/Cross_Industry_Standard_Process_for_Data_Mining)
+> (CRISP-DM)
+
+-   Six phases:
+
+> --Business understanding
+>
+> --Data understanding
+>
+> --Data preparation
+>
+> --Modeling
+>
+> --Evaluation
+>
+> --Deployment
+>
+> *knowledge discovery in databases (KDD)*
+
+-   *5 stages:*
+
+> --Selection
+>
+> --Pre-processing
+>
+> --Transformation
+>
+> --*Data mining*
+>
+> --Interpretation/evaluation
+>
+> Typical Data Analytics Processes
+
+-   Data gathering, data wrangling, data cleansing
+
+-   and data linking
+
+-   Exploratory data analysis (EDA)
+
+> --Data visualization
+>
+> --Clustering/Association mining
+
+-   Supervised Machine learning
+
+> --Feature engineering (feature extraction/feature selection)
+>
+> -- Model building
+>
+> -- Model optimization
+>
+> -- Model evaluation
+>
+> Data cleaning/wrangling
+>
+> [80% : 20% ?]{.mark}
+>
+> Akin to Pareto's law
+
+[[https://medium.com/analytics-vidhya/a-data-cleaning-journey-2b0146407e44#]{.underline}](https://medium.com/analytics-vidhya/a-data-cleaning-journey-2b0146407e44)
+
+Data wrangling example scenarios
+
+-   Data linking / merging different datasets into one
+
+-   Transforming a dataset from JSON to CSV
+
+-   Combining variables
+
+-   Discretizing variables (age \> age groups)
+
+-   Data imputation for missing variables
+
+-   Cleaning variables
+
+-   Check data quality
+
+-   ...
+
+> Male
+>
+> m
+>
+> Female
+>
+> MALE
+>
+> M
+>
+> F
+>
+> f
+>
+> male
+>
+> FEMALE
+>
+> fem
+>
+> Mal
+>
+> ...
+
+Data cleaning example
+
+> Introduction to R Resources
+
+-   BOOK: The Art of R Programming
+
+-   [http://www.statmethods.net]{.underline}
+
+What is R and its history?
+
+![](media/image21.png){width="6.918055555555555in"
+height="0.9791666666666666in"}
+
+-   Statistical computing
+
+-   Developed by John Chambers at Bell Labs
+
+SPSS vs. R
+
+R vs. Python
+
+> Computer Programming Paradigms
+
+-   Procedural Programming
+
+-   Object Oriented Programming
+
+-   **[Functional Programming]{.mark}**
+
+*"Functional Programming is when functions ...are used as the
+fundamental building blocks of a program."*
+
+> c2.com/cgi/wiki?FunctionalProgramming
+>
+> RAM needed
+
+-   CSV file with 1,500,000 rows and 120 columns, each cell being a
+    number.
+
+![](media/image22.png){width="8.0in" height="1.6041666666666667in"}
+
+> Double-precision floating-point format
+
+![](media/image23.jpeg){width="8.604166666666666in" height="1.625in"}
+
+> 2^11^ = 2048
+
+2^52^ = 4,503,599,627,370,496
+
+> https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+
+-   Some people use R for only it's built in functions
+
+    x.  \<- c(1,5,3)
+
+> mean(x)
+
+-   Some people program custom functions
+
+f.  \<- function(a, b) { y \<- a\*b return(y)
+
+> }
+>
+> f(2,3)
+
+R has 5 basic or
+
+"atomic" classes of objects (modes)
+
+1.  character
+
+2.  numeric
+
+3.  integer
+
+4.  complex
+
+5.  logical (True/False)
+
+> The most basic object is a vector
+
+-   A vector can only contain objects of the same class/mode
+
+-   The one exception is a *list*, which is represented as a vector but
+    can contain objects of different classes
+
+-   Empty vectors can be created with the vector() function.
+
+> Vectors
+
+x \<- c(0.5, 0.6) \## numeric
+
+x \<- c(TRUE, FALSE) \## logical
+
+x \<- c(T, F) \## logical
+
+x \<- c(\"a\", \"b\", \"c\") \## character
+
+x \<- c(1,2,3) \## integer
+
+x \<- c(1+0i, 2+4i) \## complex
+
+> THE : OPERATOR
+
+x \<- c(1:20)
+
+x \<- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+
+> Vector() method
+
+y \<- vector(length=2)
+
+y\[1\] \<- 3
+
+y\[2\] \<- 8
+
+Note: vectors are not 0 based
+
+R Studio
+
+![](media/image24.jpeg){width="10.0in" height="6.104166666666667in"}
+
+![](media/image25.jpeg){width="7.6875in" height="5.927083333333333in"}
+
+Google Colab / Jupyter notebooks
+
+![](media/image26.jpeg){width="6.354166666666667in"
+height="4.604166666666667in"}
+
+**COM747**
+
+> Prof. Raymond Bond
+>
+> School of Computing
+
+Pervasive Computing Research Group
+
+rb.bond@ulster.ac.uk

@@ -1,0 +1,1057 @@
+Introduction to Inferential Statistics and Hypothesis Testing
+
+> Prof. Raymond Bond
+>
+> School of Computing
+>
+> rb.bond@ulster.ac.uk
+
+-   Science:
+
+*"The intellectual and practical activity encompassing the systematic
+study of the structure and behaviour of the physical and natural world
+through observation and experiment."*
+
+Oxford dictionary
+
+Key scientific concepts/
+
+scientific method
+
+-   Hypothesis -- an educated hunch that explains some phenomena
+
+-   Theory -- evidence based theory that explains some phenomena
+
+-   Law -- something that's always true and predicts precisely
+
+[[https://www.youtube.com/watch?v=lqk3TKuGNBA]{.underline}](https://www.youtube.com/watch?v=lqk3TKuGNBA)
+
+> Hypothesis free vs. hypothesis driven science
+>
+> ![](media/image1.png){width="10.0in" height="7.5in"}
+
+Importance of randomisation Avoiding bias and confounders
+
+> Population
+>
+> Randomised controlled trial
+>
+> Subjects
+
+![](media/image2.png){width="0.1388888888888889in"
+height="0.7097222222222223in"}
+
+> Randomisation
+
+![](media/image3.png){width="4.689583333333333in"
+height="0.8277777777777777in"}
+
+> **Post trial/outcome variables:**
+>
+> Relative reduction in size of tumor (t-test)
+>
+> Mortality (Chi-square)
+>
+> Sampling methods
+
+Importance of **[representation]{.underline}**
+
+-   Simple random sampling
+
+-   Stratified sampling
+
+-   [Convenience sampling]{.mark}
+
+> Important to note
+
+-   Primary data vs. secondary data
+
+-   Prevalence of sample vs. population
+
+-   Class proportions for Machine Learning
+
+> -- Class imbalance problem
+
+-   Adaboost, RUSBoost, SMOTE ...
+
+<!-- -->
+
+-   Representative results
+
+Data Provenance
+
+-   ***"Provenance** (from the*
+    [*[French]{.underline}*](https://en.wikipedia.org/wiki/French_language)
+    *provenir, \'to come from/forth\') is the chronology of the
+    ownership, custody or location of a historical*
+
+> *object."* -wikipedia https://en.wikipedia.org/wiki/Provenance
+
+-   **[Data provenance]{.underline}** is the history of a dataset
+
+> -- Data cleaning processes
+>
+> -- Imputations for missing data
+>
+> -- How it was collected and by whom
+>
+> -- Access to previous versions etc.
+>
+> Remember most datasets are a sample and not the population:
+
+[Sampling error]{.mark}
+
+x \<- rnorm([5]{.mark}, 50, 20)
+
+x \<- rnorm([1000]{.mark}, 50, 20)
+
+Remember
+
+the Law of large numbers
+
+![](media/image4.jpeg){width="7.944444444444445in" height="6.25in"}
+
+![](media/image5.jpeg){width="8.5in" height="4.9847222222222225in"}
+
+![](media/image6.jpeg){width="8.5in" height="4.736111111111111in"}
+
+Standard Error of the Mean
+
+![](media/image7.jpeg){width="4.027777777777778in"
+height="2.0277777777777777in"}
+
+> S=SD
+>
+> N = number of sampling units
+
+Standard Error of the Mean
+
+> Statistical axiom = [the greater sample size the greater the
+> reliability of the statistic]{.mark}
+
+![](media/image8.png){width="9.027777777777779in"
+height="3.7395833333333335in"}
+
+> Standard
+>
+> error of the
+>
+> mean
+
+![](media/image9.png){width="5.610416666666667in"
+height="1.0416666666666666e-2in"}
+
+> Sample size
+>
+> Example: How far do we expect this sample mean to be from the
+> population mean?
+
+-   Sample mean = 75
+
+-   SD=18
+
+-   N=36
+
+![](media/image10.jpeg){width="2.2895833333333333in"
+height="1.1527777777777777in"}
+
+Result = 3
+
+> Example: How far do we expect this sample mean to be from the
+> population mean?
+
+-   68.26% confident of population mean being 75±3
+
+-   95% confident of being 75±(3\*1.96= 5.88)
+
+> -- [Between 69.12 and 80.88]{.mark}
+
+Confidence intervals
+
+-   68.26% confident of population mean being 75±3
+
+-   95% confident of being 75±(1.96\*3=5.88)
+
+> -- Between 69.12 and 80.88
+>
+> -- **75 (95% CI: 69.12, 80.88)**
+>
+> -- **Margin of error = 5.88**
+>
+> NOTE:
+>
+> Simply treat SE as 1 SD
+>
+> Confidence and probability are one of the same
+
+This all assumes normal
+
+distribution
+
+![](media/image11.png){width="7.925694444444445in"
+height="5.5368055555555555in"}
+
+1.96
+
+1.96
+
+> [[https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG]{.underline}](https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG).
+> [[Dan
+> Kernler]{.underline}](https://commons.wikimedia.org/w/index.php?title=User:Mathprofdk&action=edit&redlink=1)
+
+-   If its [not]{.underline} normal then 1.96 could mean something
+    different
+
+![](media/image12.png){width="7.925694444444445in"
+height="5.5368055555555555in"}
+
+> 1.96
+>
+> 1.96
+>
+> https://commons.wikimedia.org/wiki/File:Empirical_Rule.PNG
+>
+> *T* - DISTRIBUTIONS
+
+-   As sample sizes become smaller, the wider the distribution
+
+![](media/image13.jpeg){width="6.270833333333333in"
+height="3.7152777777777777in"}
+
+> [[http://www.dummies.com/education/math/statistics/how](http://www.dummies.com/education/math/statistics/how-to-tell-a-z-distribution-from-a-t-distribution/)
+> [-to-tell-a-z-distribution-from-a-t-distribution/](http://www.dummies.com/education/math/statistics/how-to-tell-a-z-distribution-from-a-t-distribution/)]{.underline}
+
+![](media/image14.png){width="6.034722222222222in" height="7.5in"}
+**look up table**
+
+**Note:**
+
+**Different *t***
+
+**distributions**
+
+**based on**
+
+**sample size**
+
+**When sample**
+
+**size = 30, the t**
+
+**and z**
+
+**distributions**
+
+**are**
+
+**approximately**
+
+**the same.**
+
+-   distribution
+
+<!-- -->
+
+-   For sample size of 15
+
+-   Present the mean±(SE\*[2.145]{.mark}) for a 95% CI
+
+-   So for smaller datasets the t-distribution is best to be used to
+    calculate confidence intervals
+
+> Note: Degrees of freedom
+
+-   Number of samples minus the number of parameters being estimated
+
+-   In our case: N-1
+
+> Hypothesis testing
+
+Hypothesis: Are dogs faster than mice? A question that is testable and
+falsifiable.
+
+**H~0~** Null hypothesis: No -- dogs are not faster
+
+**H~1~** Alternative: Yes --dogs are faster
+
+Alpha = 0.05 or 5%
+
+-   **5% chance of occurring due to sampling error**
+
+-   **95% chance of not occurring due to sampling error**
+
+> Procedure for hypothesis test
+
+-   a [random]{.underline} sample is drawn from a population
+
+-   a null hypothesis is formulated
+
+-   a test-statistic is uses
+
+-   *p*-value: evidence for a hypothesis-comparing the observed value of
+    the statistic with the corresponding distribution
+
+-   if the *p*-value\<0.05, reject the null hypothesis
+
+> Typical steps in hypothesis testing
+
+Collect speed of 100 dogs
+
+Collect speed of 100 mice
+
+-   Test assumptions of data
+
+> -- Normality, homoscedasticity (variance, SD)
+
+-   Choose appropriate hypothesis/significance test:
+
+> -- Parametric test: Z-test, t-test
+>
+> -- Non-parametric test: Mann-Whitney U Test
+>
+> Normality Testing
+
+Shapiro-Wilk test of normality.
+
+shapiro.test()
+
+**[Hypothesis test]{.underline}**
+
+**H~0~ = Null hypothesis:** Data is normally distributed
+
+**H~1~ = Alternative hypothesis:** Data is not normally distributed
+
+Homoscedasticity
+
+> *"if the ratio of the largest sample variance to the smallest sample
+> variance does not exceed 1.5, the groups satisfy the requirement of
+> homoscedasticity"*
+
+[[http://blog.minitab.com/blog/statistics-and-]{.underline}](http://blog.minitab.com/blog/statistics-and-quality-data-analysis/dont-be-a-victim-of-statistical-hippopotomonstrosesquipedaliophobia)
+
+> [[quality-data-analysis/dont-be-a-victim-of-]{.underline}](http://blog.minitab.com/blog/statistics-and-quality-data-analysis/dont-be-a-victim-of-statistical-hippopotomonstrosesquipedaliophobia)
+>
+> [[statistical-]{.underline}](http://blog.minitab.com/blog/statistics-and-quality-data-analysis/dont-be-a-victim-of-statistical-hippopotomonstrosesquipedaliophobia)
+>
+> [[hippopotomonstrosesquipedaliophobia]{.underline}](http://blog.minitab.com/blog/statistics-and-quality-data-analysis/dont-be-a-victim-of-statistical-hippopotomonstrosesquipedaliophobia)
+>
+> Hypothesis testing
+
+-   Mean and SD of speeds from dogs
+
+-   Mean and SD of speeds from mice
+
+-   Typical alpha value: 0.05
+
+-   Independent/unpaired t-test: **p-value = 0.01**
+
+T-test - P value
+
+-   Independent/unpaired t-test: **p-value = 0.01**
+
+> *\~The probability that these two variables are from the same
+> population, specifically the means. Perhaps, more accurately, the
+> probability that you can get these results by chance when there is no
+> difference.*
+>
+> Conclude: There is a statistically significant difference (p\<0.05)
+> between the heights of males and females, with males on average being
+> 20cm taller.
+>
+> ![](media/image15.png){width="10.0in" height="7.5in"}
+>
+> **Mean speed of population (distribution using SE)**
+
+Probability of having this Z value or more extreme
+
+> mean
+>
+> ~mean~ from male
+>
+> group
+
+Exercise: Z tests vs T tests
+
+> [[https://www.youtube.com/watch?v=5ABpqVS](https://www.youtube.com/watch?v=5ABpqVSx33I)
+> [x33I](https://www.youtube.com/watch?v=5ABpqVSx33I)]{.underline}
+>
+> Range of t tests
+
+-   One sample t test
+
+-   Paired t-test
+
+> (same group, e.g. mean pre and post measure)
+
+-   Independent two-sample t-test
+
+> -- Equal sample sizes, equal variance
+>
+> -- Unequal sample sizes, equal variance
+
+-   [[Welch\'s
+    *t*-test]{.underline}](https://en.wikipedia.org/wiki/Welch's_t-test)
+
+> -- One tail vs. two tails
+>
+> Reading
+>
+> Exercise
+>
+> William S. Gosset
+>
+> Inventor of the t-test
+>
+> [[https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics]{.underline}](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics)
+
+Types of Errors
+
+-   Type I errors
+
+> -- errors where the result is statistically significant despite the
+> fact that the null hypothesis is true
+>
+> -- i.e., a diagnosis of cancer ("positive") for healthy subject
+>
+> **Solution: change alpha value from 5% to 1%**
+
+Types of Errors
+
+-   Type II errors
+
+> -- errors where the result is NOT significant despite the fact that
+> the hypothesis is true
+>
+> -- i.e., a diagnosis of healthy for a subject who has cancer
+
+Analogous to a court room
+
+![](media/image16.jpeg){width="8.25in" height="3.5277777777777777in"}
+
+> [*["error of the first
+> kind]{.underline}*](https://en.wikipedia.org/wiki/Error_of_the_first_kind)
+> (i.e., the conviction of an innocent person)"
+>
+> "[[*error of the second
+> kind*]{.underline}](https://en.wikipedia.org/wiki/Error_of_the_second_kind)
+> (acquitting a person who committed the crime)"
+>
+> [[https://en.wikipedia.org/wiki/Statistical_hypothesis_testing]{.underline}](https://en.wikipedia.org/wiki/Statistical_hypothesis_testing)
+
+**[False discovery rate (FDR)]{.underline}**
+
+**[in data mining]{.underline}**
+
+-   Data mining = testing multiple hypothesis
+
+-   Data mining increases **[false discovery rate (FDR)]{.underline}**
+
+Bonferroni correction
+
+-   0.05 = you will have a type 1 error 1/20 times
+
+-   Changing the alpha value of a test if there are multiple tests on a
+    single dataset
+
+Desired alpha value / number of tests
+
+-   For 20 tests:
+
+![](media/image17.jpeg){width="4.570833333333334in"
+height="0.6041666666666666in"}
+
+Beware of
+
+-   P-hacking
+
+> -- Specify methods before the study
+>
+> -- Removing outliers
+
+-   HARKing
+
+> -- Pre-registration
+>
+> *"if you torture the data long enough, it will confess to anything" -
+> Ronald Coase*
+
+[[https://en.wiktionary.org/wiki/if_you_torture_the_data_lo](https://en.wiktionary.org/wiki/if_you_torture_the_data_long_enough,_it_will_confess_to_anything)
+[ng_enough,\_it_will_confess_to_anything](https://en.wiktionary.org/wiki/if_you_torture_the_data_long_enough,_it_will_confess_to_anything)]{.underline}
+
+-   The cliff-effect / dichotomous thinking
+
+Statistical Power
+
+-   Probability of achieving statistical significance when alternative
+    hypothesis is true (true positive / true result)
+
+**power** = 1 -- β
+
+Where β is the probability of a type 2 error
+
+> G\* Power
+
+![](media/image18.jpeg){width="5.06875in" height="6.065972222222222in"}
+
+> A priori:
+>
+> Used to calculate before data collection.
+
+Greater the effect the smaller the sample size
+
+> Statistical Power is important -
+
+Prospectively (a priori)
+
+-   Scientific - Collect the right amount of data
+
+-   Ethical -- no continuous unnecessary harm (e.g. in drug trials)
+
+Retrospectively (post hoc):
+
+-   Was there enough power in my test and sample size to get statistical
+    significance, given the effect measured
+
+Note
+
+-   Statistical insignificance does not mean that there is no
+    difference/effect -- it could just be that the sample size is not
+    big enough to detect that effect
+
+Example
+
+-   To save fuel from stopping and waiting at red lights, it was
+    proposed that drivers should be able to continue and turn right
+
+-   A study looked at 20 locations where drivers were allowed to turn
+    right and measure the number of accidents before and after this new
+    intervention
+
+•
+
+•
+
+•
+
+The number of accidents before and after was not statistically
+significant (but there was a small increase)
+
+Hence, it was concluded that this new rule introduced no additional harm
+
+[What is wrong here?]{.mark}
+
+> Reinhart, A., 2015. *Statistics done wrong: The woefully complete
+> guide*. No starch press.
+>
+> Also...
+
+Statistical significance != 'a big' difference
+
+Increase power of a test
+
+-   Increase sample size
+
+-   Use a higher alpha value
+
+-   Use a one sided test
+
+> The smaller the difference \> the greater number of samples required
+>
+> If you hypothesize that there is a small difference between 2 groups
+> then you need more samples
+
+Difference \~ effect size
+
+-   Cohen's d
+
+> = \| Mean1 -- Mean2 \| / pooled_SD
+>
+> In R, to compare 50±5 with 70±5:
+>
+> abs(50 - 53) / sqrt( ((5\*5)+(5\*5)) / 2 )
+>
+> = 0.6
+>
+> [Small = 0.2, Medium = 0.5, Large = 0.8]{.mark}
+
+[[https://www.statisticshowto.com/cohens-d]{.underline}](https://www.statisticshowto.com/cohens-d)
+
+Difference \~ effect size
+
+-   Cohen's d
+
+> x \<- rnorm(500, 50, 5) y \<- rnorm(500, 53, 5)
+>
+> library(effsize)
+>
+> cohen.d(x,y)
+>
+> Small = 0.2, Medium = 0.5, Large = 0.8
+
+[[https://www.statisticshowto.com/cohens-d]{.underline}](https://www.statisticshowto.com/cohens-d)
+
+Power play time
+
+samplesize \<- 200 meanX \<- 50 meanY \<- 51 sdX \<- 5 sdY \<- 5
+
+pvalues \<- vector(length=100)
+
+effectSize \<- abs(meanX - meanY) / sqrt( ((sdX\*sdX)+(sdY\*sdY)) / 2 )
+effectSize
+
+for(i in 1:100){
+
+> x \<- rnorm(samplesize, meanX, sdX)
+>
+> y \<- rnorm(samplesize, meanY, sdY)
+>
+> p \<- t.test(x,y, PAIRED=FALSE)
+>
+> pvalues\[i\] \<- p\$p.value
+
+}
+
+hist(pvalues, breaks=20)
+
+length(pvalues\[pvalues\<0.05\])
+
+samplesize \<- 200
+
+![](media/image19.jpeg){width="6.70625in" height="6.031944444444444in"}
+
+meanX \<- 50
+
+meanY \<- 51
+
+sdX \<- 5
+
+sdY \<- 5
+
+...
+
+effectSize
+
+> 0.2
+
+50% p values are \<0.05
+
+![](media/image20.jpeg){width="7.145833333333333in"
+height="6.427083333333333in"}[500]{.mark}
+
+meanX \<- 50
+
+meanY \<- 51
+
+sdX \<- 5
+
+sdY \<- 5
+
+...
+
+effectSize
+
+> 0.2
+
+88% p values are \<0.05
+
+![](media/image21.jpeg){width="7.165277777777778in"
+height="6.524305555555555in"}[50]{.mark}
+
+meanX \<- 50
+
+meanY \<- [55]{.mark}
+
+sdX \<- 5
+
+sdY \<- 5
+
+...
+
+[effectSize. 1]{.mark}
+
+[98%]{.mark} p values are \<0.05
+
+Randomised controlled trial
+
+> Subjects
+
+![](media/image22.png){width="0.1388888888888889in"
+height="0.7097222222222223in"}
+
+> Randomisation
+
+![](media/image23.png){width="1.3194444444444444in"
+height="0.8111111111111111in"}
+
+> Control group Experimental/Intervention
+>
+> group
+>
+> **Post trial/outcome variables:**
+>
+> Relative reduction in size of tumor (t-test)
+>
+> Mortality (Chi-square)
+>
+> Randomised controlled trial
+>
+> Subjects
+
+![](media/image25.png){width="0.1388888888888889in"
+height="0.7097222222222223in"}
+
+> Randomisation
+
+![](media/image26.png){width="4.689583333333333in"
+height="0.8277777777777777in"}
+
+> **Post trial/outcome variables:**
+>
+> Relative reduction in size of tumor (t-test)
+>
+> Mortality (Chi-square)
+
+![](media/image27.jpeg){width="6.6097222222222225in"
+height="5.506944444444445in"}
+
+Like hypothesis tests, binary classification algorithms also have 1 of 4
+outputs
+
+> [- TP, FP, TN, FN]{.mark}
+
+Confusion Matrix
+
+> [[https://en.wikipedia.org/wiki/Confusion_matrix]{.underline}](https://en.wikipedia.org/wiki/Confusion_matrix)
+
+![](media/image28.jpeg){width="10.0in" height="4.35625in"}
+
+> Sensitivity and Specificity
+
+-   **Sensitivity** (power): proportion of the positives that are
+    correctly identified by a test as being positive
+
+-   **Specificity**: proportion of negatives that are correctly
+    identified by a test as being negative
+
+Whilst a t-test might tell you that two distributions are statistically
+different, how can you use that for e.g. for disease classification?
+
+You need to agree a suitable cut-off!
+
+![](media/image29.png){width="10.0in" height="7.5in"}
+
+Receiver Operator Characteristic or ROC curve
+
+> 0 Cutt-off 500
+>
+> 100
+
+> (100 -- specificity)
+
+https://en.wikipedia.org/wiki/Sensitivity_and_specificity
+
+![](media/image30.png){width="10.0in" height="7.5in"}
+
+Receiver Operator Characteristic or ROC curve
+
+> Increase sensitivity
+>
+> Group without Disease (TN)
+>
+> 0
+
+Group without Disease (TN)
+
+> 0
+>
+> Increase specificity
+>
+> Group with
+>
+> Disease (TP)
+>
+> Cutt-off ^500^
+>
+> Group with
+>
+> Disease (TP)
+
+Cutt-off ^500^
+
+> 100
+
+(100 -- specificity)
+
+> 100
+
+> Receiver Operator Characteristic -- Optional Exercise / Reading
+
+-   [[Play:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [--
+> [http://www.navan.name/roc/]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+-   [[Watch:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [https://www.youtube.com/watch?v=OAl6e](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+![](media/image31.png){width="8.375in" height="2.7777777777777776e-2in"}
+
+> [[AyP-yo]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+-   [[Read:]{.underline}](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+
+> [[http://people.inf.elte.hu/kiss/13dwhdm/roc.p](https://www.youtube.com/watch?v=OAl6eAyP-yo)
+> [df](https://www.youtube.com/watch?v=OAl6eAyP-yo)]{.underline}
+
+t.test function in R
+
+t.test(x, y, paired=TRUE, var.equal = FALSE)
+
+?t.test
+
+> Non parametric tests (paired and unpaired)
+
+Wilcoxon signed rank test Mann Whitney U test
+
+> wilcox.test(x, y, paired=0)
+>
+> ?wilcox
+
+Chi-square test
+
+> Testing whether there is a statistical significance between 2
+> proportions:
+
+E.g.
+
+25/30 people said they liked Website A 5/31 people said they liked
+Website B
+
+Is there a significant difference?
+
+Chi Square tests / tests comparing proportions in R
+
+> prop.test(x=c(25,5), n=c(30,31))
+
+![](media/image32.png){width="9.003472222222221in"
+height="3.4631944444444445in"}
+
+A/B testing example
+
+![](media/image33.jpeg){width="6.701388888888889in"
+height="3.967361111111111in"}
+
+> [[https://en.wikipedia.org/wiki/A/B_testing#/media/File:A-B_testing_example.png]{.underline}](https://en.wikipedia.org/wiki/A/B_testing)
+>
+> Using Chi-square to Evaluate Machine Learning Performance
+
+-   No Information rate (NIR) vs. Accuracy
+
+> -- Accuracy Paradox
+>
+> -- Where NIR = the highest proportionate class in the dataset
+>
+> Comparison of multiple groups
+
+Analysis of Variance (**ANOVA**) -- omnibus test
+
+This test basically compares the means between many groups
+
+Assumptions:
+
+> Normality
+>
+> Equal variances
+>
+> Independent samples for each group
+
+Exercise -- video tutorial --
+
+hypothesis testing
+
+-   [[https://www.khanacademy.org/math/statisti](https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/tests-about-population-mean/v/hypothesis-testing-and-p-values)
+    [cs-probability/significance-tests-one-sample/tests-about-population-mean/v/hypothesis-testing-and-p-values](https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/tests-about-population-mean/v/hypothesis-testing-and-p-values)]{.underline}
+
+Tutorial
+
+Using [rundata.csv]{.mark}
+
+**Open in Excel**
+
+plot(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image34.jpeg){width="5.709722222222222in"
+height="5.5784722222222225in"}
+
+plot(rundata\$FirstRun, rundata\$SecondRun)
+
+reg1 \<- lm( rundata\$SecondRun \~ rundata\$FirstRun)
+
+abline(reg1)
+
+![](media/image35.jpeg){width="5.897222222222222in"
+height="5.761805555555555in"}
+
+title("my title")
+
+More on Graphs in R
+
+-   [[http://www.statmethods.net/graphs/creating]{.underline}](http://www.statmethods.net/graphs/creating.html)
+
+> [[.html]{.underline}](http://www.statmethods.net/graphs/creating.html)
+>
+> [-- [Dot
+> Plots]{.underline}](http://www.statmethods.net/graphs/dot.html)
+>
+> [-- [Bar
+> Plots]{.underline}](http://www.statmethods.net/graphs/bar.html)
+>
+> [-- [Line
+> Charts]{.underline}](http://www.statmethods.net/graphs/line.html)
+>
+> [-- [Pie
+> Charts]{.underline}](http://www.statmethods.net/graphs/pie.html)
+>
+> [--
+> [Boxplots]{.underline}](http://www.statmethods.net/graphs/boxplot.html)
+>
+> [-- [Scatter
+> Plots]{.underline}](http://www.statmethods.net/graphs/scatterplot.html)
+>
+> Pearson Correlation Coefficient
+
+cor(rundata\$FirstRun, rundata\$SecondRun)
+
+*r* = 0.9762012
+
+![](media/image36.jpeg){width="9.990277777777777in"
+height="1.4736111111111112in"}
+
+[[https://en.wikipedia.org/wiki/Correlation]{.underline}](https://en.wikipedia.org/wiki/Correlation)
+
+> Correlation
+
+cor.test(rundata\$FirstRun, rundata\$SecondRun)
+
+![](media/image37.jpeg){width="6.458333333333333in"
+height="2.5555555555555554in"}
+
+> Small Task
+
+-   Which run instances correlate the most?
+
+Adding a new column to the Data Frame
+
+> rundata\$runDiff \<- rundata\$SecondRun - rundata\$FirstRun
+
+![](media/image38.jpeg){width="5.902777777777778in" height="3.5in"}
+
+> Task - Data Frame Subsetting
+
+-   How many people run more than 30km in their first run?
+
+<!-- -->
+
+-   \<- rundata\$FirstRun\[rundata\$FirstRun \> 30\] length(y)
+
+length( rundata\$FirstRun\[rundata\$FirstRun \> 30\])
+
+> Task - Data Frame Subsetting
+
+How many people did better in their second run? x \<-
+rundata\$runDiff\[rundata\$runDiff \>= 1\] length(x)
+
+x \<- rundata\$runDiff\[rundata\$runDiff \< 0\] length(x)
+
+Hypothesis testing
+
+-   Is there a statistical difference between how far people ran in the
+    first and second run?
+
+t.test(rundata\$FirstRun, rundata\$SecondRun, paired=TRUE)
+
+![](media/image39.jpeg){width="7.083333333333333in"
+height="2.736111111111111in"}
+
+Experiment
+
+Use the code in the following slide to study the relationship between
+different sample sizes, different effect sizes and the probability of
+achieving a true positive/detecting a difference (p\<0.05)
+
+Simply manipulate the variables to study the different outcomes.
+
+Population parameters
+
+~samplesize\ \<-\ 200~![](media/image40.png){width="0.8993055555555556in"
+height="8.333333333333333e-2in"} Sample size of each group
+
+meanX \<- 50
+
+meanY \<- 51 sdX \<- 5 sdY \<- 5
+
+pvalues \<- vector(length=100) A vector to store the p value from each
+of the 100 studies
+
+effectSize \<- abs(meanX - meanY) / sqrt( ((sdX\*sdX)+(sdY\*sdY)) / 2 )
+
+effectSize
+
+![](media/image41.png){width="2.6in" height="8.333333333333333e-2in"}
+
+> pvalues\[i\] \<- p\$p.value
+
+}
+
+hist(pvalues, breaks=20)
+
+length(pvalues\[pvalues\<0.05\])
+
+How many studies achieved statistical significance/true positive Akin to
+the power of the study
+
+R power functions
+
+-   Explore the built in R power test functions
+
+What sample size do you need for a 80% chance (aka power) of detecting
+an effect size of 0.5 between two different groups:
+
+power.t.test(power = .80, delta = 0.5, type=\"two.sample\")
+
+R power functions
+
+![](media/image42.jpeg){width="5.597222222222222in"
+height="3.4305555555555554in"}
+
+> Now try other scenarios.
+
+R power functions
+
+-   Explore the pwr package:
+    [[https://www.statmethods.net/stats/power.html]{.underline}](https://www.statmethods.net/stats/power.html)
+
+e.g. pwr.t.test(n=100 , d = 0.5 , sig.level = 0.05 , type =
+c(\"two.sample\"))
+
+Case study
+
+-   Cognitive scores (ACE scores) to assess for dementia
+
+[[https://pure.ulster.ac.uk/ws/portalfiles/portal/](https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_Article_ReliabilityOfAddenbrookeSCogni.pdf)
+[92526119/Potts2021_Article_ReliabilityOfAdde](https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_Article_ReliabilityOfAddenbrookeSCogni.pdf)
+[nbrookeSCogni.pdf](https://pure.ulster.ac.uk/ws/portalfiles/portal/92526119/Potts2021_Article_ReliabilityOfAddenbrookeSCogni.pdf)]{.underline}
+
+> Potts, C., Richardson, J., Bond, R.B., Price, R.K., Mulvenna, M.D.,
+> Zvolsky, P., Harvey, M., Hughes, C.F. and Duffy, F., 2022. Reliability
+> of Addenbrooke\'s Cognitive Examination III in differentiating between
+> dementia, mild cognitive impairment and older adults who have not
+> reported cognitive problems. *European Journal of Ageing*, *19*(3),
+> pp.495-507.
+
+![](media/image43.jpeg){width="10.0in" height="7.129861111111111in"}
+
+![](media/image44.jpeg){width="10.0in" height="4.672916666666667in"}
+
+![](media/image45.jpeg){width="10.0in" height="5.576388888888889in"}

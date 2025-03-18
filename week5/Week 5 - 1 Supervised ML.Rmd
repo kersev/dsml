@@ -1,0 +1,666 @@
+> Introduction to Supervised Machine Learning and Feature Engineering
+>
+> Prof. Raymond Bond
+>
+> rb.bond@ulster.ac.uk
+
+[Machine Learning]{.underline}
+
+Supervised ML
+
+![](media/image1.png){width="13.333333333333334in" height="7.5in"}
+
+-   Labelled data
+
+-   DL, SVM, Logit, Decision trees, K-NN...
+
+Unsupervised ML
+
+-   Unlabeled data
+
+-   Clustering, Association rule mining
+
+Semi-supervised ML
+
+> • Some labelled data
+
+Reinforcement learning
+
+> • Reward functions in an environment
+>
+> Supervised ML
+>
+> Classification vs. Regression
+
+> Supervised ML -- an example process
+
+-   [Labelled]{.mark} dataset
+
+-   Feature engineering (depending on ML algorithm)
+
+-   Training and testing
+
+-   Evaluation / metrics / confusion matrix etc.
+
+> Also, optimization of hyperparameters.
+>
+> Labelled dataset
+
+![](media/image2.png){width="8.333333333333333e-2in"
+height="0.5069444444444444in"}
+
+> Data Cleaning, preparation & Feature engineering
+
+![](media/image3.png){width="8.333333333333333e-2in"
+height="0.5069444444444444in"}
+
+> Training: Supervised machine learning
+>
+> ![](media/image4.png){width="8.333333333333333e-2in"
+> height="0.5069444444444444in"} Parameter Optimization Testing
+>
+> (& compare models if multiple algorithms are being used)
+
+![](media/image6.png){width="8.333333333333333e-2in"
+height="0.5069444444444444in"}
+
+> Deploy
+
+Overfitting
+
+![](media/image7.png){width="7.415277777777778in"
+height="6.020833333333333in"}
+
+Overfitting
+
+and
+
+Generalisation
+
+Bias variance trade off
+
+> Labelling
+
+-   What are the ground truth labels?
+
+-   Is the label based on a human decision or a separate gold standard
+    test?
+
+-   How accurate are these labels?
+
+-   If cases are labelled by people, are they an expert?
+
+    -   What qualifies them as an expert?
+
+    -   Where multiple labelers/annotators involved?
+
+    -   How did they agree or how did the labelling process handle
+        conflicting labels?
+
+    -   Where the initial labels done independently or as a group
+        consensus?
+
+![](media/image8.png){width="2.113888888888889in"
+height="0.4722222222222222in"}
+
+> There are lots of supervised ML algorithms
+
+-   Deep learning / Neural Networks (CNNs, LSTM..., generative
+    adversarial network/GANs)
+
+-   Logistic regression
+
+-   Naive Bayes
+
+-   Bayesian networks
+
+-   Linear regression
+
+-   Decision trees
+
+-   K-NN
+
+-   ...
+
+> 5 tribes of ML
+
+![](media/image10.jpeg){width="2.7555555555555555in"
+height="4.254861111111111in"}
+
+-   Symbolists
+
+-   Connectionists
+
+-   Bayesians
+
+-   Evolutionaries
+
+-   Analogizers
+
+> Domingos, P., 2015. *The master algorithm: How the quest for the
+> ultimate learning machine will remake our world*. Basic Books.
+
+Feature engineering
+
+-   Feature = variable / attribute
+
+-   Feature extraction
+
+-   Feature selection
+
+-   Which features are most predictive of the labels/target?
+
+![](media/image11.png){width="8.83125in" height="0.4722222222222222in"}
+
+Scale-Invariant Feature
+
+Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01.jpg: Hisashi from
+
+Japanderivative work: Caspian blue, CC BY-SA 2.0 Transform (SIFT)
+\<https://creativecommons.org/licenses/by-sa/2.0\>, via Wikimedia
+Commons
+[[https://commons.wikimedia.org/wiki/File:Orange_tabby_cat_sitting_on_fallen_le]{.underline}](https://commons.wikimedia.org/wiki/File:Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg)
+
+[[aves-Hisashi-01A.jpg]{.underline}](https://commons.wikimedia.org/wiki/File:Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg)
+
+[<https://medium.com/@aybukeyalcinerr/bag-of-visual-words-bovw-db9500331b2f>
+<https://www.youtube.com/watch?v=iGZpJZhqEME>]{.underline}
+
+[Feature extraction example Computer vision Feature]{.underline}
+
+[extraction techniques (as opposed to using every pixel as a
+feature)]{.underline}
+
+[Interesting points in the image]{.underline}
+
+[Speeded Up Robust Features (SURF)]{.underline}
+
+![](media/image12.png){width="13.333333333333334in" height="7.5in"}
+
+> Bag of features / bag of visual features (akin to bag of words)
+>
+> Clustering is used for the visual vocabulary
+
+[\
+]{.underline}
+
+> Histogram
+>
+> per image (a
+>
+> vector of
+>
+> frequencies
+>
+> i.e. number
+>
+> of times
+>
+> each feature
+>
+> appears in
+>
+> the image)
+
+Feature input with label to an ML algorithm
+
+> ![](media/image13.png){width="13.333333333333334in" height="7.5in"}
+
+Peterhcharlton, CC BY 4.0
+
+\<https://creativecommons.org/licenses/by/4.0\>, via Wikimedia
+
+Commons
+
+> Created by Agateller (Anthony
+>
+> Atkielski), converted to svg by
+>
+> atom., Public domain, via
+>
+> Wikimedia Commons
+>
+> Feature selection rationale
+
+-   No need to use all available features
+
+    -   Cost to collecting data? (feature cost)
+
+    -   Cost to computation and modelling?
+
+    -   Consider tradeoff between feature utility vs. feature cost
+
+-   Select the best features that are predictive or improve the model
+
+-   Consider the context of where the algorithm would be used
+
+    -   Are those features available?
+
+![](media/image14.png){width="3.954861111111111in"
+height="0.4027777777777778in"}
+
+> [[https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/]{.underline}](https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/)
+
+Feature selection approaches
+
+1.  **Selecting independent features**
+
+    -   Pearson correlation -- features that are uncorrelated with each
+        other as opposed to the target -- independent features)
+
+2.  **Dimensionality reduction (e.g. PCA**
+
+3.  **Wrapper method**
+
+    -   Discovering a set of features that perform well with the model,
+
+> e.g. recursive feature elimination -- forward and backward elimination
+
+4.  **Filter method**
+
+    -   Selecting features based on how they relate to the label/target
+        (using statistics such as Pearson correlation, Chi-square test,
+        t-test, or feature importance scores)
+
+5.  **Intrinsic/embedded method**
+
+    -   Features that are automatically selected as part of the ML
+        algorithm, i.e. IG in decision trees
+
+> [[Ref:
+> https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/]{.underline}](https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/)
+>
+> [[Ref:
+> https://www.datacamp.com/tutorial/feature-selection-R-boruta]{.underline}](https://www.datacamp.com/tutorial/feature-selection-R-boruta)
+>
+> Do feature selection on training set only!
+
+Selecting independent features (Iris data)
+
+![](media/image15.jpeg){width="11.283333333333333in"
+height="6.636805555555555in"}
+
+![](media/image16.png){width="13.32986111111111in" height="7.5in"}
+
+Recursive feature elimination/addition
+
+> Forward Backwards
+>
+> selection elimination
+>
+> Boruta algorithm -- wrapper method
+
+-   Create 'Shadow features'
+
+-   Uses Random Forest (a large number of decision trees)
+
+-   Computes whether the actual features are better than the shadow
+    features
+
+> library(Boruta)
+>
+> borutaFeatureSelectionMethod \<-
+> Boruta(diagnosis\~.,data=trainingDataDT)
+>
+> plot(borutaFeatureSelectionMethod, las=2, cex.axis = 0.7)
+
+[<https://www.youtube.com/watch?v=VEBax2WMbEA>
+<https://www.datacamp.com/tutorial/feature-selection-R-boruta>]{.underline}
+
+> Actual dataset
+
+> Shadow features
+
+![](media/image18.png){width="13.333333333333334in" height="7.5in"}
+
+> Features that are not
+>
+> any better than the
+>
+> max performance of
+>
+> shadow features
+
+Shadow Mean
+
+Shadow Max
+
+> Shadow Min
+>
+> ![](media/image19.png){width="13.333333333333334in" height="7.5in"}
+>
+> ![](media/image20.png){width="13.333333333333334in" height="7.5in"}
+>
+> **?**
+>
+> **Euclidean Distance**
+
+https://en.wikipedia.org/wiki/Euclidean_distance
+
+> **Alternative: Manhattan distance**
+>
+> ![](media/image21.png){width="13.333333333333334in" height="7.5in"}
+>
+> **Euclidean Distance**
+
+https://en.wikipedia.org/wiki/Euclidean_distance
+
+> **Alternative: Manhattan distance**
+>
+> Lazy learning -- k-nearest neighbour (k=3)
+
+-   "Birds of a feather flock together"
+
+-   Majority/plurality vote (k=odd number)
+
+-   Classification & Regression (using a weighted average/aggregation)
+
+-   Higher dimensions
+
+    -   Euclidean distance
+
+> Ng, A. and Soo, K., 2017. Numsense! Data Science for the Layman.
+
+![](media/image22.jpeg){width="9.363888888888889in"
+height="6.434027777777778in"}
+
+> Code
+>
+> install.packages(\"gmodels\")
+>
+> install.packages(\"class\")
+>
+> set.seed(1)
+>
+> IrisData \<- Iris\[ sample(nrow(Iris), replace = FALSE),
+> c(2,3,4,5,6)\]
+>
+> IrisData\$Species \<- factor(IrisData\$Species)
+
+![](media/image23.jpeg){width="3.7694444444444444in"
+height="0.4326388888888889in"}
+
+> table(IrisData\$Species)
+>
+> prop.table(table(IrisData\$Species))
+
+Standardise the features
+
+![](media/image25.jpeg){width="5.395833333333333in"
+height="3.713888888888889in"}
+
+> IrisData\$SepalLengthCm \<- scale(IrisData\$SepalLengthCm)
+>
+> IrisData\$SepalWidthCm \<- scale(IrisData\$SepalWidthCm)
+>
+> IrisData\$PetalLengthCm \<- scale(IrisData\$PetalLengthCm)
+>
+> IrisData\$PetalWidthCm \<- scale(IrisData\$PetalWidthCm)
+
+To verify this, the mean and SD of a standardised variable should be 0
+(mean) and 1 (SD) respectively.
+
+> round(mean(IrisData\$SepalLengthCm))
+>
+> round(sd(IrisData\$SepalLengthCm))
+>
+> Alternatively: Normalise the features
+>
+> normalisation \<- function(x) {
+>
+> normalise \<- (x - min(x)) / (max(x) - min(x))
+>
+> return(normalise)
+
+![](media/image26.jpeg){width="7.071527777777778in"
+height="1.3944444444444444in"}
+
+> }
+>
+> Lantz, B., *Machine learning with R: expert techniques for predictive
+> modeling*. Packt publishing ltd. (Chapter 3)
+>
+> trainingData \<- IrisData\[c(1:100),c(1,2,3,4)\]
+>
+> testData \<- IrisData\[c(101:150),c(1,2,3,4)\]
+>
+> library(class)
+
+This train/test split is 2/3 (two thirds, 66.66%) for training and 1/3
+(one third, 33.33%) for testing.
+
+> knnModelAndPredictedLabels \<- knn(train = trainingData, test =
+> testData, cl = trainingLabels, k=3)
+>
+> library(gmodels)
+>
+> CrossTable(x = testingLabels, y = knnModelAndPredictedLabels,
+> prop.chisq=FALSE)
+>
+> Cross-tabulation / Confusion Matrix
+
+![](media/image27.png){width="10.253472222222221in"
+height="6.239583333333333in"}
+
+Decision trees
+
+-   Akin to a flow diagram / upside down tree
+
+    -   Root node, branches and leaves
+
+-   Binary decision points (nodes)
+
+-   Explainable / interpretable decisions/logic
+
+-   Does it's own feature selection (information gain)
+
+-   Recursive partitioning (divide and conquer)
+
+-   Various decision tree algorithms (C4.5, C5.0, J48, 1R, Ripper,
+    ID3...)
+
+> InformationGain(*Feature*) = Entropy(*S*~1~) - Entropy(*S*~2~)
+>
+> Difference between the Entropy before and after the split.
+
+Decision trees
+
+Iris dataset example
+
+![](media/image28.jpeg){width="9.67013888888889in" height="7.5in"}
+
+[[Code:
+https://scikit-learn.org/stable/modules/tree.html]{.underline}](https://scikit-learn.org/stable/modules/tree.html)
+
+> Tutorial **Breast Cancer Wisconsin (Diagnostic) dataset (569 cases)**
+
+![](media/image29.jpeg){width="5.7131944444444445in" height="6.0375in"}
+
+> set.seed(1)
+>
+> DataDF \<- data\[ sample(nrow(data), replace = FALSE),c(2:32)\]
+>
+> DataDF\$diagnosis \<- factor(DataDF\$diagnosis)
+
+![](media/image30.jpeg){width="0.9895833333333334in"
+height="0.6395833333333333in"}
+
+> table(DataDF\$diagnosis)
+>
+> trainingDataDT \<- DataDF\[c(1:500),\] testDataDT \<-
+> DataDF\[c(501:569),\]
+>
+> install.packages(\"C50\")
+>
+> library(C50)
+>
+> decisionTree \<- C5.0(diagnosis \~., data=trainingDataDT)
+>
+> summary(decisionTree)
+
+![](media/image31.jpeg){width="13.333333333333334in"
+height="6.465277777777778in"}
+
+![](media/image32.png){width="9.265277777777778in"
+height="7.238888888888889in"}
+
+> **The % is the % of training**
+>
+> **cases/rows that used that**
+>
+> **feature to make the prediction**
+>
+> **when using the decision tree.**
+
+decisionTreePredictions \<- predict(decisionTree, testDataDT)
+
+table(decisionTreePredictions, testDataDT\$diagnosis)
+
+or:
+
+CrossTable(x = decisionTreePredictions, y = testDataDT\$diagnosis,
+prop.chisq=FALSE)
+
+![](media/image33.jpeg){width="6.263888888888889in"
+height="4.175694444444445in"}
+
+![](media/image34.png){width="13.333333333333334in" height="7.5in"}
+
+> Support vectors
+>
+> Support vectors
+>
+> Support vector
+
+> Support Vector Machines
+
+-   Buffer zone
+
+-   Kernel trick (curved boundaries)
+
+-   Binary classification (2 groups)
+
+> Ng, A. and Soo, K., 2017. Numsense! Data Science for the Layman.
+>
+> There are lots of supervised ML algorithms
+
+-   Deep learning / Neural Networks (CNNs, LSTM..., generative
+    adversarial network/GANs)
+
+-   Logistic regression
+
+-   Naive Bayes
+
+-   Bayesian networks
+
+-   Multiple Linear regression
+
+-   Decision trees
+
+-   Random forest
+
+-   K-NN
+
+-   ...
+
+No free lunch theorem
+
+> ML evaluation
+
+-   Train / test split
+
+    -   60/40
+
+    -   70/30
+
+    -   80/20
+
+    -   90/10
+
+-   K-fold cross validation (CV)
+
+    -   N-fold CV
+
+        -   3-fold CV
+
+        -   5-fold CV
+
+        -   10-fold CV
+
+        -   N-fold CV / leave one out CV
+
+> K-fold cross validation
+
+![](media/image35.jpeg){width="9.584722222222222in"
+height="4.728472222222222in"}
+
+> •[[CC BY-SA
+> 4.0]{.underline}](https://creativecommons.org/licenses/by-sa/4.0)
+> [[Gufosowa]{.underline}](https://commons.wikimedia.org/wiki/User:Gufosowa)
+>
+> •https://en.wikipedia.org/wiki/Cross-validation\_(statistics)#/media/File:K-
+>
+> fold_cross_validation_EN.svg
+>
+> 3-fold cross validation
+
+![](media/image36.jpeg){width="12.679166666666667in"
+height="2.907638888888889in"}
+
+[[https://en.wikipedia.org/wiki/Cross-validation\_(statistics)#/media/File:KfoldCV.gif](https://en.wikipedia.org/wiki/Cross-validation_(statistics))]{.underline}
+[[MBanuelos22]{.underline}](https://commons.wikimedia.org/w/index.php?title=User:MBanuelos22&action=edit&redlink=1)
+[[CC BY-SA
+4.0]{.underline}](https://creativecommons.org/licenses/by-sa/4.0)
+
+> 10-fold cross validation
+
+-   Helps consider the range of performance accuracies that are likely
+    to be achieved
+
+-   Can be used to present the mean accuracy and perhaps the standard
+    error of the mean accuracy
+
+-   Good to present the performance of the algorithm for each fold
+
+> Leave one out cross validation (LOOCV)
+>
+> Very useful for small datasets to maximize the number of cases that
+> the ML algorithm will be trained on (enhancing performance).
+>
+> E.g. for one hundred cases -- consider 60/40 vs. a 99/1 split... which
+> model is likely more representative? Drawback: A lot of models are
+> built and tested (n times)
+
+![](media/image37.jpeg){width="9.230555555555556in" height="2.775in"}
+
+[[https://en.wikipedia.org/wiki/Cross-validation\_(statistics)#/media/File:LOOCV.gif](https://en.wikipedia.org/wiki/Cross-validation_(statistics))]{.underline}
+[[MBanuelos22]{.underline}](https://commons.wikimedia.org/w/index.php?title=User:MBanuelos22&action=edit&redlink=1)
+[[CC BY-SA
+4.0]{.underline}](https://creativecommons.org/licenses/by-sa/4.0)
+
+> Classification evaluation metrics and the confusion matrix
+
+![](media/image38.jpeg){width="8.966666666666667in" height="4.95625in"}
+
+https://en.wikipedia.org/wiki/Template:Diagnostic_testing_diagram
+
+> Class balancing
+
+-   Class imbalance is when there is an unequal number of cases in each
+    class (e.g. having more cases without the condition than with the
+    condition)
+
+-   Best to expose the ML algorithm to same number of cases in each
+    class (e.g. learning to distinguish without being over
+    biased/trained one one class)
+
+-   How to class balance?
+
+    -   Under sampling majority class
+
+    -   Oversampling minority class
+
+    -   Using synthetic data to enlarge the minority class (using
+        techniques such as
+
+> SMOTE)
